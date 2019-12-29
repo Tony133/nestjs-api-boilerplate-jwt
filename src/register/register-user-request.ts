@@ -1,5 +1,4 @@
 import {
-  IsInt,
   MaxLength,
   IsNotEmpty,
   IsEmail,
@@ -7,9 +6,6 @@ import {
 } from 'class-validator';
 
 export class RegisterUserRequest {
-  @IsInt()
-  id: number;
-
   @IsString()
   @MaxLength(30)
   name: string;
