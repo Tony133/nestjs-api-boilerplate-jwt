@@ -2,15 +2,33 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { User } from '../entity/User';
 import * as bcrypt from 'bcrypt';
+import { MailerService } from '@nest-modules/mailer';
 
 @Injectable()
 export class RegisterService {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService, private readonly mailerService: MailerService) {}
 
   public async register(user: User): Promise<any> {
     
     user.password = bcrypt.hashSync(user.password, 8);
 
+    this.sendMailRegisterUser(user);
+
     return this.userService.create(user);
   }
+
+  private sendMailRegisterUser(user): void {
+  	  this
+	   .mailerService
+	   .sendMail({
+	        to: user.email,
+	        from: 'from@example.com',
+	        subject: 'Registration successful ✔',
+	        text: 'Registration successful!', 
+	        html: "<b>You did it! You registered!, You\'re successfully registered.✔</b>", 
+       })
+	   .then(() => {})
+	   .catch(() => {});
+  }
+
 }
