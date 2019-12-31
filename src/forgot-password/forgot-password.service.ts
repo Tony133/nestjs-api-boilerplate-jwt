@@ -29,16 +29,16 @@ export class ForgotPasswordService {
 
   private sendMailForgotPassword(email, password): void {
 
-  	  this
-	  		.mailerService
-		    .sendMail({
-		      to: email,
-		      from: 'from@example.com',
-		      subject: 'Forgot Password successful ✔',
-		      text: 'Forgot Password successful!',
-		      html: 'Request Reset Password Successfully!  ✔, This is your new password: <b>' + password + '</b>'
-		    })
-  	   .then((response) => {console.log("Forgot Password: Send Mail successfully!")})
-  	   .catch((err) => {console.log("Forgot Password: Send Mail Failed!")});
+	  this
+  		.mailerService
+	    .sendMail({
+	      to: email,
+	      from: 'from@example.com',
+	      subject: 'Forgot Password successful ✔',
+	      text: 'Forgot Password successful!',
+	      html: 'Request Reset Password Successfully!  ✔, This is your new password: <b>' + password + '</b>'
+	    })
+	   .then((response) => {console.log("Forgot Password: Send Mail successfully!")})
+	   .catch((err) => {console.log("Forgot Password: Send Mail Failed!")});
   }
 }

@@ -16,7 +16,7 @@ export class ChangePasswordService {
   }
 
   private sendMailChangePassword(user): void {
-  	  this
+		this
 	    .mailerService
 	    .sendMail({
 	      to: user.email,
@@ -25,7 +25,7 @@ export class ChangePasswordService {
 	      text: 'Change Password successful!',
 	      html: 'Change Password Successfully! ✔, This is your new password: <b>' + user.password +'</b>',
 	    })
-  	   .then((response) => {console.log("Change Password: Send Mail successfully!")})
-  	   .catch((err) => {console.log("Change Password: Send Mail Failed!")});
+		  .then((response) => {console.log("Change Password: Send Mail successfully!")})
+		  .catch((err) => {console.log("Change Password: Send Mail Failed!")});
   }
 }
