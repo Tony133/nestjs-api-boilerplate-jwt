@@ -38,7 +38,7 @@ export class ForgotPasswordService {
 		      text: 'Forgot Password successful!',
 		      html: 'Request Reset Password Successfully!  ✔, This is your new password: <b>' + password + '</b>'
 		    })
-		    .then(() => {})
-		    .catch(() => {});
+  	   .then((response) => {console.log("Forgot Password: Send Mail successfully!")})
+  	   .catch((err) => {console.log("Forgot Password: Send Mail Failed!")});
   }
 }

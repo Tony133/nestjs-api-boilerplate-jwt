@@ -19,16 +19,16 @@ export class RegisterService {
 
   private sendMailRegisterUser(user): void {
   	  this
-	   .mailerService
-	   .sendMail({
-	        to: user.email,
-	        from: 'from@example.com',
-	        subject: 'Registration successful ✔',
-	        text: 'Registration successful!', 
-	        html: "<b>You did it! You registered!, You\'re successfully registered.✔</b>", 
-       })
-	   .then(() => {})
-	   .catch(() => {});
+  	   .mailerService
+  	   .sendMail({
+  	        to: user.email,
+  	        from: 'from@example.com',
+  	        subject: 'Registration successful ✔',
+  	        text: 'Registration successful!', 
+  	        html: "<b>You did it! You registered!, You\'re successfully registered.✔</b>", 
+         })
+  	   .then((response) => {console.log("User Registration: Send Mail successfully!")})
+  	   .catch((err) => {console.log("User Registration: Send Mail Failed!")});
   }
 
 }
