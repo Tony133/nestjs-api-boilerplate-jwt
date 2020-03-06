@@ -34,14 +34,14 @@ export class LoginService {
         };
       }
 
-      let payload = { email: userData.email, id: userData.id };
+      let payload = { name: userData.name, email: userData.email, id: userData.id };
 
       const accessToken = this.jwtService.sign(payload);
 
       return {
         expires_in: 3600,
         access_token: accessToken,
-        user_id: payload,
+        user: payload,
         status: 200,
       };
     });
