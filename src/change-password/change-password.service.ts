@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { User } from '../entity/User';
 import { ChangePasswordRequest } from './change-password-request';
-import { MailerService } from '@nest-modules/mailer';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class ChangePasswordService {

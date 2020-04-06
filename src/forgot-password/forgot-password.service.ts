@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from '../user/user.service';
 import { User } from '../entity/User';
 import { ForgotPasswordRequest } from './forgot-password-request';
-import { MailerService } from '@nest-modules/mailer';
+import { MailerService } from '@nestjs-modules/mailer';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

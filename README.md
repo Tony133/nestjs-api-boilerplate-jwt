@@ -1,5 +1,5 @@
 # NestJSApiBoilerplateJWT
-An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 6.x and Passport Auth JWT System
+An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 7.x and Passport Auth JWT System
 
 ## Installation
 
@@ -20,13 +20,13 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 6.x 
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/entity/**/*.ts"
+      "dist/entity/**/*.js"
    ],
    "migrations": [
-      "src/migration/**/*.ts"
+      "dist/migration/**/*.js"
    ],
    "subscribers": [
-      "src/subscriber/**/*.ts"
+      "dist/subscriber/**/*.js"
    ],
    "cli": {
       "entitiesDir": "src/entity",
@@ -45,9 +45,13 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 6.x 
 ## Running migrations with typeorm
 
 ```
-   $ ts-node node_modules/.bin/typeorm migrations:run
+   $ ts-node node_modules/.bin/typeorm migration:run 
 ```
+   or 
 
+```
+   $ node_modules/.bin/typeorm migration:run 
+`````
 ## Running the app
 
 ```
