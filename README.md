@@ -1,10 +1,20 @@
 # NestJSApiBoilerplateJWT
+
 An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 7.x and Passport Auth JWT System
 
 ## Installation
 
 ```
     $ npm install
+```
+
+## Config settings .env for send notification when a user registers, forgot password or change password
+
+```
+   EMAIL_HOST=smtp.mailtrap.io
+   EMAIL_PORT=2525
+   EMAIL_AUTH_USER=
+   EMAIL_AUTH_PASSWORD=
 ```
 
 ## Config settings ormconfig.json for connect MySQL
@@ -45,13 +55,15 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 7.x 
 ## Running migrations with typeorm
 
 ```
-   $ ts-node node_modules/.bin/typeorm migration:run 
+   $ ts-node node_modules/.bin/typeorm migration:run
 ```
-   or 
+
+or
 
 ```
-   $ node_modules/.bin/typeorm migration:run 
-`````
+   $ node_modules/.bin/typeorm migration:run
+```
+
 ## Running the app
 
 ```
