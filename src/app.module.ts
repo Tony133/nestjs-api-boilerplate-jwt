@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,28 +12,29 @@ import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
-  	TypeOrmModule.forRoot(),
-  	LoginModule, 
-  	RegisterModule, 
-  	UserModule, 
-  	ForgotPasswordModule, 
-  	ChangePasswordModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot(),
+    LoginModule,
+    RegisterModule,
+    UserModule,
+    ForgotPasswordModule,
+    ChangePasswordModule,
     MailerModule.forRootAsync({
       useFactory: () => ({
-        transport: { 
-        	host: 'smtp.mailtrap.io', 
-        	port:  2525,
-				  auth: {
-				    user: 'my_username',
-				    pass: 'my_password'
-				  }
-				},
+        transport: {
+          host: process.env.EMAIL_HOST,
+          port: process.env.EMAIL_PORT,
+          auth: {
+            user: process.env.EMAIL_AUTH_USER,
+            pass: process.env.EMAIL_AUTH_PASSWORD,
+          },
+        },
         defaults: {
-        	from:'"nest-modules" <modules@nestjs.com>',
+          from: '"nest-modules" <modules@nestjs.com>',
         },
         template: {
           dir: __dirname + '/templates',
-          adapter: new HandlebarsAdapter(), // or new PugAdapter()
+          adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
           options: {
             strict: true,
           },
