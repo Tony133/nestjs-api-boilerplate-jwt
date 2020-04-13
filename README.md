@@ -13,8 +13,8 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 7.x 
 ```
    EMAIL_HOST=smtp.mailtrap.io
    EMAIL_PORT=2525
-   EMAIL_AUTH_USER=
-   EMAIL_AUTH_PASSWORD=
+   EMAIL_AUTH_USER=[:user]
+   EMAIL_AUTH_PASSWORD=[:password]
 ```
 
 ## Config settings ormconfig.json for connect MySQL
