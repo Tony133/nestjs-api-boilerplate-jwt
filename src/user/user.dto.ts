@@ -1,14 +1,6 @@
-import {
-  MaxLength,
-  IsNotEmpty,
-  IsEmail,
-  IsString,
-} from 'class-validator';
+import { MaxLength, IsNotEmpty, IsEmail, IsString } from 'class-validator';
 
-export class RegisterUserRequest {
-
-  id: number;
-
+export class UserDto {
   @IsString()
   @MaxLength(30)
   name: string;

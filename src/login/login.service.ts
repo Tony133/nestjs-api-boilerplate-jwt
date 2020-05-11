@@ -16,13 +16,15 @@ export class LoginService {
     return await this.userService.findByEmail(user.email);
   }
 
-  public async login(user: User): Promise<any | { status: number; message: string }> {
+  public async login(
+    user: User,
+  ): Promise<any | { status: number; message: string }> {
     return this.validate(user).then(userData => {
       if (!userData) {
         throw new UnauthorizedException();
       }
 
-      let passwordIsValid = bcrypt.compareSync(
+      const passwordIsValid = bcrypt.compareSync(
         user.password,
         userData.password,
       );
@@ -34,13 +36,17 @@ export class LoginService {
         };
       }
 
-      let payload = { name: userData.name, email: userData.email, id: userData.id };
+      const payload = {
+        name: userData.name,
+        email: userData.email,
+        id: userData.id,
+      };
 
       const accessToken = this.jwtService.sign(payload);
 
       return {
-        expires_in: 3600,
-        access_token: accessToken,
+        expiresIn: 3600,
+        accessToken: accessToken,
         user: payload,
         status: 200,
       };
@@ -49,7 +55,7 @@ export class LoginService {
 
   public async validateUserByJwt(payload: JwtPayload) {
     // This will be used when the user has already logged in and has a JWT
-    let user = await this.userService.findByEmail(payload.email);
+    const user = await this.userService.findByEmail(payload.email);
 
     if (!user) {
       throw new UnauthorizedException();
@@ -58,11 +64,11 @@ export class LoginService {
   }
 
   createJwtPayload(user) {
-    let data: JwtPayload = {
+    const data: JwtPayload = {
       email: user.email,
     };
 
-    let jwt = this.jwtService.sign(data);
+    const jwt = this.jwtService.sign(data);
 
     return {
       expiresIn: 3600,

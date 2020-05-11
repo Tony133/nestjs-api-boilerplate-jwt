@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from '../user/user.service';
 import { User } from '../entity/User';
-import { ForgotPasswordRequest } from './forgot-password-request';
+import { ForgotPasswordDto } from './forgot-password.dto';
 import { MailerService } from '@nestjs-modules/mailer';
 import * as bcrypt from 'bcrypt';
 
@@ -16,8 +16,8 @@ export class ForgotPasswordService {
     private readonly mailerService: MailerService,
   ) {}
 
-  public async forgotPassword(user: ForgotPasswordRequest): Promise<any> {
-    let userUpdate = await this.userRepository.findOne({ email: user.email });
+  public async forgotPassword(user: ForgotPasswordDto): Promise<any> {
+    const userUpdate = await this.userRepository.findOne({ email: user.email });
     const passwordRand = Math.random()
       .toString(36)
       .slice(-8);
