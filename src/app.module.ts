@@ -8,7 +8,8 @@ import { RegisterModule } from './register/register.module';
 import { UserModule } from './user/user.module';
 import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 import { ChangePasswordModule } from './change-password/change-password.module';
-import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [
