@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import { User } from '../entity/User';
 import { ChangePasswordDto } from './change-password.dto';
 import { MailerService } from '@nestjs-modules/mailer';
 
@@ -34,9 +33,11 @@ export class ChangePasswordService {
         },
       })
       .then(response => {
+        console.log(response);
         console.log('Change Password: Send Mail successfully!');
       })
       .catch(err => {
+        console.log(err);
         console.log('Change Password: Send Mail Failed!');
       });
   }

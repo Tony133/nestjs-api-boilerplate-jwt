@@ -35,9 +35,11 @@ export class RegisterService {
         },
       })
       .then(response => {
+        console.log(response);
         console.log('User Registration: Send Mail successfully!');
       })
       .catch(err => {
+        console.log(err);
         console.log('User Registration: Send Mail Failed!');
       });
   }

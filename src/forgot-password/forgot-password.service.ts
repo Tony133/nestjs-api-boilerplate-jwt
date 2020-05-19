@@ -44,9 +44,11 @@ export class ForgotPasswordService {
         },
       })
       .then(response => {
+        console.log(response);
         console.log('Forgot Password: Send Mail successfully!');
       })
       .catch(err => {
+        console.log(err);
         console.log('Forgot Password: Send Mail Failed!');
       });
   }
