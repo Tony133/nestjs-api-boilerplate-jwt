@@ -65,7 +65,7 @@ export class LoginService {
     return this.createJwtPayload(user);
   }
 
-  createJwtPayload(user) {
+  protected createJwtPayload(user) {
     const data: JwtPayload = {
       email: user.email,
     };
