@@ -7,9 +7,9 @@ export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
 
   @Post()
-  async register(@Res() res, @Body() user: RegisterUserDTO): Promise<any> {
+  public async register(@Res() res, @Body() user: RegisterUserDTO): Promise<any> {
     try {
-      this.registerService.register(user);
+      await this.registerService.register(user);
 
       return res.status(HttpStatus.OK).json({
         message: 'User registration successfully!',

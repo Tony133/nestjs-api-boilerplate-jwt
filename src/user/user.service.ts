@@ -13,7 +13,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async findByEmail(email: string): Promise<User> {
+  public async findByEmail(email: string): Promise<User> {
     return await this.userRepository.findOne({
       where: {
         email: email,
@@ -21,7 +21,7 @@ export class UserService {
     });
   }
 
-  async findById(id: number): Promise<User> {
+  public async findById(id: number): Promise<User> {
     return await this.userRepository.findOne({
       where: {
         id: id,
@@ -29,11 +29,11 @@ export class UserService {
     });
   }
 
-  async create(user: UserDto): Promise<IUser> {
+  public async create(user: UserDto): Promise<IUser> {
     return await this.userRepository.save(user);
   }
 
-  async updateByEmail(email: string): Promise<User> {
+  public async updateByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ email: email });
     user.password = bcrypt.hashSync(
       Math.random()
@@ -45,7 +45,7 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async updateByPassword(email: string, password: string): Promise<User> {
+  public async updateByPassword(email: string, password: string): Promise<User> {
     const user = await this.userRepository.findOne({ email: email });
     user.password = bcrypt.hashSync(password, 8);
 

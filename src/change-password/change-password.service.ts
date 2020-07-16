@@ -13,7 +13,7 @@ export class ChangePasswordService {
   public async changePassword(user: ChangePasswordDto): Promise<any> {
     this.sendMailChangePassword(user);
 
-    return this.userService.updateByPassword(user.email, user.password);
+    return await this.userService.updateByPassword(user.email, user.password);
   }
 
   private sendMailChangePassword(user): void {

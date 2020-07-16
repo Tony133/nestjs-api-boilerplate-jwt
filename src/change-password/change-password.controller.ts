@@ -16,9 +16,9 @@ export class ChangePasswordController {
   constructor(private readonly changePasswordService: ChangePasswordService) {}
 
   @Post()
-  async login(@Res() res, @Body() user: ChangePasswordDto): Promise<any> {
+  public async login(@Res() res, @Body() user: ChangePasswordDto): Promise<any> {
     try {
-      this.changePasswordService.changePassword(user);
+      await this.changePasswordService.changePassword(user);
 
       return res.status(HttpStatus.OK).json({
         message: 'Request Change Password Successfully!',

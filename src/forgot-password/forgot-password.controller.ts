@@ -7,9 +7,9 @@ export class ForgotPasswordController {
   constructor(private readonly forgotPasswordService: ForgotPasswordService) {}
 
   @Post()
-  async login(@Res() res, @Body() user: ForgotPasswordDto): Promise<any> {
+  public async login(@Res() res, @Body() user: ForgotPasswordDto): Promise<any> {
     try {
-      this.forgotPasswordService.forgotPassword(user);
+      await this.forgotPasswordService.forgotPassword(user);
 
       return res.status(HttpStatus.OK).json({
         message: 'Request Reset Password Successfully!',
