@@ -77,6 +77,16 @@ or
     $ npm run start:prod
 ```
 
+## Docker
+
+There is a `docker-compose.yml` file for starting MySQL with Docker.
+
+`$ docker-compose up`
+
+After running, you can stop the Docker container with
+
+`$ docker-compose down`
+
 ## Getting secure resource with Curl
 
 ```bash
