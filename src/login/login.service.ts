@@ -1,17 +1,17 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { UserService } from '../user/user.service';
-import { User } from '../entity/User';
-import { IUser } from '../user/user.interface';
-import * as bcrypt from 'bcrypt';
-import { JwtPayload } from './passport/jwt.payload';
-import { LoginDTO } from './login.dto';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { UserService } from "../user/user.service";
+import { User } from "../entity/User";
+import { IUser } from "../user/user.interface";
+import * as bcrypt from "bcrypt";
+import { JwtPayload } from "./passport/jwt.payload";
+import { LoginDTO } from "./dto/login.dto";
 
 @Injectable()
 export class LoginService {
   constructor(
     private readonly userService: UserService,
-    private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService
   ) {}
 
   private async validate(user: LoginDTO): Promise<IUser> {
@@ -19,21 +19,21 @@ export class LoginService {
   }
 
   public async login(
-    user: User,
+    user: User
   ): Promise<any | { status: number; message: string }> {
-    return this.validate(user).then(userData => {
+    return this.validate(user).then((userData) => {
       if (!userData) {
         throw new UnauthorizedException();
       }
 
       const passwordIsValid = bcrypt.compareSync(
         user.password,
-        userData.password,
+        userData.password
       );
 
       if (!passwordIsValid == true) {
         return {
-          message: 'Authentication failed. Wrong password',
+          message: "Authentication failed. Wrong password",
           status: 400,
         };
       }
