@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../entity/User";
-import { IUser } from "./user.interface";
+import { IUser } from "./interfaces/user.interface";
 import { UserDto } from "./dto/user.dto";
 import * as bcrypt from "bcrypt";
 
