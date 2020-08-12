@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEmail, IsString } from "class-validator";
+import { IsNotEmpty, IsEmail, IsString } from 'class-validator';
 
 export class ForgotPasswordDto {
   @IsNotEmpty()

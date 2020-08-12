@@ -1,39 +1,38 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { UserService } from "../user/user.service";
-import { User } from "../entity/User";
-import { IUser } from "../user/interfaces/user.interface";
-import * as bcrypt from "bcrypt";
-import { JwtPayload } from "./passport/jwt.payload";
-import { LoginDTO } from "./dto/login.dto";
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { UsersService } from '../users/users.service';
+import { IUser } from '../users/interfaces/users.interface';
+import * as bcrypt from 'bcrypt';
+import { JwtPayload } from './passport/jwt.payload';
+import { LoginDTO } from './dto/login.dto';
 
 @Injectable()
 export class LoginService {
   constructor(
-    private readonly userService: UserService,
-    private readonly jwtService: JwtService
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
   private async validate(user: LoginDTO): Promise<IUser> {
-    return await this.userService.findByEmail(user.email);
+    return await this.usersService.findByEmail(user.email);
   }
 
   public async login(
-    user: User
+    user: LoginDTO,
   ): Promise<any | { status: number; message: string }> {
-    return this.validate(user).then((userData) => {
+    return this.validate(user).then(userData => {
       if (!userData) {
         throw new UnauthorizedException();
       }
 
       const passwordIsValid = bcrypt.compareSync(
         user.password,
-        userData.password
+        userData.password,
       );
 
       if (!passwordIsValid == true) {
         return {
-          message: "Authentication failed. Wrong password",
+          message: 'Authentication failed. Wrong password',
           status: 400,
         };
       }
@@ -57,7 +56,7 @@ export class LoginService {
 
   public async validateUserByJwt(payload: JwtPayload) {
     // This will be used when the user has already logged in and has a JWT
-    const user = await this.userService.findByEmail(payload.email);
+    const user = await this.usersService.findByEmail(payload.email);
 
     if (!user) {
       throw new UnauthorizedException();

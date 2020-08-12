@@ -1,19 +1,19 @@
 import { Injectable } from "@nestjs/common";
-import { UserService } from "../user/user.service";
+import { UsersService } from "../users/users.service";
 import { ChangePasswordDto } from "./dto/change-password.dto";
 import { MailerService } from "@nestjs-modules/mailer";
 
 @Injectable()
 export class ChangePasswordService {
   constructor(
-    private readonly userService: UserService,
+    private readonly usersService: UsersService,
     private readonly mailerService: MailerService
   ) {}
 
   public async changePassword(user: ChangePasswordDto): Promise<any> {
     this.sendMailChangePassword(user);
 
-    return await this.userService.updateByPassword(user.email, user.password);
+    return await this.usersService.updateByPassword(user.email, user.password);
   }
 
   private sendMailChangePassword(user): void {

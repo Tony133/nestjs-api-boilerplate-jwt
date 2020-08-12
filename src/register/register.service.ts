@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { UserService } from "../user/user.service";
+import { UsersService } from "../users/users.service";
 import * as bcrypt from "bcrypt";
 import { MailerService } from "@nestjs-modules/mailer";
 import { RegisterUserDTO } from "./dto/register-user.dto";
@@ -7,7 +7,7 @@ import { RegisterUserDTO } from "./dto/register-user.dto";
 @Injectable()
 export class RegisterService {
   constructor(
-    private readonly userService: UserService,
+    private readonly usersService: UsersService,
     private readonly mailerService: MailerService
   ) {}
 
@@ -16,7 +16,7 @@ export class RegisterService {
 
     this.sendMailRegisterUser(user);
 
-    return this.userService.create(user);
+    return this.usersService.create(user);
   }
 
   private sendMailRegisterUser(user): void {
