@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { RegisterService } from './register.service';
-import { RegisterUserDTO } from './dto/register-user.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Controller('api/auth/register')
 export class RegisterController {
@@ -9,7 +9,7 @@ export class RegisterController {
   @Post()
   public async register(
     @Res() res,
-    @Body() registerUserDto: RegisterUserDTO,
+    @Body() registerUserDto: RegisterUserDto,
   ): Promise<any> {
     try {
       await this.registerService.register(registerUserDto);

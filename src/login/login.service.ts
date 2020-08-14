@@ -4,7 +4,7 @@ import { UsersService } from '../users/users.service';
 import { IUser } from '../users/interfaces/users.interface';
 import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './passport/jwt.payload';
-import { LoginDTO } from './dto/login.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class LoginService {
@@ -13,20 +13,20 @@ export class LoginService {
     private readonly jwtService: JwtService,
   ) {}
 
-  private async validate(user: LoginDTO): Promise<IUser> {
+  private async validate(user: LoginDto): Promise<IUser> {
     return await this.usersService.findByEmail(user.email);
   }
 
   public async login(
-    user: LoginDTO,
+    loginDto: LoginDto,
   ): Promise<any | { status: number; message: string }> {
-    return this.validate(user).then(userData => {
+    return this.validate(loginDto).then(userData => {
       if (!userData) {
         throw new UnauthorizedException();
       }
 
       const passwordIsValid = bcrypt.compareSync(
-        user.password,
+        loginDto.password,
         userData.password,
       );
 

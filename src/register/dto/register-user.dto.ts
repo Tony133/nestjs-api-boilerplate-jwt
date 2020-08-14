@@ -1,6 +1,6 @@
-import { MaxLength, IsNotEmpty, IsEmail, IsString } from "class-validator";
+import { MaxLength, IsNotEmpty, IsEmail, IsString } from 'class-validator';
 
-export class RegisterUserDTO {
+export class RegisterUserDto {
   readonly id: number;
 
   @IsString()

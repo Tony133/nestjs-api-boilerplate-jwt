@@ -14,8 +14,12 @@ export class ForgotPasswordService {
     private readonly mailerService: MailerService,
   ) {}
 
-  public async forgotPassword(user: ForgotPasswordDto): Promise<any> {
-    const userUpdate = await this.userRepository.findOne({ email: user.email });
+  public async forgotPassword(
+    forgotPasswordDto: ForgotPasswordDto,
+  ): Promise<any> {
+    const userUpdate = await this.userRepository.findOne({
+      email: forgotPasswordDto.email,
+    });
     const passwordRand = Math.random()
       .toString(36)
       .slice(-8);
