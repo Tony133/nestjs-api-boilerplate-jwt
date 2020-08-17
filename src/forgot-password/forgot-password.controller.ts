@@ -9,10 +9,10 @@ export class ForgotPasswordController {
   @Post()
   public async login(
     @Res() res,
-    @Body() user: ForgotPasswordDto
+    @Body() forgotPasswordDto: ForgotPasswordDto
   ): Promise<any> {
     try {
-      await this.forgotPasswordService.forgotPassword(user);
+      await this.forgotPasswordService.forgotPassword(forgotPasswordDto);
 
       return res.status(HttpStatus.OK).json({
         message: "Request Reset Password Successfully!",

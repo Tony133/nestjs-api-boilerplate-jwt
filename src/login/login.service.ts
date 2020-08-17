@@ -13,8 +13,8 @@ export class LoginService {
     private readonly jwtService: JwtService,
   ) {}
 
-  private async validate(user: LoginDto): Promise<IUser> {
-    return await this.usersService.findByEmail(user.email);
+  private async validate(loginDto: LoginDto): Promise<IUser> {
+    return await this.usersService.findByEmail(loginDto.email);
   }
 
   public async login(
