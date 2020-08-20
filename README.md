@@ -30,7 +30,7 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 7.x 
    "synchronize": true,
    "logging": false,
    "entities": [
-      "dist/entity/**/*.js"
+      "dist/**/*.entity.js"
    ],
    "migrations": [
       "dist/migration/**/*.js"
@@ -39,7 +39,6 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 7.x 
       "dist/subscriber/**/*.js"
    ],
    "cli": {
-      "entitiesDir": "src/entity",
       "migrationsDir": "src/migration",
       "subscribersDir": "src/subscriber"
    }
