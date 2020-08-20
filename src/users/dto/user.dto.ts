@@ -15,5 +15,5 @@ export class UserDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(60)
-  readonly password: string;
+  password: string;
 }

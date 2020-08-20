@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entity/User';
-import { IUser } from './interfaces/users.interface';
+import { Users } from './entities/user.entity';
+import { IUsers } from './interfaces/users.interface';
 import { UserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(Users)
+    private readonly userRepository: Repository<Users>,
   ) {}
 
-  public async findByEmail(email: string): Promise<User> {
+  public async findByEmail(email: string): Promise<Users> {
     return await this.userRepository.findOne({
       where: {
         email: email,
@@ -21,7 +21,7 @@ export class UsersService {
     });
   }
 
-  public async findById(userId: number): Promise<User> {
+  public async findById(userId: number): Promise<Users> {
     return await this.userRepository.findOne({
       where: {
         id: userId,
@@ -29,11 +29,11 @@ export class UsersService {
     });
   }
 
-  public async create(user: UserDto): Promise<IUser> {
-    return await this.userRepository.save(user);
+  public async create(userDto: UserDto): Promise<IUsers> {
+    return await this.userRepository.save(userDto);
   }
 
-  public async updateByEmail(email: string): Promise<User> {
+  public async updateByEmail(email: string): Promise<Users> {
     const user = await this.userRepository.findOne({ email: email });
     user.password = bcrypt.hashSync(
       Math.random()
@@ -48,7 +48,7 @@ export class UsersService {
   public async updateByPassword(
     email: string,
     password: string,
-  ): Promise<User> {
+  ): Promise<Users> {
     const user = await this.userRepository.findOne({ email: email });
     user.password = bcrypt.hashSync(password, 8);
 
