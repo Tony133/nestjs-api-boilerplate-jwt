@@ -4,7 +4,6 @@ import * as bcrypt from 'bcrypt';
 import { MailerService } from '@nestjs-modules/mailer';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { IUsers } from './../users/interfaces/users.interface';
-import { UserDto } from './../users/dto/user.dto';
 
 @Injectable()
 export class RegisterService {
@@ -13,7 +12,7 @@ export class RegisterService {
     private readonly mailerService: MailerService,
   ) {}
 
-  public async register(registerUserDto: UserDto): Promise<IUsers> {
+  public async register(registerUserDto: RegisterUserDto): Promise<IUsers> {
     registerUserDto.password = bcrypt.hashSync(registerUserDto.password, 8);
 
     this.sendMailRegisterUser(registerUserDto);
