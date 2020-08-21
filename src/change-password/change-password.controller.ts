@@ -16,7 +16,7 @@ export class ChangePasswordController {
   constructor(private readonly changePasswordService: ChangePasswordService) {}
 
   @Post()
-  public async change(
+  public async changePassword(
     @Res() res,
     @Body() changePasswordDto: ChangePasswordDto,
   ): Promise<any> {
