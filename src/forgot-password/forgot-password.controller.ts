@@ -7,7 +7,7 @@ export class ForgotPasswordController {
   constructor(private readonly forgotPasswordService: ForgotPasswordService) {}
 
   @Post()
-  public async login(
+  public async forgot(
     @Res() res,
     @Body() forgotPasswordDto: ForgotPasswordDto
   ): Promise<any> {
