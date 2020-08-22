@@ -5,6 +5,7 @@ import { Users } from './entities/user.entity';
 import { IUsers } from './interfaces/users.interface';
 import { UserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
+import { UserProfileDto } from './dto/user-profile.dto';
 
 @Injectable()
 export class UsersService {
@@ -21,7 +22,7 @@ export class UsersService {
     });
   }
 
-  public async findById(userId: number): Promise<Users> {
+  public async findById(userId: string): Promise<Users> {
     return await this.userRepository.findOne({
       where: {
         id: userId,
@@ -54,4 +55,14 @@ export class UsersService {
 
     return await this.userRepository.save(user);
   }
+
+  public async updateProfileUser(id: string, userProfileDto: UserProfileDto): Promise<Users> {
+    const user = await this.userRepository.findOne({id: +id});
+    user.name = userProfileDto.name;
+    user.email = userProfileDto.email;
+    user.username = userProfileDto.username;
+    
+    return await this.userRepository.save(user);
+  }
+
 }
