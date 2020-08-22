@@ -34,7 +34,7 @@ export class UsersController {
   }
 
   @Put("/:userId/profile")
-  async updateUser(
+  async updateProfileUser(
     @Res() res,
     @Param('userId') userId: string, 
     @Body() userProfileDto: UserProfileDto
