@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entities/user.entity';
@@ -15,54 +15,83 @@ export class UsersService {
   ) {}
 
   public async findByEmail(email: string): Promise<Users> {
-    return await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: {
         email: email,
       },
     });
+
+    if (!user) {
+      throw new NotFoundException(`User ${email} not found`);
+    }
+
+    return user;
   }
 
   public async findById(userId: string): Promise<Users> {
-    return await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: {
         id: userId,
       },
     });
+
+    if (!user) {
+      throw new NotFoundException(`User #${userId} not found`);
+    }
+
+    return user;
   }
 
   public async create(userDto: UserDto): Promise<IUsers> {
-    return await this.userRepository.save(userDto);
+    try {
+      return await this.userRepository.save(userDto);
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
 
   public async updateByEmail(email: string): Promise<Users> {
-    const user = await this.userRepository.findOne({ email: email });
-    user.password = bcrypt.hashSync(
-      Math.random()
-        .toString(36)
-        .slice(-8),
-      8,
-    );
-
-    return await this.userRepository.save(user);
+    try {
+      const user = await this.userRepository.findOne({ email: email });
+      user.password = bcrypt.hashSync(
+        Math.random()
+          .toString(36)
+          .slice(-8),
+        8,
+      );
+      
+      return await this.userRepository.save(user);
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
 
   public async updateByPassword(
     email: string,
     password: string,
   ): Promise<Users> {
-    const user = await this.userRepository.findOne({ email: email });
-    user.password = bcrypt.hashSync(password, 8);
+    try {
+      const user = await this.userRepository.findOne({ email: email });
+      user.password = bcrypt.hashSync(password, 8);
 
-    return await this.userRepository.save(user);
+      return await this.userRepository.save(user);
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+
   }
 
   public async updateProfileUser(id: string, userProfileDto: UserProfileDto): Promise<Users> {
-    const user = await this.userRepository.findOne({id: +id});
-    user.name = userProfileDto.name;
-    user.email = userProfileDto.email;
-    user.username = userProfileDto.username;
-    
-    return await this.userRepository.save(user);
+    try {
+      const user = await this.userRepository.findOne({id: +id});
+      user.name = userProfileDto.name;
+      user.email = userProfileDto.email;
+      user.username = userProfileDto.username;
+      
+      return await this.userRepository.save(user);
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
 
 }
