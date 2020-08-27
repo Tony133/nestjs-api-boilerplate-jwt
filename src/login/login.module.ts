@@ -6,7 +6,7 @@ import { Users } from "../users/entities/users.entity";
 import { JwtModule } from "@nestjs/jwt";
 import { UsersService } from "../users/users.service";
 import { PassportModule } from "@nestjs/passport";
-import { JwtStrategy } from "./passport/jwt.strategy";
+import { JwtStrategy } from "./strategies/jwt.strategy";
 import { environment } from "../environment";
 
 @Module({
