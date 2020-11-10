@@ -20,7 +20,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get("/:userId/profile")
-  async getUser(@Res() res, @Param("userId") userId: string ): Promise<IUsers> {
+  public async getUser(@Res() res, @Param("userId") userId: string ): Promise<IUsers> {
     const user = await this.usersService.findById(userId);
 
     if (!user) {
@@ -34,7 +34,7 @@ export class UsersController {
   }
 
   @Put("/:userId/profile")
-  async updateProfileUser(
+  public async updateProfileUser(
     @Res() res,
     @Param('userId') userId: string, 
     @Body() userProfileDto: UserProfileDto
