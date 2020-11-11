@@ -8,6 +8,12 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 7.x 
    $ npm install
 ```
 
+## Set Enviroment for secret key JWT
+
+```bash
+   $ cp .env.example .env
+```
+
 ## Config settings .env for send notification when a user registers, forgot password or change password
 
 ```

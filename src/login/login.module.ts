@@ -7,14 +7,15 @@ import { JwtModule } from "@nestjs/jwt";
 import { UsersService } from "../users/users.service";
 import { PassportModule } from "@nestjs/passport";
 import { JwtStrategy } from "./strategies/jwt.strategy";
-import { environment } from "../environment";
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forFeature([Users]),
     PassportModule.register({ defaultStrategy: "jwt", session: false }),
     JwtModule.register({
-      secret: environment.SECRET_KEY_JWT,
+      secret: process.env.SECRET_KEY_JWT,
       signOptions: {
         expiresIn: 3600,
       },
