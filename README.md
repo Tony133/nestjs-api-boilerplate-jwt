@@ -24,6 +24,7 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 7.x 
 ```
 
 ## Config settings ormconfig.json for connect MySQL
+Once the database has been configured, start the Nest App via ```npm run start:dev``` it automatically synchronizes the entities so ready to use. :heart_eyes_cat:
 
 ```
 {
