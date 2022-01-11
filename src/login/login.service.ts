@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { IUsers } from '../users/interfaces/users.interface';
@@ -20,38 +25,42 @@ export class LoginService {
   public async login(
     loginDto: LoginDto,
   ): Promise<any | { status: number; message: string }> {
-    return this.validate(loginDto).then(userData => {
-      if (!userData) {
-        throw new UnauthorizedException();
-      }
+    return this.validate(loginDto)
+      .then((userData) => {
+        if (!userData) {
+          throw new UnauthorizedException();
+        }
 
-      const passwordIsValid = bcrypt.compareSync(
-        loginDto.password,
-        userData.password,
-      );
+        const passwordIsValid = bcrypt.compareSync(
+          loginDto.password,
+          userData.password,
+        );
 
-      if (!passwordIsValid == true) {
-        return {
-          message: 'Authentication failed. Wrong password',
-          status: 400,
+        if (!passwordIsValid == true) {
+          return {
+            message: 'Authentication failed. Wrong password',
+            status: 400,
+          };
+        }
+
+        const payload = {
+          name: userData.name,
+          email: userData.email,
+          id: userData.id,
         };
-      }
 
-      const payload = {
-        name: userData.name,
-        email: userData.email,
-        id: userData.id,
-      };
+        const accessToken = this.jwtService.sign(payload);
 
-      const accessToken = this.jwtService.sign(payload);
-
-      return {
-        expiresIn: 3600,
-        accessToken: accessToken,
-        user: payload,
-        status: 200,
-      };
-    });
+        return {
+          expiresIn: 3600,
+          accessToken: accessToken,
+          user: payload,
+          status: 200,
+        };
+      })
+      .catch((err) => {
+        throw new HttpException(err, HttpStatus.BAD_REQUEST);
+      });
   }
 
   public async validateUserByJwt(payload: JwtPayload) {
