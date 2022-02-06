@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from '../users/entities/users.entity';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { MailerService } from '@nestjs-modules/mailer';
+import { MailerService } from '../mailer/mailer.service';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -20,14 +20,18 @@ export class ForgotPasswordService {
     const userUpdate = await this.userRepository.findOne({
       email: forgotPasswordDto.email,
     });
-    const passwordRand = Math.random()
-      .toString(36)
-      .slice(-8);
+    const passwordRand = Math.random().toString(36).slice(-8);
     userUpdate.password = bcrypt.hashSync(passwordRand, 8);
 
     this.sendMailForgotPassword(userUpdate.email, passwordRand);
 
     return await this.userRepository.save(userUpdate);
+  }
+
+  private passwordRand(password): string {
+    const passwordRand = Math.random().toString(36).slice(-8);
+    password = bcrypt.hashSync(passwordRand, 8);
+    return password;
   }
 
   private sendMailForgotPassword(email, password): void {
@@ -45,11 +49,11 @@ export class ForgotPasswordService {
             password,
         },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response);
         console.log('Forgot Password: Send Mail successfully!');
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         console.log('Forgot Password: Send Mail Failed!');
       });

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
-import { MailerService } from '@nestjs-modules/mailer';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { IUsers } from './../users/interfaces/users.interface';
+import { MailerService } from '../mailer/mailer.service';
 
 @Injectable()
 export class RegisterService {
@@ -35,11 +35,11 @@ export class RegisterService {
           nameUser: user.name,
         },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response);
         console.log('User Registration: Send Mail successfully!');
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         console.log('User Registration: Send Mail Failed!');
       });
