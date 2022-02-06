@@ -21,6 +21,12 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 8.x 
    EMAIL_PORT=2525
    EMAIL_AUTH_USER=[:user]
    EMAIL_AUTH_PASSWORD=[:password]
+   EMAIL_DEBUG=true
+   EMAIL_LOGGER=true
+   EMAIL_LAYOUT_DIR='templates/emails/'
+   EMAIL_PARTIAL_DIR='templates/emails/'
+   EMAIL_VIEW_PATH='/templates/emails/'
+   EMAIL_DEFAULT_LAYOUT='index'
 ```
 
 ## Config settings ormconfig.json for connect MySQL
