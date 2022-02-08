@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,7 +13,28 @@ import { MailerModule } from './mailer/mailer.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DB_MYSQL_HOST'),
+        port: configService.get<number>('DB_MYSQL_PORT'),
+        username: configService.get<string>('DB_MYSQL_USER'),
+        password: configService.get<string>('DB_MYSQL_PASSWORD'),
+        database: configService.get<string>('DB_MYSQL_DATABASE'),
+        autoLoadEntities: true,
+        synchronize: true,
+        logging: false,
+        entities: ['dist/**/*.entity.js'],
+        migration: ['dist/migrations/**/*.js'],
+        subscribers: ['dist/subscribers/**/*.js'],
+        cli: {
+          migrationsDir: 'src/migrations',
+          subscribersDir: 'src/subscribers',
+        },
+      }),
+    }),
     LoginModule,
     RegisterModule,
     UsersModule,

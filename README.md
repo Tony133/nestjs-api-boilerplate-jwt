@@ -8,7 +8,7 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 8.x 
    $ npm install
 ```
 
-## Set Enviroment for secret key JWT
+## Set Enviroment for secret key JWT and other configurations
 
 ```bash
    $ cp .env.example .env
@@ -29,33 +29,16 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 8.x 
    EMAIL_DEFAULT_LAYOUT='index'
 ```
 
-## Config settings ormconfig.json for connect MySQL
+## Config settings .env for connect MySQL
 Once the database has been configured, start the Nest App via ```npm run start:dev``` it automatically synchronizes the entities so ready to use. :heart_eyes_cat:
 
 ```
-{
-   "type": "mysql",
-   "host": "localhost",
-   "port": 3306,
-   "username": "my_username",
-   "password": "my_password",
-   "database": "my_database",
-   "synchronize": true,
-   "logging": false,
-   "entities": [
-      "dist/**/*.entity.js"
-   ],
-   "migrations": [
-      "dist/migration/**/*.js"
-   ],
-   "subscribers": [
-      "dist/subscriber/**/*.js"
-   ],
-   "cli": {
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
-   }
-}
+
+DB_MYSQL_HOST="localhost"
+DB_MYSQL_PORT=3306
+DB_MYSQL_USER="my_user"
+DB_MYSQL_PASSWORD="my_password"
+DB_MYSQL_DATABASE="my_database"
 ```
 
 ## Install TypeScript Node
