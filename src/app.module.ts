@@ -17,14 +17,14 @@ import { MailerModule } from './mailer/mailer.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        type: 'mysql', // type of our database
-        host: configService.get<string>('DB_MYSQL_HOST'), // database host
-        port: configService.get<number>('DB_MYSQL_PORT'), // database host
-        username: configService.get<string>('DB_MYSQL_USER'), // user
-        password: configService.get<string>('DB_MYSQL_PASSWORD'), // password
-        database: configService.get<string>('DB_MYSQL_DATABASE'), // name of our database,
-        autoLoadEntities: true, // models will be loaded automatically (you don't have to explicitly specify the entities: [] array)
-        synchronize: true, // your entities will be synced with the database (ORM will map entity definitions to corresponding SQL tabled), every time you run the application (recommended: disable in the production)
+        type: 'mysql',
+        host: configService.get<string>('DB_MYSQL_HOST'),
+        port: configService.get<number>('DB_MYSQL_PORT'),
+        username: configService.get<string>('DB_MYSQL_USER'),
+        password: configService.get<string>('DB_MYSQL_PASSWORD'),
+        database: configService.get<string>('DB_MYSQL_DATABASE'),
+        autoLoadEntities: true,
+        synchronize: true,
         logging: false,
         entities: ['dist/**/*.entity.js'],
         migration: ['dist/migrations/**/*.js'],
