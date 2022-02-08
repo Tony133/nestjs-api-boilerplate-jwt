@@ -9,7 +9,9 @@ import {
 import { ChangePasswordService } from '../change-password/change-password.service';
 import { AuthGuard } from '@nestjs/passport';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @UseGuards(AuthGuard('jwt'))
 @Controller('auth/change-password')
 export class ChangePasswordController {

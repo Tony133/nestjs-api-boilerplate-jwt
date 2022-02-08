@@ -1,7 +1,9 @@
 import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { RegisterService } from './register.service';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('auth/register')
 export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
