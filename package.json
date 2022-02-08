@@ -34,7 +34,7 @@
     "handlebars": "^4.7.6",
     "mysql": "^2.18.1",
     "nodemailer": "^6.4.11",
-    "passport": "^0.4.1",
+    "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
