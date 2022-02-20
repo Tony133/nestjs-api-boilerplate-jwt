@@ -44,7 +44,7 @@
     "typeorm": "^0.2.41"
   },
   "devDependencies": {
-    "@nestjs/cli": "^8.0.0",
+    "@nestjs/cli": "^8.2.1",
     "@nestjs/schematics": "^8.0.6",
     "@nestjs/testing": "^8.2.6",
     "@types/express": "^4.17.13",
@@ -55,7 +55,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.12.0",
-    "eslint": "^8.8.0",
+    "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.5",
