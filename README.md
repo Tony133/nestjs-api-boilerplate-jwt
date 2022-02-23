@@ -14,6 +14,12 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 8.x 
    $ cp .env.example .env
 ```
 
+To set up on multiple environments, such as dev, stage or prod, we do as follows:
+
+```bash
+   $ cp .env.example .env.dev # or .env.stage, etc
+```
+
 ## Config settings .env for send notification when a user registers, forgot password or change password
 
 ```
