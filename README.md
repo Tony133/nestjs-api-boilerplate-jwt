@@ -35,16 +35,33 @@ To set up on multiple environments, such as dev, stage or prod, we do as follows
    EMAIL_DEFAULT_LAYOUT='index'
 ```
 
-## Config settings .env for connect MySQL
+## Config settings ormconfig.json for connect MySQL
 Once the database has been configured, start the Nest App via ```npm run start:dev``` it automatically synchronizes the entities so ready to use. :heart_eyes_cat:
 
 ```
-
-DB_MYSQL_HOST="localhost"
-DB_MYSQL_PORT=3306
-DB_MYSQL_USER="my_user"
-DB_MYSQL_PASSWORD="my_password"
-DB_MYSQL_DATABASE="my_database"
+{
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "my_user",
+    "password": "my_password",
+    "database": "my_database",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+       "dist/**/*.entity.js"
+    ],
+    "migrations": [
+       "dist/migrations/**/*.js"
+    ],
+    "subscribers": [
+       "dist/subscriber/**/*.js"
+    ],
+    "cli": {
+       "migrationsDir": "src/migrations",
+       "subscribersDir": "src/subscriber"
+    }
+ }
 ```
 
 ## Install TypeScript Node
