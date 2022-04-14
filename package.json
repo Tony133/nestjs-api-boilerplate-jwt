@@ -27,7 +27,7 @@
     "@nestjs/mapped-types": "1.0.1",
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "^8.4.4",
-    "@nestjs/swagger": "^5.2.0",
+    "@nestjs/swagger": "^5.2.1",
     "@nestjs/throttler": "^2.0.1",
     "@nestjs/typeorm": "^8.0.3",
     "bcrypt": "^5.0.0",
