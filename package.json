@@ -34,7 +34,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "handlebars": "^4.7.6",
-    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "nodemailer": "^6.4.11",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
