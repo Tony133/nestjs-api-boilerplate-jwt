@@ -26,7 +26,7 @@
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/mapped-types": "1.0.1",
     "@nestjs/passport": "^8.0.1",
-    "@nestjs/platform-express": "^8.4.4",
+    "@nestjs/platform-express": "^8.4.5",
     "@nestjs/swagger": "^5.2.1",
     "@nestjs/throttler": "^2.0.1",
     "@nestjs/typeorm": "^8.0.3",
@@ -41,7 +41,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.5",
-    "swagger-ui-express": "^4.3.0",
+    "swagger-ui-express": "^4.4.0",
     "typeorm": "^0.2.44"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "@types/nodemailer-express-handlebars": "^4.0.2",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
-    "@typescript-eslint/parser": "^5.21.0",
+    "@typescript-eslint/parser": "^5.25.0",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
