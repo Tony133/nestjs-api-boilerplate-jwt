@@ -17,7 +17,7 @@ export class ForgotPasswordService {
   public async forgotPassword(
     forgotPasswordDto: ForgotPasswordDto,
   ): Promise<any> {
-    const userUpdate = await this.userRepository.findOne({
+    const userUpdate = await this.userRepository.findOneBy({
       email: forgotPasswordDto.email,
     });
     const passwordRand = Math.random().toString(36).slice(-8);

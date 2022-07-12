@@ -1,6 +1,6 @@
 # NestJSApiBoilerplateJWT
 
-An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 8.x and Passport Auth JWT System :heart_eyes_cat:
+An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 9.x and Passport Auth JWT System :heart_eyes_cat:
 
 ## Installation
 
@@ -35,33 +35,24 @@ To set up on multiple environments, such as dev, stage or prod, we do as follows
    EMAIL_DEFAULT_LAYOUT='index'
 ```
 
-## Config settings ormconfig.json for connect MySQL
+## Config settings .env for connect MySQL
+
 Once the database has been configured, start the Nest App via ```npm run start:dev``` it automatically synchronizes the entities so ready to use. :heart_eyes_cat:
 
 ```
-{
-    "type": "mysql",
-    "host": "localhost",
-    "port": 3306,
-    "username": "my_user",
-    "password": "my_password",
-    "database": "my_database",
-    "synchronize": true,
-    "logging": false,
-    "entities": [
-       "dist/**/*.entity.js"
-    ],
-    "migrations": [
-       "dist/migrations/**/*.js"
-    ],
-    "subscribers": [
-       "dist/subscriber/**/*.js"
-    ],
-    "cli": {
-       "migrationsDir": "src/migrations",
-       "subscribersDir": "src/subscriber"
-    }
- }
+   TYPEORM_CONNECTION = "mysql"
+   TYPEORM_HOST = "localhost"
+   TYPEORM_PORT = 3306
+   TYPEORM_USERNAME = [:user]
+   TYPEORM_PASSWORD = [:password]
+   TYPEORM_DATABASE = [:database]
+   TYPEORM_AUTO_SCHEMA_SYNC = true
+   TYPEORM_ENTITIES = "dist/**/*.entity.js"
+   TYPEORM_SUBSCRIBERS = "dist/subscriber/**/*.js"
+   TYPEORM_MIGRATIONS = "dist/migrations/**/*.js"
+   TYPEORM_ENTITIES_DIR = "src/entity"
+   TYPEORM_MIGRATIONS_DIR = "src/migration"
+   TYPEORM_SUBSCRIBERS_DIR = "src/subscriber"
 ```
 
 ## Install TypeScript Node
@@ -107,8 +98,23 @@ After running, you can stop the Docker container with
 
 
 ## Url Swagger for Api Documentation
+
 ```
-http://127.0.0.1:3000/api/doc
+http://127.0.0.1:3000/docs
+```
+
+Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file and set `NODE_ENV` to `local` or `dev`or `staging` to access the SWAGGER(Open Api) documentation with basic authentication.
+
+```
+NODE_ENV=[:enviroments]
+SWAGGER_USER=[:user]
+SWAGGER_PASSWORD=[:password]
+```
+
+If you want to add more environments, include them in the `SWAGGER_ENVS` array in `main.ts`, see the following:
+
+```typescript 
+const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ```
 
 ## Getting secure resource with Curl
