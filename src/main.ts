@@ -49,6 +49,6 @@ async function bootstrap() {
 
   app.enableCors();
   await app.listen(3000);
-  Logger.log(`Url for Swagger (OpenApi): ${await app.getUrl()}/docs`);
+  Logger.log(`Url for Swagger [OpenApi]: ${await app.getUrl()}/docs`);
 }
 bootstrap();
