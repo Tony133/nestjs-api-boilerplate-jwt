@@ -10,12 +10,20 @@ import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 import { ChangePasswordModule } from './change-password/change-password.module';
 import { MailerModule } from './mailer/mailer.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import * as Yup from 'yup';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env', '.env.dev', '.env.stage', '.env.prod'],
+      validationSchema: Yup.object({
+        TYPEORM_HOST: Yup.string().required(),
+        TYPEORM_PORT: Yup.number().default(3306),
+        TYPEORM_USERNAME: Yup.string().required(),
+        TYPEORM_PASSWORD: Yup.string().required(),
+        TYPEORM_DATABASE: Yup.string().required(),
+      }),
     }),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
@@ -30,7 +38,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'mysql',
-        host: config.get<string>('TPYEORM_HOST'),
+        host: config.get<string>('TYPEORM_HOST'),
         port: config.get<number>('TYPEORM_PORT'),
         username: config.get<string>('TYPEORM_USERNAME'),
         password: config.get<string>('TYPEORM_PASSWORD'),
