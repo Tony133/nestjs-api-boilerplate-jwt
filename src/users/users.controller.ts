@@ -23,12 +23,12 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  public async findAllUser() {
+  public async findAllUser(): Promise<IUsers[]> {
     return this.usersService.findAll();
   }
 
   @Get('/:userId')
-  public async findOneUser(@Param('userId') userId: string) {
+  public async findOneUser(@Param('userId') userId: string): Promise<IUsers> {
     return this.usersService.findById(userId);
   }
 
@@ -71,7 +71,7 @@ export class UsersController {
   }
 
   @Delete('/:userId')
-  public async deleteUser(@Param('userId') userId: string) {
+  public async deleteUser(@Param('userId') userId: string): Promise<void> {
     const user = this.usersService.deleteUser(userId);
     if (!user) {
       throw new NotFoundException('User does not exist!');
