@@ -1,17 +1,4 @@
-import { MaxLength, IsNotEmpty, IsEmail, IsString } from 'class-validator';
+import { OmitType } from '@nestjs/swagger';
+import { UserDto } from './user.dto';
 
-export class UserProfileDto {
-  @IsString()
-  @MaxLength(30)
-  @IsNotEmpty()
-  name: string;
-
-  @IsString()
-  @MaxLength(40)
-  @IsNotEmpty()
-  username: string;
-
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-}
+export class UserProfileDto extends OmitType(UserDto, ['password'] as const) {}

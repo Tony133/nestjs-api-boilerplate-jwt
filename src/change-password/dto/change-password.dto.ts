@@ -1,11 +1,7 @@
-import { MaxLength, IsNotEmpty, IsEmail, IsString } from "class-validator";
+import { PickType } from '@nestjs/swagger';
+import { UserDto } from 'src/users/dto/user.dto';
 
-export class ChangePasswordDto {
-  @IsEmail()
-  readonly email: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @MaxLength(60)
-  readonly password: string;
-}
+export class ChangePasswordDto extends PickType(UserDto, [
+  'email',
+  'password',
+] as const) {}
