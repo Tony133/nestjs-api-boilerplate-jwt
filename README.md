@@ -64,13 +64,13 @@ Once the database has been configured, start the Nest App via ```npm run start:d
 ## Running migrations with typeorm
 
 ```bash
-   $ ts-node node_modules/.bin/typeorm migration:run
+   $ ts-node node_modules/.bin/typeorm migration:run -d dist/typeorm-cli.config
 ```
 
 or
 
 ```bash
-   $ node_modules/.bin/typeorm migration:run
+   $ node_modules/.bin/typeorm migration:run -d dist/typeorm-cli.config
 ```
 
 ## Running the app
