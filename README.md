@@ -117,6 +117,12 @@ If you want to add more environments, include them in the `SWAGGER_ENVS` array i
 const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ```
 
+## Configuring the NODE_API_PORT environment variable as the default port if you don't want to use the default
+
+```
+   NODE_API_PORT=3333 
+```
+
 ## Getting secure resource with Curl
 
 ```bash
