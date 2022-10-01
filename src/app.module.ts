@@ -48,8 +48,8 @@ import * as Yup from 'yup';
         migrations: ['dist/migrations/**/*.js'],
         subscribers: ['dist/subscriber/**/*.js'],
         cli: {
-          migrationsDir: 'src/migrations',
-          subscribersDir: 'src/subscriber',
+          migrationsDir: config.get<string>('TYPEORM_MIGRATIONS_DIR'),
+          subscribersDir: config.get<string>('TYPEORM_SUBSCRIBERS_DIR'),
         },
       }),
     }),
