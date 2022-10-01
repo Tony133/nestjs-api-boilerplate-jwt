@@ -97,4 +97,9 @@ export class UsersService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
+
+  public async deleteUser(id: string): Promise<void> {
+    const user = await this.findById(id);
+    await this.userRepository.remove(user);
+  }
 }
