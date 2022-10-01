@@ -48,7 +48,8 @@ async function bootstrap() {
   }
 
   app.enableCors();
-  await app.listen(3000);
+  const port = configService.get<number>('NODE_API_PORT') || 3000;
+  await app.listen(port);
   Logger.log(`Url for OpenApi: ${await app.getUrl()}/docs`, 'Swagger');
 }
 bootstrap();
