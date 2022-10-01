@@ -8,6 +8,7 @@ import {
   UseGuards,
   HttpStatus,
   NotFoundException,
+  Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -67,5 +68,14 @@ export class UsersController {
         status: 400,
       });
     }
+  }
+
+  @Delete('/:userId')
+  public async deleteUser(@Param('userId') userId: string) {
+    const user = this.usersService.deleteUser(userId);
+    if (!user) {
+      throw new NotFoundException('User does not exist!');
+    }
+    return user;
   }
 }
