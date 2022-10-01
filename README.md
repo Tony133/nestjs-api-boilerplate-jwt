@@ -161,8 +161,14 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
    $ curl -H 'content-type: application/json' -v -X PUT -d '{"name": "tony", "email": "tony_admin@nest.it", "username": "tony_admin"}' http://127.0.0.1:3000/api/users/:id/profile  -H 'Authorization: Bearer [:token]'
 ```
 
-## Getting with Curl the Users list
+## Users list with Curl
 
 ```bash
    $ curl -H 'content-type: application/json' -H 'Accept: application/json' -v -X GET http://127.0.0.1:3000/api/users  -H 'Authorization: Bearer [:token]'
+```
+
+## User by Id with Curl
+
+```bash
+   $ curl -H 'content-type: application/json' -H 'Accept: application/json' -v -X GET http://127.0.0.1:3000/api/users/:id  -H 'Authorization: Bearer [:token]'
 ```

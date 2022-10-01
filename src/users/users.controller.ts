@@ -8,17 +8,12 @@ import {
   UseGuards,
   HttpStatus,
   NotFoundException,
-  Delete,
-  Post,
-  Patch,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { IUsers } from './interfaces/users.interface';
 import { ApiTags } from '@nestjs/swagger';
-import { UserCreateDto } from './dto/user-create.dto';
-import { UserUpdateDto } from './dto/user-update.dto';
 
 @ApiTags('users')
 @UseGuards(AuthGuard('jwt'))
@@ -29,6 +24,11 @@ export class UsersController {
   @Get()
   public async findAllUser() {
     return this.usersService.findAll();
+  }
+
+  @Get('/:userId')
+  public async findOneUser(@Param('userId') userId: string) {
+    return this.usersService.findById(userId);
   }
 
   @Get('/:userId/profile')
