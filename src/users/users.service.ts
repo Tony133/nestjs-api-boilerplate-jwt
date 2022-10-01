@@ -19,6 +19,10 @@ export class UsersService {
     private readonly userRepository: Repository<Users>,
   ) {}
 
+  public async findAll(): Promise<Users[]> {
+    return await this.userRepository.find();
+  }
+
   public async findByEmail(email: string): Promise<Users> {
     const user = await this.userRepository.findOne({
       where: {
