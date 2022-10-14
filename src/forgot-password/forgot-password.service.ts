@@ -10,7 +10,7 @@ import * as bcrypt from 'bcrypt';
 export class ForgotPasswordService {
   constructor(
     @InjectRepository(Users)
-    private userRepository: Repository<Users>,
+    private readonly userRepository: Repository<Users>,
     private readonly mailerService: MailerService,
   ) {}
 
