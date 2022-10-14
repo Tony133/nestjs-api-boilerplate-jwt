@@ -10,6 +10,7 @@ import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 import { ChangePasswordModule } from './change-password/change-password.module';
 import { MailerModule } from './mailer/mailer.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { UtilsModule } from './utils/utils.module';
 import * as Yup from 'yup';
 
 @Module({
@@ -59,6 +60,7 @@ import * as Yup from 'yup';
     ForgotPasswordModule,
     ChangePasswordModule,
     MailerModule,
+    UtilsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
