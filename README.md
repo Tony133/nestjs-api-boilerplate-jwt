@@ -102,6 +102,16 @@ After running, you can stop the Docker container with
 ```
 http://127.0.0.1:3000/docs
 ```
+or 
+
+```
+http://127.0.0.1:3000/docs-json
+```
+or
+
+```
+http://127.0.0.1:3000/docs-yaml
+```
 
 Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file and set `NODE_ENV` to `local` or `dev`or `staging` to access the SWAGGER(Open Api) documentation with basic authentication.
 
