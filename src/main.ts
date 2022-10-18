@@ -22,7 +22,10 @@ async function bootstrap() {
 
   configureSwaggerDocs(app, configService);
 
-  app.enableCors();
+  app.enableCors({
+    origin: configService.get<string>('ENDPOINT_CORS'),
+    credentials: true,
+  });
   const port = configService.get<number>('NODE_API_PORT') || 3000;
   await app.listen(port);
   Logger.log(`Url for OpenApi: ${await app.getUrl()}/docs`, 'Swagger');

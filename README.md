@@ -133,6 +133,12 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
    NODE_API_PORT=3333 
 ```
 
+
+## Configuring the ENDPOINT_CORS environment variable for app frontend
+```
+   ENDPOINT_CORS='http://127.0.0.1:4200'
+```
+
 ## Getting secure resource with Curl
 
 ```bash
