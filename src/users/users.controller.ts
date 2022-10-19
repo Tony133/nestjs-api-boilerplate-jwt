@@ -13,6 +13,7 @@ import {
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UserProfileDto } from './dto/user-profile.dto';
+import { UserUpdateDto } from './dto/user-update.dto';
 import { IUsers } from './interfaces/users.interface';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -57,6 +58,27 @@ export class UsersController {
   ): Promise<any> {
     try {
       await this.usersService.updateProfileUser(userId, userProfileDto);
+
+      return res.status(HttpStatus.OK).json({
+        message: 'User Updated successfully!',
+        status: 200,
+      });
+    } catch (err) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: 'Error: User not updated!',
+        status: 400,
+      });
+    }
+  }
+
+  @Put('/:userId')
+  public async updateUser(
+    @Res() res,
+    @Param('userId') userId: string,
+    @Body() userUpdateDto: UserUpdateDto,
+  ) {
+    try {
+      await this.usersService.updateUser(userId, userUpdateDto);
 
       return res.status(HttpStatus.OK).json({
         message: 'User Updated successfully!',

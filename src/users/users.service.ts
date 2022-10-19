@@ -4,13 +4,14 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entities/users.entity';
 import { IUsers } from './interfaces/users.interface';
 import { UserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
 import { UserProfileDto } from './dto/user-profile.dto';
+import { UserUpdateDto } from './dto/user-update.dto';
 
 @Injectable()
 export class UsersService {
@@ -93,6 +94,28 @@ export class UsersService {
       user.username = userProfileDto.username;
 
       return await this.userRepository.save(user);
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  public async updateUser(
+    id: string,
+    userUpdateDto: UserUpdateDto,
+  ): Promise<UpdateResult> {
+    try {
+      const user = await this.userRepository.update(
+        {
+          id: +id,
+        },
+        { ...userUpdateDto },
+      );
+
+      if (!user) {
+        throw new NotFoundException(`User #${id} does not exist`);
+      }
+
+      return user;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }

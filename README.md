@@ -135,8 +135,9 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 
 
 ## Configuring the ENDPOINT_CORS environment variable for app frontend
+
 ```
-   ENDPOINT_CORS='http://127.0.0.1:4200'
+   ENDPOINT_CORS='http://127.0.0.1:4200' 
 ```
 
 ## Getting secure resource with Curl
@@ -187,6 +188,12 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 
 ```bash
    $ curl -H 'content-type: application/json' -H 'Accept: application/json' -v -X GET http://127.0.0.1:3000/api/users/:id  -H 'Authorization: Bearer [:token]'
+```
+
+## Update User with Curl
+
+```bash
+   $ curl -H 'content-type: application/json' -v -X PATCH -d '{"name": "tony", "email": "tony_admin@nest.it", "username": "tony_admin", "password":"secret"}' http://127.0.0.1:3000/api/users/:id  -H 'Authorization: Bearer [:token]'
 ```
 
 ## Delete User by Id with Curl
