@@ -24,6 +24,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: configService.get<string>('ENDPOINT_CORS'),
+    methods: 'GET,POST,PUT,PATCH,DELETE',
     credentials: true,
   });
   const port = configService.get<number>('NODE_API_PORT') || 3000;
