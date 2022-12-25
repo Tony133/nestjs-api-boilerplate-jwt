@@ -86,6 +86,12 @@ or
     $ npm run start:prod
 ```
 
+## Runnig the app in REPL mode
+
+```bash 
+   $ npm run start -- --entryFile repl
+```
+
 ## Docker
 
 There is a `docker-compose.yml` file for starting MySQL with Docker.
@@ -132,7 +138,6 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ```
    NODE_API_PORT=3333 
 ```
-
 
 ## Configuring the ENDPOINT_CORS environment variable for app frontend
 
