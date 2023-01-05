@@ -9,15 +9,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entities/users.entity';
 import { IUsers } from './interfaces/users.interface';
 import { UserDto } from './dto/user.dto';
-import * as bcrypt from 'bcrypt';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { UserUpdateDto } from './dto/user-update.dto';
+import { HashingService } from '../shared/hashing/hashing.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(Users)
     private readonly userRepository: Repository<Users>,
+    private readonly hashingService: HashingService,
   ) {}
 
   public async findAll(): Promise<Users[]> {
@@ -61,7 +62,9 @@ export class UsersService {
   public async updateByEmail(email: string): Promise<Users> {
     try {
       const user = await this.userRepository.findOneBy({ email: email });
-      user.password = bcrypt.hashSync(Math.random().toString(36).slice(-8), 8);
+      user.password = await this.hashingService.hash(
+        Math.random().toString(36).slice(-8),
+      );
 
       return await this.userRepository.save(user);
     } catch (err) {
@@ -75,7 +78,7 @@ export class UsersService {
   ): Promise<Users> {
     try {
       const user = await this.userRepository.findOneBy({ email: email });
-      user.password = bcrypt.hashSync(password, 8);
+      user.password = await this.hashingService.hash(password);
 
       return await this.userRepository.save(user);
     } catch (err) {

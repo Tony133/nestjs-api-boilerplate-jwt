@@ -7,15 +7,18 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { IUsers } from '../users/interfaces/users.interface';
-import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './interfaces/jwt.payload';
 import { LoginDto } from './dto/login.dto';
+import { ConfigService } from '@nestjs/config';
+import { HashingService } from '../shared/hashing/hashing.service';
 
 @Injectable()
 export class LoginService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+    private readonly hashingService: HashingService,
   ) {}
 
   private async validate(loginDto: LoginDto): Promise<IUsers> {
@@ -26,12 +29,12 @@ export class LoginService {
     loginDto: LoginDto,
   ): Promise<any | { status: number; message: string }> {
     return this.validate(loginDto)
-      .then((userData) => {
+      .then(async (userData) => {
         if (!userData) {
           throw new UnauthorizedException();
         }
 
-        const passwordIsValid = bcrypt.compareSync(
+        const passwordIsValid = await this.hashingService.compare(
           loginDto.password,
           userData.password,
         );
@@ -52,7 +55,10 @@ export class LoginService {
         const accessToken = this.jwtService.sign(payload);
 
         return {
-          expiresIn: 3600,
+          sub: payload.id,
+          expiresIn: this.configService.get('JWT_ACCESS_TOKEN_TTL'),
+          audience: this.configService.get('JWT_TOKEN_AUDIENCE'),
+          issuer: this.configService.get('JWT_TOKEN_ISSUER'),
           accessToken: accessToken,
           user: payload,
           status: 200,
@@ -81,7 +87,7 @@ export class LoginService {
     const jwt = this.jwtService.sign(data);
 
     return {
-      expiresIn: 3600,
+      expiresIn: this.configService.get('JWT_ACCESS_TOKEN_TTL'),
       token: jwt,
     };
   }

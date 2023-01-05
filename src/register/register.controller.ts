@@ -18,7 +18,7 @@ export class RegisterController {
 
       return res.status(HttpStatus.OK).json({
         message: 'User registration successfully!',
-        status: 200,
+        status: 201,
       });
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({

@@ -8,6 +8,8 @@ import { UsersService } from '../users/users.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { HashingService } from '../shared/hashing/hashing.service';
+import { BcryptService } from '../shared/hashing/bcrypt.service';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('SECRET_KEY_JWT'),
+        secret: configService.get<string>('JWT_SECRET_KEY'),
         signOptions: {
           expiresIn: 3600,
         },
@@ -25,7 +27,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
   ],
-  providers: [LoginService, UsersService, JwtStrategy],
+  providers: [
+    {
+      provide: HashingService,
+      useClass: BcryptService,
+    },
+    LoginService,
+    UsersService,
+    JwtStrategy,
+  ],
   controllers: [LoginController],
 })
 export class LoginModule {}
