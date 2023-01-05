@@ -5,7 +5,8 @@ import { Users } from '../users/entities/users.entity';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { MailerService } from '../mailer/mailer.service';
 import * as bcrypt from 'bcrypt';
-import { UtilsService } from '../utils/utils.service';
+import { UtilsService } from '../shared/utils/utils.service';
+import { HashingService } from 'src/shared/hashing/hashing.service';
 
 @Injectable()
 export class ForgotPasswordService {
@@ -14,6 +15,7 @@ export class ForgotPasswordService {
     private readonly userRepository: Repository<Users>,
     private readonly mailerService: MailerService,
     private readonly utilsService: UtilsService,
+    private readonly hashingService: HashingService,
   ) {}
 
   public async forgotPassword(
@@ -23,7 +25,7 @@ export class ForgotPasswordService {
       email: forgotPasswordDto.email,
     });
     const passwordRand = this.utilsService.generatePassword();
-    userUpdate.password = bcrypt.hashSync(passwordRand, 8);
+    userUpdate.password = await this.hashingService.hash(passwordRand);
 
     this.sendMailForgotPassword(userUpdate.email, passwordRand);
 

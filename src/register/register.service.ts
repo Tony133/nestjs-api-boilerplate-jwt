@@ -1,19 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import * as bcrypt from 'bcrypt';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { IUsers } from './../users/interfaces/users.interface';
 import { MailerService } from '../mailer/mailer.service';
+import { HashingService } from '../shared/hashing/hashing.service';
 
 @Injectable()
 export class RegisterService {
   constructor(
     private readonly usersService: UsersService,
     private readonly mailerService: MailerService,
+    private readonly hashingService: HashingService,
   ) {}
 
   public async register(registerUserDto: RegisterUserDto): Promise<IUsers> {
-    registerUserDto.password = bcrypt.hashSync(registerUserDto.password, 8);
+    registerUserDto.password = await this.hashingService.hash(
+      registerUserDto.password,
+    );
 
     this.sendMailRegisterUser(registerUserDto);
 
