@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from '../users/entities/users.entity';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { MailerService } from '../mailer/mailer.service';
-import * as bcrypt from 'bcrypt';
 import { UtilsService } from '../shared/utils/utils.service';
 import { HashingService } from 'src/shared/hashing/hashing.service';
 

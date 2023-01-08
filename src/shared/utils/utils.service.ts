@@ -3,7 +3,7 @@ import * as crypto from 'crypto';
 
 @Injectable()
 export class UtilsService {
-  public generatePassword() {
+  public generatePassword(): string {
     return crypto.randomUUID();
   }
 }
