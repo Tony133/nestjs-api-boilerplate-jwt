@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
-import { MailerService } from '../mailer/mailer.service';
+import { MailerService } from '../shared/mailer/mailer.service';
 
 @Injectable()
 export class ChangePasswordService {

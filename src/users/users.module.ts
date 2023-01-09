@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from './entities/users.entity';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
-import { MailerModule } from '../mailer/mailer.module';
+import { MailerModule } from '../shared/mailer/mailer.module';
 import { BcryptService } from '../shared/hashing/bcrypt.service';
 import { HashingService } from '../shared/hashing/hashing.service';
 

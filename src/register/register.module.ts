@@ -4,7 +4,7 @@ import { RegisterController } from './register.controller';
 import { RegisterService } from './register.service';
 import { UsersService } from '../users/users.service';
 import { Users } from '../users/entities/users.entity';
-import { MailerModule } from '../mailer/mailer.module';
+import { MailerModule } from '../shared/mailer/mailer.module';
 import { BcryptService } from '../shared/hashing/bcrypt.service';
 import { HashingService } from '../shared/hashing/hashing.service';
 
