@@ -8,7 +8,7 @@ import { RegisterModule } from './register/register.module';
 import { UsersModule } from './users/users.module';
 import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 import { ChangePasswordModule } from './change-password/change-password.module';
-import { MailerModule } from './mailer/mailer.module';
+import { MailerModule } from './shared/mailer/mailer.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { UtilsModule } from './shared/utils/utils.module';
 import * as Yup from 'yup';

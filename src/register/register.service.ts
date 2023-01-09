@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { IUsers } from './../users/interfaces/users.interface';
-import { MailerService } from '../mailer/mailer.service';
+import { MailerService } from '../shared/mailer/mailer.service';
 import { HashingService } from '../shared/hashing/hashing.service';
 
 @Injectable()

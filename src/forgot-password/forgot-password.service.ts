@@ -3,9 +3,9 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from '../users/entities/users.entity';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { MailerService } from '../mailer/mailer.service';
+import { MailerService } from '../shared/mailer/mailer.service';
 import { UtilsService } from '../shared/utils/utils.service';
-import { HashingService } from 'src/shared/hashing/hashing.service';
+import { HashingService } from '../shared/hashing/hashing.service';
 
 @Injectable()
 export class ForgotPasswordService {
