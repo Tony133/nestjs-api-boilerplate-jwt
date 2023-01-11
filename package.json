@@ -64,7 +64,7 @@
     "jest": "^28.1.2",
     "nodemailer-express-handlebars": "^5.0.0",
     "prettier": "^2.8.2",
-    "supertest": "^6.2.4",
+    "supertest": "^6.3.3",
     "ts-jest": "^28.0.5",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
