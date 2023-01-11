@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { IUsers } from './../users/interfaces/users.interface';
@@ -39,12 +39,10 @@ export class RegisterService {
         },
       })
       .then((response) => {
-        console.log(response);
-        console.log('User Registration: Send Mail successfully!');
+        Logger.log('User Registration: Send Mail successfully!', response);
       })
       .catch((err) => {
-        console.log(err);
-        console.log('User Registration: Send Mail Failed!');
+        Logger.log('User Registration: Send Mail Failed!', err);
       });
   }
 }

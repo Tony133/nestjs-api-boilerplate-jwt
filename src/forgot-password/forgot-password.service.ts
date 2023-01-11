@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from '../users/entities/users.entity';
@@ -47,12 +47,10 @@ export class ForgotPasswordService {
         },
       })
       .then((response) => {
-        console.log(response);
-        console.log('Forgot Password: Send Mail successfully!');
+        Logger.log('Forgot Password: Send Mail successfully!', response);
       })
       .catch((err) => {
-        console.log(err);
-        console.log('Forgot Password: Send Mail Failed!');
+        Logger.log('Forgot Password: Send Mail Failed!', err);
       });
   }
 }
