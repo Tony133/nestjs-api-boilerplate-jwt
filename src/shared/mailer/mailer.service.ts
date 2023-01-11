@@ -17,7 +17,7 @@ export class MailerService {
         pass: this.configService.get<string>('EMAIL_AUTH_PASSWORD'),
       },
       debug: this.configService.get<boolean>('EMAIL_DEBUG'),
-      logger: true,
+      logger: false,
     });
 
     const options = {
