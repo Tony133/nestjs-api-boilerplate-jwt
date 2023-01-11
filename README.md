@@ -96,7 +96,7 @@ or
 
 There is a `docker-compose.yml` file for starting MySQL with Docker.
 
-`$ docker-compose up`
+`$ docker-compose up db`
 
 After running, you can stop the Docker container with
 
