@@ -18,12 +18,12 @@ export class ForgotPasswordController {
 
       return res.status(HttpStatus.OK).json({
         message: 'Request Reset Password Successfully!',
-        status: 200,
+        status: HttpStatus.OK,
       });
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Error: Forgot password failed!',
-        status: 400,
+        status: HttpStatus.BAD_REQUEST,
       });
     }
   }

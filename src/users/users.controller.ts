@@ -46,7 +46,7 @@ export class UsersController {
 
     return res.status(HttpStatus.OK).json({
       user: user,
-      status: 200,
+      status: HttpStatus.OK,
     });
   }
 
@@ -61,12 +61,12 @@ export class UsersController {
 
       return res.status(HttpStatus.OK).json({
         message: 'User Updated successfully!',
-        status: 200,
+        status: HttpStatus.OK,
       });
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Error: User not updated!',
-        status: 400,
+        status: HttpStatus.BAD_REQUEST,
       });
     }
   }

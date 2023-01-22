@@ -16,14 +16,14 @@ export class RegisterController {
     try {
       await this.registerService.register(registerUserDto);
 
-      return res.status(HttpStatus.OK).json({
+      return res.status(HttpStatus.CREATED).json({
         message: 'User registration successfully!',
-        status: 201,
+        status: HttpStatus.CREATED,
       });
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Error: User not registration!',
-        status: 400,
+        status: HttpStatus.BAD_REQUEST,
       });
     }
   }
