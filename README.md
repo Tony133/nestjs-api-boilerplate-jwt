@@ -37,7 +37,7 @@ To set up on multiple environments, such as dev, stage or prod, we do as follows
 
 ## Config settings .env for connect MySQL
 
-Once the database has been configured, start the Nest App via ```npm run start:dev``` it automatically synchronizes the entities so ready to use. :heart_eyes_cat:
+Once the database has been configured, start the Nest App via `npm run start:dev` it automatically synchronizes the entities so ready to use. :heart_eyes_cat:
 
 ```
    TYPEORM_CONNECTION = "mysql"
@@ -88,15 +88,21 @@ or
 
 ## Runnig the app in REPL mode
 
-```bash 
+```bash
    $ npm run start -- --entryFile repl
+```
+
+or
+
+```bash
+   $ npm run start:repl
 ```
 
 ## Docker
 
 There is a `docker-compose.yml` file for starting MySQL with Docker.
 
-`$ docker-compose up`
+`$ docker-compose up db`
 
 After running, you can stop the Docker container with
 
@@ -106,43 +112,51 @@ After running, you can stop the Docker container with
 ## Url Swagger for Api Documentation
 
 ```
-http://127.0.0.1:3000/docs
-```
-or 
 
-```
-http://127.0.0.1:3000/docs-json
+http://127.0.0.1:3000/docs
+
 ```
 or
 
 ```
+
+http://127.0.0.1:3000/docs-json
+
+```
+or
+
+```
+
 http://127.0.0.1:3000/docs-yaml
+
 ```
 
 Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file and set `NODE_ENV` to `local` or `dev`or `staging` to access the SWAGGER(Open Api) documentation with basic authentication.
 
 ```
+
 NODE_ENV=[:enviroments]
 SWAGGER_USER=[:user]
 SWAGGER_PASSWORD=[:password]
-```
+
+````
 
 If you want to add more environments, include them in the `SWAGGER_ENVS` array in `main.ts`, see the following:
 
-```typescript 
+```typescript
 const SWAGGER_ENVS = ['local', 'dev', 'staging'];
-```
+````
 
 ## Configuring the NODE_API_PORT environment variable as the default port if you don't want to use the default
 
 ```
-   NODE_API_PORT=3333 
+   NODE_API_PORT=3333
 ```
 
 ## Configuring the ENDPOINT_CORS environment variable for app frontend
 
 ```
-   ENDPOINT_CORS='http://127.0.0.1:4200' 
+   ENDPOINT_CORS='http://127.0.0.1:4200'
 ```
 
 ## Getting secure resource with Curl

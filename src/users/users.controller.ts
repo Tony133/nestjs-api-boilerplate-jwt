@@ -11,14 +11,15 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { AuthGuard } from '@nestjs/passport';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { UserUpdateDto } from './dto/user-update.dto';
 import { IUsers } from './interfaces/users.interface';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '../iam/login/decorators/auth-guard.decorator';
+import { AuthType } from '../iam/login/enums/auth-type.enum';
 
 @ApiTags('users')
-@UseGuards(AuthGuard('jwt'))
+@AuthGuard(AuthType.Bearer)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -46,7 +47,7 @@ export class UsersController {
 
     return res.status(HttpStatus.OK).json({
       user: user,
-      status: 200,
+      status: HttpStatus.OK,
     });
   }
 
@@ -61,12 +62,12 @@ export class UsersController {
 
       return res.status(HttpStatus.OK).json({
         message: 'User Updated successfully!',
-        status: 200,
+        status: HttpStatus.OK,
       });
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Error: User not updated!',
-        status: 400,
+        status: HttpStatus.BAD_REQUEST,
       });
     }
   }
