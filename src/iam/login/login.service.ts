@@ -7,7 +7,6 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../../users/users.service';
 import { IUsers } from '../../users/interfaces/users.interface';
-import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 import { HashingService } from '../../shared/hashing/hashing.service';
@@ -26,9 +25,7 @@ export class LoginService {
     return await this.usersService.findByEmail(loginDto.email);
   }
 
-  public async login(
-    loginDto: LoginDto,
-  ): Promise<any | { status: number; message: string }> {
+  public async login(loginDto: LoginDto): Promise<any> {
     return this.findUserByEmail(loginDto)
       .then(async (userData) => {
         if (!userData) {
@@ -69,29 +66,6 @@ export class LoginService {
       accessToken: accessToken,
       user: payload,
       status: HttpStatus.OK,
-    };
-  }
-
-  public async validateUserByJwt(payload: JwtPayload) {
-    // This will be used when the user has already logged in and has a JWT
-    const user = await this.usersService.findByEmail(payload.email);
-
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return this.createJwtPayload(user);
-  }
-
-  protected createJwtPayload(user) {
-    const data: JwtPayload = {
-      email: user.email,
-    };
-
-    const jwt = this.jwtService.sign(data);
-
-    return {
-      expiresIn: this.configService.get('JWT_ACCESS_TOKEN_TTL'),
-      token: jwt,
     };
   }
 }
