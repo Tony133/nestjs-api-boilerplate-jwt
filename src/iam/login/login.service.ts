@@ -26,36 +26,36 @@ export class LoginService {
   }
 
   public async login(loginDto: LoginDto): Promise<any> {
-    return this.findUserByEmail(loginDto)
-      .then(async (userData) => {
-        if (!userData) {
-          throw new UnauthorizedException();
-        }
+    try {
+      const user = this.findUserByEmail(loginDto);
+      if (!user) {
+        throw new UnauthorizedException('User does not exists');
+      }
 
-        const passwordIsValid = await this.hashingService.compare(
-          loginDto.password,
-          userData.password,
+      const passwordIsValid = await this.hashingService.compare(
+        loginDto.password,
+        (
+          await user
+        ).password,
+      );
+
+      if (!passwordIsValid == true) {
+        throw new UnauthorizedException(
+          'Authentication failed. Wrong password',
         );
+      }
 
-        if (!passwordIsValid == true) {
-          return {
-            message: 'Authentication failed. Wrong password',
-            status: HttpStatus.BAD_REQUEST,
-          };
-        }
-
-        return await this.signToken({
-          name: userData.name,
-          email: userData.email,
-          id: userData.id,
-        });
-      })
-      .catch((err) => {
-        throw new HttpException(err, HttpStatus.BAD_REQUEST);
+      return await this.signToken({
+        name: (await user).name,
+        email: (await user).email,
+        id: (await user).id,
       });
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
 
-  private async signToken(payload: ActiveUserData) {
+  private async signToken(payload: ActiveUserData): Promise<any> {
     const accessToken = await this.jwtService.signAsync(payload);
 
     return {
