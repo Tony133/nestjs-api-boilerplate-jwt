@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  UseGuards,
-  Res,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { ChangePasswordService } from './change-password.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ApiTags } from '@nestjs/swagger';
