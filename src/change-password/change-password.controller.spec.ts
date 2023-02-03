@@ -1,4 +1,9 @@
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  NotFoundException,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ChangePasswordController } from './change-password.controller';
 import { ChangePasswordService } from './change-password.service';
@@ -32,11 +37,11 @@ class MockResponse {
     });
 }
 
-const mockJson = jest.fn().mockImplementation(() => null),
-  mockStatus = jest.fn().mockImplementation(() => ({ json: mockJson })),
-  mockResponse = {
-    status: mockStatus,
-  };
+const mockJson = jest.fn().mockImplementation(() => null);
+const mockStatus = jest.fn().mockImplementation(() => ({ json: mockJson }));
+const mockResponse = {
+  status: 400,
+};
 
 const changePasswordDto: ChangePasswordDto = {
   email: 'text@example.com',
@@ -89,7 +94,7 @@ describe('ChangePassword Controller', () => {
       expect(createSpy).toHaveBeenCalledWith(changePasswordDto);
     });
 
-    it('generates an error when password and email are empty', async () => {
+    it('generates an exception when password and email are empty', async () => {
       try {
         await changePasswordController.changePassword(
           response,
@@ -102,16 +107,18 @@ describe('ChangePassword Controller', () => {
       }
     });
 
-    // it('should throw if  changePassword throws', async () => {
-    //   jest
-    //     .spyOn(changePasswordService, 'changePassword')
-    //     .mockRejectedValueOnce(new NotFoundException());
-    //   await expect(
-    //     changePasswordController.changePassword(
-    //       response,
-    //       changePasswordDtoEmpty,
-    //     ),
-    //   ).rejects.toThrow(new NotFoundException());
-    // });
+    it('should throw an exception if not change password a user', async () => {
+      jest
+        .spyOn(changePasswordController, 'changePassword')
+        .mockRejectedValueOnce(
+          new HttpException('err', HttpStatus.BAD_REQUEST),
+        );
+      await expect(
+        changePasswordController.changePassword(
+          response,
+          changePasswordDtoEmpty,
+        ),
+      ).rejects.toThrow(new HttpException('err', HttpStatus.BAD_REQUEST));
+    });
   });
 });
