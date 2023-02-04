@@ -40,7 +40,7 @@ class MockResponse {
 const mockJson = jest.fn().mockImplementation(() => null);
 const mockStatus = jest.fn().mockImplementation(() => ({ json: mockJson }));
 const mockResponse = {
-  status: 400,
+  status: mockStatus,
 };
 
 const changePasswordDto: ChangePasswordDto = {
