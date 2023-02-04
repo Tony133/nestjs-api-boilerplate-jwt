@@ -1,16 +1,13 @@
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { BcryptService } from '../../shared/hashing/bcrypt.service';
 import { HashingService } from '../../shared/hashing/hashing.service';
 import { LoginService } from './login.service';
 import { UsersService } from '../../users/users.service';
 import { Users } from '../../users/entities/users.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { NotFoundException } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
-import { compare } from 'bcrypt';
 
 const oneUser = {
   id: 1,
