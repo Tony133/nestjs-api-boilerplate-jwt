@@ -8,6 +8,7 @@ import { Users } from '../../users/entities/users.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginDto } from './dto/login.dto';
+import { UnauthorizedException } from '@nestjs/common';
 
 const oneUser = {
   id: 1,
@@ -29,7 +30,6 @@ const userLogin = {
     name: 'name #1',
     email: 'test@example.com',
   },
-  status: 200,
 };
 
 const payload = {
@@ -91,13 +91,15 @@ describe('LoginService', () => {
     it('should generate token jwt', async () => {
       expect(await loginService.login(loginDto)).toEqual(userLogin);
     });
-    // it('should throw an exception if it not found a user by id', async () => {
-    //   jest
-    //     .spyOn(service, 'findById')
-    //     .mockRejectedValueOnce(new NotFoundException('User anyid not found'));
-    //   await expect(service.findById('anyid')).rejects.toThrow(
-    //     new NotFoundException('User anyid not found'),
-    //   );
-    // });
+
+    it('should return an exception if login fails', async () => {
+      jest
+        .spyOn(loginService, 'login')
+        .mockRejectedValue(new UnauthorizedException('User does not exists'));
+
+      await expect(loginService.login(loginDto)).rejects.toThrow(
+        new UnauthorizedException('User does not exists'),
+      );
+    });
   });
 });

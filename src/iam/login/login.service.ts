@@ -65,7 +65,6 @@ export class LoginService {
       issuer: this.configService.get('JWT_TOKEN_ISSUER'),
       accessToken: accessToken,
       user: payload,
-      status: HttpStatus.OK,
     };
   }
 }
