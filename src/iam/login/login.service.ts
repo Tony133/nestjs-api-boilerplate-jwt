@@ -10,7 +10,7 @@ import { IUsers } from '../../users/interfaces/users.interface';
 import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 import { HashingService } from '../../shared/hashing/hashing.service';
-import { ActiveUserData } from './interfaces/active-user-data.interface';
+import { JWTPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class LoginService {
@@ -55,7 +55,7 @@ export class LoginService {
     }
   }
 
-  private async signToken(payload: ActiveUserData): Promise<any> {
+  private async signToken(payload: JWTPayload): Promise<any> {
     const accessToken = await this.jwtService.signAsync(payload);
 
     return {
