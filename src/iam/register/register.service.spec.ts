@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../../users/users.service';
 import { RegisterService } from './register.service';
-import { Users } from '../users/entities/users.entity';
+import { Users } from '../../users/entities/users.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { HashingService } from '../shared/hashing/hashing.service';
-import { BcryptService } from '../shared/hashing/bcrypt.service';
-import { MailerService } from '../shared/mailer/mailer.service';
+import { HashingService } from '../../shared/hashing/hashing.service';
+import { BcryptService } from '../../shared/hashing/bcrypt.service';
+import { MailerService } from '../../shared/mailer/mailer.service';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 

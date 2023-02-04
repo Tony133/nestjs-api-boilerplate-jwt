@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Users } from '../users/entities/users.entity';
+import { Users } from '../../users/entities/users.entity';
 import { ForgotPasswordService } from './forgot-password.service';
-import { MailerService } from '../shared/mailer/mailer.service';
-import { UtilsService } from '../shared/utils/utils.service';
+import { MailerService } from '../../shared/mailer/mailer.service';
+import { UtilsService } from '../../shared/utils/utils.service';
 import { ConfigService } from '@nestjs/config';
-import { HashingService } from '../shared/hashing/hashing.service';
+import { HashingService } from '../../shared/hashing/hashing.service';
 import { Repository } from 'typeorm';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../../users/users.service';
 import { NotFoundException } from '@nestjs/common';
 
 const oneUser = {

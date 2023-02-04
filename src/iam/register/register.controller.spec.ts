@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RegisterController } from './register.controller';
 import { RegisterService } from './register.service';
-import { UsersService } from '../users/users.service';
-import { MailerService } from '../shared/mailer/mailer.service';
+import { UsersService } from '../../users/users.service';
+import { MailerService } from '../../shared/mailer/mailer.service';
 import { ConfigService } from '@nestjs/config';
 import { RegisterUserDto } from './dto/register-user.dto';
 

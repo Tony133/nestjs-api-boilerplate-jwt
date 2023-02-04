@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ChangePasswordService } from './change-password.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Users } from '../users/entities/users.entity';
+import { Users } from '../../users/entities/users.entity';
 import { Repository } from 'typeorm';
-import { UsersService } from '../users/users.service';
-import { MailerService } from '../shared/mailer/mailer.service';
+import { UsersService } from '../../users/users.service';
+import { MailerService } from '../../shared/mailer/mailer.service';
 import { ConfigService } from '@nestjs/config';
 
 const changePasswordUser = {

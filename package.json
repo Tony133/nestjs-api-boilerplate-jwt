@@ -80,7 +80,10 @@
       "/src/migrations",
       "/src/helpers",
       "/src/main.ts",
-      "/src/repl.ts"
+      "/src/repl.ts",
+      ".constants.ts",
+      ".guard.ts",
+      ".config.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"  

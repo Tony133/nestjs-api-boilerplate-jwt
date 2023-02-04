@@ -21,7 +21,7 @@ export class LoginService {
     private readonly hashingService: HashingService,
   ) {}
 
-  private async findUserByEmail(loginDto: LoginDto): Promise<IUsers> {
+  public async findUserByEmail(loginDto: LoginDto): Promise<IUsers> {
     return await this.usersService.findByEmail(loginDto.email);
   }
 
