@@ -30,6 +30,11 @@ class MockResponse {
     });
 }
 
+let responseObject = {
+  status: 200,
+  message: 'This is a simple example of item returned by your APIs.',
+};
+
 describe('AppController', () => {
   let appController: AppController;
   let appService: AppService;
@@ -43,7 +48,7 @@ describe('AppController', () => {
           provide: AppService,
           useValue: {
             getHello: jest.fn(() => {}),
-            getProtectedResource: jest.fn(() => {}),
+            getSecureResource: jest.fn(() => {}),
           },
         },
       ],
@@ -56,6 +61,20 @@ describe('AppController', () => {
   describe('root', () => {
     it('should be defined', () => {
       expect(appController).toBeDefined();
+    });
+
+    it('should call method getHello() in AppService', () => {
+      const createSpy = jest.spyOn(appService, 'getHello');
+
+      appController.getHello(response as any);
+      expect(createSpy).toHaveBeenCalled();
+    });
+
+    it('should call method getProtectedResource() in AppService', () => {
+      const createSpy = jest.spyOn(appService, 'getSecureResource');
+
+      appController.getProtectedResource(response as any);
+      expect(createSpy).toHaveBeenCalled();
     });
   });
 });
