@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { async } from 'rxjs';
 import { Repository } from 'typeorm';
 import { BcryptService } from '../shared/hashing/bcrypt.service';
 import { HashingService } from '../shared/hashing/hashing.service';
@@ -254,7 +253,7 @@ describe('UsersService', () => {
 
     it('should throw an exception if it not remove a user', async () => {
       jest
-        .spyOn(service, 'deleteUser')
+        .spyOn(repository, 'remove')
         .mockRejectedValueOnce(
           new HttpException('err', HttpStatus.BAD_REQUEST),
         );
