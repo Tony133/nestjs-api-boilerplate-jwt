@@ -34,7 +34,7 @@ describe('App (e2e)', () => {
           email: 'test1@example.it',
           password: '123456789',
         })
-        .expect(HttpStatus.OK);
+        .expect(HttpStatus.CREATED);
     });
 
     it('should throw an error for a bad email', () => {
