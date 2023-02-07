@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { AuthGuard } from '@nestjs/passport';
 import { HttpStatus } from '@nestjs/common';
+import { AccessTokenGuard } from '../src/iam/login/guards/access-token/access-token.guard';
 
 describe('App (e2e)', () => {
   let app;
@@ -11,7 +11,7 @@ describe('App (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
-      .overrideGuard(AuthGuard('jwt'))
+      .overrideGuard(AccessTokenGuard)
       .useValue({ canActivate: () => true })
       .compile();
 

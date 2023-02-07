@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
-import { AuthGuard } from '@nestjs/passport';
-import { MailerService } from '../../src/mailer/mailer.service';
+import { MailerService } from '../../src/shared/mailer/mailer.service';
 import { HttpStatus } from '@nestjs/common';
+import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
 
 describe('App (e2e)', () => {
   let app;
@@ -16,7 +16,7 @@ describe('App (e2e)', () => {
       .useValue({
         sendMail: jest.fn(() => true),
       })
-      .overrideGuard(AuthGuard('jwt'))
+      .overrideGuard(AccessTokenGuard)
       .useValue({ canActivate: () => true })
       .compile();
 
