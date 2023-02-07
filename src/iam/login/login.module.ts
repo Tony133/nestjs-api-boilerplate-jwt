@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from '../../users/entities/users.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersService } from '../../users/users.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { HashingService } from '../../shared/hashing/hashing.service';
 import { BcryptService } from '../../shared/hashing/bcrypt.service';
 import { APP_GUARD } from '@nestjs/core';
@@ -17,19 +17,7 @@ import jwtConfig from './config/jwt.config';
   imports: [
     TypeOrmModule.forFeature([Users]),
     ConfigModule.forFeature(jwtConfig),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET_KEY'),
-        audience: configService.get<string>('JWT_TOKEN_AUDIENCE'),
-        issuer: configService.get<string>('JWT_TOKEN_ISSUER'),
-        accessTokenTtl: parseInt(
-          configService.get<string>('JWT_ACCESS_TOKEN_TTL') ?? '3600',
-          10,
-        ),
-      }),
-      inject: [ConfigService],
-    }),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
   providers: [
     {

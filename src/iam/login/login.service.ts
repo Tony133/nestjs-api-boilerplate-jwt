@@ -60,9 +60,9 @@ export class LoginService {
 
     return {
       sub: payload.id,
-      expiresIn: this.configService.get('JWT_ACCESS_TOKEN_TTL'),
-      audience: this.configService.get('JWT_TOKEN_AUDIENCE'),
-      issuer: this.configService.get('JWT_TOKEN_ISSUER'),
+      expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_TTL'),
+      audience: this.configService.get<string>('JWT_TOKEN_AUDIENCE'),
+      issuer: this.configService.get<string>('JWT_TOKEN_ISSUER'),
       accessToken: accessToken,
       user: payload,
     };
