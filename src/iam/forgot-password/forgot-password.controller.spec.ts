@@ -4,34 +4,6 @@ import { ForgotPasswordService } from './forgot-password.service';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { NotFoundException } from '@nestjs/common';
 
-class MockResponse {
-  res: any;
-  constructor() {
-    this.res = {};
-  }
-  status = jest
-    .fn()
-    .mockReturnThis()
-    .mockImplementationOnce((code) => {
-      this.res.code = code;
-      return this;
-    });
-  send = jest
-    .fn()
-    .mockReturnThis()
-    .mockImplementationOnce((message) => {
-      this.res.message = message;
-      return this;
-    });
-  json = jest
-    .fn()
-    .mockReturnThis()
-    .mockImplementationOnce((json) => {
-      this.res.json = json;
-      return this;
-    });
-}
-
 const forgotPasswordDto: ForgotPasswordDto = {
   email: 'test@example.com',
 };
@@ -39,7 +11,6 @@ const forgotPasswordDto: ForgotPasswordDto = {
 describe('ForgotPassword Controller', () => {
   let forgotPasswordController: ForgotPasswordController;
   let forgotPasswordService: ForgotPasswordService;
-  const response = new MockResponse();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -70,10 +41,7 @@ describe('ForgotPassword Controller', () => {
     it('should call method forgotPassword in forgotPasswordService', async () => {
       const createSpy = jest.spyOn(forgotPasswordService, 'forgotPassword');
 
-      await forgotPasswordController.forgotPassword(
-        response,
-        forgotPasswordDto,
-      );
+      await forgotPasswordController.forgotPassword(forgotPasswordDto);
       expect(createSpy).toHaveBeenCalledWith(forgotPasswordDto);
     });
 

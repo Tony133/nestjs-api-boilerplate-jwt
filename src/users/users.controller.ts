@@ -9,6 +9,7 @@ import {
   HttpStatus,
   NotFoundException,
   Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserProfileDto } from './dto/user-profile.dto';
@@ -35,61 +36,50 @@ export class UsersController {
   }
 
   @Get('/:userId/profile')
-  public async getUser(
-    @Res() res,
-    @Param('userId') userId: string,
-  ): Promise<IUsers> {
+  public async getUser(@Param('userId') userId: string): Promise<any> {
     const user = await this.usersService.findById(userId);
 
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }
 
-    return res.status(HttpStatus.OK).json({
+    return {
       user: user,
       status: HttpStatus.OK,
-    });
+    };
   }
 
   @Put('/:userId/profile')
   public async updateProfileUser(
-    @Res() res,
     @Param('userId') userId: string,
     @Body() userProfileDto: UserProfileDto,
   ): Promise<any> {
     try {
       await this.usersService.updateProfileUser(userId, userProfileDto);
 
-      return res.status(HttpStatus.OK).json({
+      return {
         message: 'User Updated successfully!',
         status: HttpStatus.OK,
-      });
+      };
     } catch (err) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error: User not updated!',
-        status: HttpStatus.BAD_REQUEST,
-      });
+      throw new BadRequestException(err, 'Error: User not updated!');
     }
   }
 
   @Put('/:userId')
   public async updateUser(
-    @Res() res,
     @Param('userId') userId: string,
     @Body() userUpdateDto: UserUpdateDto,
   ) {
     try {
       await this.usersService.updateUser(userId, userUpdateDto);
 
-      return res.status(HttpStatus.OK).json({
+      return {
         message: 'User Updated successfully!',
-        status: 200,
-      });
+        status: HttpStatus.OK,
+      };
     } catch (err) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error: User not updated!',
-        status: 400,
-      });
+      throw new BadRequestException(err, 'Error: User not updated!');
     }
   }
 

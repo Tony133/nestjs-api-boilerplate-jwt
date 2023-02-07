@@ -5,34 +5,6 @@ import { UserDto } from './dto/user.dto';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
-class MockResponse {
-  res: any;
-  constructor() {
-    this.res = {};
-  }
-  status = jest
-    .fn()
-    .mockReturnThis()
-    .mockImplementationOnce((code) => {
-      this.res.code = code;
-      return this;
-    });
-  send = jest
-    .fn()
-    .mockReturnThis()
-    .mockImplementationOnce((message) => {
-      this.res.message = message;
-      return this;
-    });
-  json = jest
-    .fn()
-    .mockReturnThis()
-    .mockImplementationOnce((json) => {
-      this.res.json = json;
-      return this;
-    });
-}
-
 const userDto: UserDto = {
   name: 'name #1',
   username: 'username #1',
@@ -56,7 +28,6 @@ const userProfileDto: UserProfileDto = {
 describe('Users Controller', () => {
   let usersController: UsersController;
   let usersService: UsersService;
-  const response = new MockResponse();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -106,7 +77,7 @@ describe('Users Controller', () => {
       it('should call method getUser in userService', async () => {
         const createSpy = jest.spyOn(usersService, 'findById');
 
-        await usersController.getUser(response, '1');
+        await usersController.getUser('1');
         expect(createSpy).toHaveBeenCalledWith('1');
       });
 
@@ -114,7 +85,7 @@ describe('Users Controller', () => {
         jest
           .spyOn(usersService, 'findById')
           .mockRejectedValueOnce(new NotFoundException());
-        expect(usersController.getUser(response, 'anyid')).rejects.toThrow(
+        expect(usersController.getUser('anyid')).rejects.toThrow(
           new NotFoundException(),
         );
       });
@@ -124,7 +95,7 @@ describe('Users Controller', () => {
       it('should call method updateProfileUser in userService', async () => {
         const createSpy = jest.spyOn(usersService, 'updateProfileUser');
 
-        await usersController.updateProfileUser(response, '1', userProfileDto);
+        await usersController.updateProfileUser('1', userProfileDto);
         expect(createSpy).toHaveBeenCalledWith('1', userProfileDto);
       });
     });
@@ -133,7 +104,7 @@ describe('Users Controller', () => {
       it('should call method updateUser in userService', async () => {
         const createSpy = jest.spyOn(usersService, 'updateUser');
 
-        await usersController.updateUser(response, '1', userUpdateDto);
+        await usersController.updateUser('1', userUpdateDto);
         expect(createSpy).toHaveBeenCalledWith('1', userUpdateDto);
       });
     });

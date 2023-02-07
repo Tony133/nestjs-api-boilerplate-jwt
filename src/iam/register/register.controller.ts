@@ -1,4 +1,10 @@
-import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpStatus,
+  BadRequestException,
+} from '@nestjs/common';
 import { RegisterService } from './register.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -13,21 +19,17 @@ export class RegisterController {
 
   @Post()
   public async register(
-    @Res() res,
     @Body() registerUserDto: RegisterUserDto,
   ): Promise<any> {
     try {
       await this.registerService.register(registerUserDto);
 
-      return res.status(HttpStatus.CREATED).json({
+      return {
         message: 'User registration successfully!',
         status: HttpStatus.CREATED,
-      });
+      };
     } catch (err) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error: User not registration!',
-        status: HttpStatus.BAD_REQUEST,
-      });
+      throw new BadRequestException(err, 'Error: User not registration!');
     }
   }
 }

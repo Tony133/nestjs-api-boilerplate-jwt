@@ -6,10 +6,16 @@ import { Repository } from 'typeorm';
 import { UsersService } from '../../users/users.service';
 import { MailerService } from '../../shared/mailer/mailer.service';
 import { ConfigService } from '@nestjs/config';
+import { BadRequestException } from '@nestjs/common';
 
 const changePasswordUser = {
   email: 'test@example.it',
   password: '1234567',
+};
+
+const changePasswordDtoEmpty = {
+  email: '',
+  password: '',
 };
 
 describe('ChangePasswordService', () => {

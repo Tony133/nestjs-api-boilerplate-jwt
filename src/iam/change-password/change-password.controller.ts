@@ -1,4 +1,10 @@
-import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpStatus,
+  BadRequestException,
+} from '@nestjs/common';
 import { ChangePasswordService } from './change-password.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -13,21 +19,17 @@ export class ChangePasswordController {
 
   @Post()
   public async changePassword(
-    @Res() res,
     @Body() changePasswordDto: ChangePasswordDto,
   ): Promise<any> {
     try {
       await this.changePasswordService.changePassword(changePasswordDto);
 
-      return res.status(HttpStatus.OK).json({
+      return {
         message: 'Request Change Password Successfully!',
         status: HttpStatus.OK,
-      });
+      };
     } catch (err) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error: Change password failed!',
-        status: HttpStatus.BAD_REQUEST,
-      });
+      throw new BadRequestException(err, 'Error: Change password failed!');
     }
   }
 }

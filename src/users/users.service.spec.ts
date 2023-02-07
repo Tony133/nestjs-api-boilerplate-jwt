@@ -253,7 +253,7 @@ describe('UsersService', () => {
 
     it('should throw an exception if it not remove a user', async () => {
       jest
-        .spyOn(service, 'deleteUser')
+        .spyOn(repository, 'remove')
         .mockRejectedValueOnce(
           new HttpException('err', HttpStatus.BAD_REQUEST),
         );
