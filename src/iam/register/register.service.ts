@@ -24,8 +24,8 @@ export class RegisterService {
   }
 
   private sendMailRegisterUser(user): void {
-    this.mailerService
-      .sendMail({
+    try {
+      this.mailerService.sendMail({
         to: user.email,
         from: 'from@example.com',
         subject: 'Registration successful ✔',
@@ -37,12 +37,10 @@ export class RegisterService {
             "You did it! You registered!, You're successfully registered.✔",
           nameUser: user.name,
         },
-      })
-      .then((response) => {
-        Logger.log('User Registration: Send Mail successfully!', response);
-      })
-      .catch((err) => {
-        Logger.log('User Registration: Send Mail Failed!', err);
       });
+      Logger.log('[MailService] User Registration: Send Mail successfully!');
+    } catch (err) {
+      Logger.error('[MailService] User Registration: Send Mail failed!', err);
+    }
   }
 }

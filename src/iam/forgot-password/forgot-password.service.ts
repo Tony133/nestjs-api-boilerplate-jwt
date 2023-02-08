@@ -32,8 +32,8 @@ export class ForgotPasswordService {
   }
 
   private sendMailForgotPassword(email, password): void {
-    this.mailerService
-      .sendMail({
+    try {
+      this.mailerService.sendMail({
         to: email,
         from: 'from@example.com',
         subject: 'Forgot Password successful ✔',
@@ -45,12 +45,10 @@ export class ForgotPasswordService {
             'Request Reset Password Successfully!  ✔, This is your new password: ' +
             password,
         },
-      })
-      .then((response) => {
-        Logger.log('Forgot Password: Send Mail successfully!', response);
-      })
-      .catch((err) => {
-        Logger.log('Forgot Password: Send Mail Failed!', err);
       });
+      Logger.log('[MailService] Forgot Password: Send Mail successfully!');
+    } catch (err) {
+      Logger.error('[MailService] Forgot Password: Send Mail Failed!', err);
+    }
   }
 }

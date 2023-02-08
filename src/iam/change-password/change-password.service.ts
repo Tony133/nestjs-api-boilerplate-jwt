@@ -22,8 +22,8 @@ export class ChangePasswordService {
   }
 
   private sendMailChangePassword(user): void {
-    this.mailerService
-      .sendMail({
+    try {
+      this.mailerService.sendMail({
         to: user.email,
         from: 'from@example.com',
         subject: 'Change Password successful ✔',
@@ -36,12 +36,10 @@ export class ChangePasswordService {
             user.password,
           nameUser: user.name,
         },
-      })
-      .then((response) => {
-        Logger.log('Change Password: Send Mail successfully!', response);
-      })
-      .catch((err) => {
-        Logger.log('Change Password: Send Mail Failed!', err);
       });
+      Logger.log('[MailService] Change Password: Send Mail successfully!');
+    } catch (err) {
+      Logger.error('[MailService] Change Password: Send Mail Failed!', err);
+    }
   }
 }

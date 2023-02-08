@@ -47,7 +47,12 @@ describe('ForgotPasswordService', () => {
           },
         },
         ConfigService,
-        MailerService,
+        {
+          provide: MailerService,
+          useValue: {
+            sendMail: jest.fn(),
+          },
+        },
         UtilsService,
       ],
     }).compile();
