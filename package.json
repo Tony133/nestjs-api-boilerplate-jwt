@@ -35,7 +35,7 @@
     "class-validator": "^0.13.0",
     "express-basic-auth": "^1.2.1",
     "handlebars": "^4.7.7",
-    "mysql2": "^2.3.3",
+    "mysql2": "^3.1.1",
     "nodemailer": "^6.9.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^4.1.2",
