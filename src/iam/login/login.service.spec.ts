@@ -59,7 +59,7 @@ describe('LoginService', () => {
           provide: HashingService,
           useValue: {
             hash: jest.fn(() => 'pass123'),
-            compare: jest.fn(() => 'pass123'),
+            compare: jest.fn(() => true),
           },
         },
         UsersService,
