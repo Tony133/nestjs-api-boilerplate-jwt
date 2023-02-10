@@ -30,11 +30,6 @@ class MockResponse {
     });
 }
 
-let responseObject = {
-  status: 200,
-  message: 'This is a simple example of item returned by your APIs.',
-};
-
 describe('AppController', () => {
   let appController: AppController;
   let appService: AppService;
