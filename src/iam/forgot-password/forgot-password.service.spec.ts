@@ -75,14 +75,5 @@ describe('ForgotPasswordService', () => {
         }),
       ).toEqual(oneUser);
     });
-
-    it('should throw an exception if it not found a user by email', () => {
-      jest
-        .spyOn(service, 'forgotPassword')
-        .mockRejectedValueOnce(new NotFoundException());
-      expect(
-        service.forgotPassword({ email: 'test@example.com' }),
-      ).rejects.toThrow(new NotFoundException());
-    });
   });
 });

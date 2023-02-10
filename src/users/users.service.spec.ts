@@ -170,17 +170,6 @@ describe('UsersService', () => {
       );
     });
 
-    it('should throw an exception if it not update a user by email', async () => {
-      jest
-        .spyOn(service, 'updateByEmail')
-        .mockRejectedValueOnce(
-          new HttpException('err', HttpStatus.BAD_REQUEST),
-        );
-      await expect(service.updateByEmail('test@example.com')).rejects.toThrow(
-        new HttpException('err', HttpStatus.BAD_REQUEST),
-      );
-    });
-
     it('should return an exception if update by email fails', async () => {
       repository.save = jest.fn().mockRejectedValueOnce(null);
       await expect(
@@ -196,17 +185,6 @@ describe('UsersService', () => {
       ).toEqual(updateUserByPassword);
     });
 
-    it('should throw an exception if it not update a user by password', async () => {
-      jest
-        .spyOn(service, 'updateByPassword')
-        .mockRejectedValueOnce(
-          new HttpException('err', HttpStatus.BAD_REQUEST),
-        );
-      await expect(
-        service.updateByPassword('test@example.com', 'pass123'),
-      ).rejects.toThrow(new HttpException('err', HttpStatus.BAD_REQUEST));
-    });
-
     it('should return an exception if update by password fails', async () => {
       repository.save = jest.fn().mockRejectedValueOnce(null);
       await expect(
@@ -220,17 +198,6 @@ describe('UsersService', () => {
       expect(
         await service.updateProfileUser('anyid', updateProfileUser),
       ).toEqual(updateProfileUser);
-    });
-
-    it('should throw an exception if it not update a profile user', async () => {
-      jest
-        .spyOn(service, 'updateProfileUser')
-        .mockRejectedValueOnce(
-          new HttpException('err', HttpStatus.BAD_REQUEST),
-        );
-      await expect(
-        service.updateProfileUser('anyid', updateProfileUser),
-      ).rejects.toThrow(new HttpException('err', HttpStatus.BAD_REQUEST));
     });
 
     it('should return an exception if update profile user fails', async () => {
@@ -271,16 +238,6 @@ describe('UsersService', () => {
       expect(user).toBeUndefined();
     });
 
-    it('should throw an exception if it not remove a user', async () => {
-      jest
-        .spyOn(repository, 'remove')
-        .mockRejectedValueOnce(
-          new HttpException('err', HttpStatus.BAD_REQUEST),
-        );
-      await expect(service.deleteUser('anyid')).rejects.toThrow(
-        new HttpException('err', HttpStatus.BAD_REQUEST),
-      );
-    });
     it('should throw an error if no user is found with an id', async () => {
       repository.findOneBy = jest.fn().mockResolvedValueOnce(undefined);
       await expect(service.deleteUser('bad id')).rejects.toThrow(

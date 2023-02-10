@@ -45,15 +45,6 @@ describe('ForgotPassword Controller', () => {
       expect(createSpy).toHaveBeenCalledWith(forgotPasswordDto);
     });
 
-    it('should throw an exception if it finds a user', () => {
-      jest
-        .spyOn(forgotPasswordService, 'forgotPassword')
-        .mockRejectedValueOnce(new NotFoundException());
-      expect(
-        forgotPasswordService.forgotPassword({ email: 'test@example.com' }),
-      ).rejects.toThrow(new NotFoundException());
-    });
-
     it('should throw an exception if it not find an user email', async () => {
       forgotPasswordService.forgotPassword = jest
         .fn()

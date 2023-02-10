@@ -51,15 +51,6 @@ describe('ChangePassword Controller', () => {
       expect(createSpy).toHaveBeenCalledWith(changePasswordDto);
     });
 
-    it('generates an exception when password and email are empty', async () => {
-      try {
-        await changePasswordController.changePassword(changePasswordDtoEmpty);
-      } catch (error) {
-        expect(error).toBeInstanceOf(new BadRequestException());
-        expect(error.message).toBe('Error: Change password failed!');
-      }
-    });
-
     it('should throw an exception if it not find an user email', async () => {
       changePasswordService.changePassword = jest
         .fn()

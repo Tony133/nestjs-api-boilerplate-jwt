@@ -87,15 +87,6 @@ describe('Users Controller', () => {
           NotFoundException,
         );
       });
-
-      it('should throw an exception if it not find a user', () => {
-        jest
-          .spyOn(usersService, 'findById')
-          .mockRejectedValueOnce(new NotFoundException());
-        expect(usersController.getUser('anyid')).rejects.toThrow(
-          new NotFoundException(),
-        );
-      });
     });
 
     describe('updateProfileUser() method', () => {
