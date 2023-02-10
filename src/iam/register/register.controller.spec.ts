@@ -24,7 +24,12 @@ describe('Register Controller', () => {
       providers: [
         RegisterService,
         MailerService,
-        ConfigService,
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn().mockReturnValue('some string'),
+          },
+        },
         {
           provide: UsersService,
           useValue: {

@@ -46,7 +46,12 @@ describe('ForgotPasswordService', () => {
             hash: jest.fn(() => 'pass123'),
           },
         },
-        ConfigService,
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn().mockReturnValue('some string'),
+          },
+        },
         {
           provide: MailerService,
           useValue: {

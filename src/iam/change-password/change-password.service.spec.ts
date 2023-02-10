@@ -32,7 +32,12 @@ describe('ChangePasswordService', () => {
             sendMail: jest.fn(),
           },
         },
-        ConfigService,
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn().mockReturnValue('some string'),
+          },
+        },
         {
           provide: getRepositoryToken(Users),
           useValue: {
