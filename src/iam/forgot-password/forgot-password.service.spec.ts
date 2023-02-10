@@ -8,7 +8,6 @@ import { ConfigService } from '@nestjs/config';
 import { HashingService } from '../../shared/hashing/hashing.service';
 import { Repository } from 'typeorm';
 import { UsersService } from '../../users/users.service';
-import { NotFoundException } from '@nestjs/common';
 
 const oneUser = {
   email: 'test@example.com',

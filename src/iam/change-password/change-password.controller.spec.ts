@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ChangePasswordController } from './change-password.controller';
 import { ChangePasswordService } from './change-password.service';
@@ -7,11 +7,6 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 const changePasswordDto: ChangePasswordDto = {
   email: 'text@example.com',
   password: 'password123',
-};
-
-const changePasswordDtoEmpty = {
-  email: '',
-  password: '',
 };
 
 describe('ChangePassword Controller', () => {

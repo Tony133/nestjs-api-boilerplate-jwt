@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ForgotPasswordController } from './forgot-password.controller';
 import { ForgotPasswordService } from './forgot-password.service';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 
 const forgotPasswordDto: ForgotPasswordDto = {
   email: 'test@example.com',
