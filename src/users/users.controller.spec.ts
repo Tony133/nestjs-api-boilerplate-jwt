@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { UserDto } from './dto/user.dto';
@@ -81,6 +81,13 @@ describe('Users Controller', () => {
         expect(createSpy).toHaveBeenCalledWith('1');
       });
 
+      it('should return an exception if update user fails', async () => {
+        usersService.findById = jest.fn().mockResolvedValueOnce(null);
+        await expect(usersController.getUser('not correct id')).rejects.toThrow(
+          NotFoundException,
+        );
+      });
+
       it('should throw an exception if it not find a user', () => {
         jest
           .spyOn(usersService, 'findById')
@@ -98,6 +105,17 @@ describe('Users Controller', () => {
         await usersController.updateProfileUser('1', userProfileDto);
         expect(createSpy).toHaveBeenCalledWith('1', userProfileDto);
       });
+
+      it('should return an exception if update profile user fails', async () => {
+        usersService.updateProfileUser = jest.fn().mockRejectedValueOnce(null);
+        await expect(
+          usersController.updateProfileUser('not a correct id', {
+            name: 'not a correct name',
+            username: 'not a correct username',
+            email: 'not a correct email',
+          }),
+        ).rejects.toThrow(BadRequestException);
+      });
     });
 
     describe('updateUser() method', () => {
@@ -106,6 +124,18 @@ describe('Users Controller', () => {
 
         await usersController.updateUser('1', userUpdateDto);
         expect(createSpy).toHaveBeenCalledWith('1', userUpdateDto);
+      });
+
+      it('should return an exception if update user fails', async () => {
+        usersService.updateUser = jest.fn().mockRejectedValueOnce(null);
+        await expect(
+          usersController.updateUser('not a correct id', {
+            name: 'not a correct name',
+            username: 'not a correct username',
+            email: 'not a correct email',
+            password: 'not a correct password',
+          }),
+        ).rejects.toThrow(BadRequestException);
       });
     });
 

@@ -86,7 +86,7 @@ describe('UsersService', () => {
           useValue: {
             find: jest.fn().mockResolvedValue(userArray),
             findOne: jest.fn().mockResolvedValue(oneUser),
-            findOneBy: jest.fn().mockReturnValue(oneUser),
+            findOneBy: jest.fn().mockResolvedValueOnce(oneUser),
             save: jest.fn().mockReturnValue(createUser),
             updateByEmail: jest.fn().mockResolvedValue(updateUserByEmail),
             updateByPassword: jest.fn().mockResolvedValue(updateUserByPassword),
@@ -119,28 +119,21 @@ describe('UsersService', () => {
     });
 
     it('should throw an exception if it not found a user by email', async () => {
-      jest
-        .spyOn(service, 'findByEmail')
-        .mockRejectedValueOnce(
-          new NotFoundException('User test@example.com not found'),
-        );
-      await expect(service.findByEmail('test@example.com')).rejects.toThrow(
-        new NotFoundException('User test@example.com not found'),
+      repository.findOneBy = jest.fn().mockResolvedValueOnce(null);
+      await expect(service.findByEmail('not a correct email')).rejects.toThrow(
+        NotFoundException,
       );
     });
   });
-
   describe('findById() method', () => {
     it('should find a user by id', async () => {
       expect(await service.findById('anyid')).toEqual(oneUser);
     });
 
     it('should throw an exception if it not found a user by id', async () => {
-      jest
-        .spyOn(service, 'findById')
-        .mockRejectedValueOnce(new NotFoundException('User anyid not found'));
-      await expect(service.findById('anyid')).rejects.toThrow(
-        new NotFoundException('User anyid not found'),
+      repository.findOneBy = jest.fn().mockResolvedValueOnce(null);
+      await expect(service.findById('not a correct id')).rejects.toThrow(
+        NotFoundException,
       );
     });
   });
@@ -157,15 +150,16 @@ describe('UsersService', () => {
       ).toEqual(createUser);
     });
 
-    it('should throw an exception if it not create a user', async () => {
-      jest
-        .spyOn(service, 'create')
-        .mockRejectedValueOnce(
-          new HttpException('err', HttpStatus.BAD_REQUEST),
-        );
-      await expect(service.create(createUser)).rejects.toThrow(
-        new HttpException('err', HttpStatus.BAD_REQUEST),
-      );
+    it('should return an exception if login fails', async () => {
+      repository.save = jest.fn().mockRejectedValueOnce(null);
+      await expect(
+        service.create({
+          name: 'not a correct name',
+          username: 'not a correct username',
+          email: 'not a correct email',
+          password: 'not a correct password',
+        }),
+      ).rejects.toThrow(HttpException);
     });
   });
 
@@ -186,6 +180,13 @@ describe('UsersService', () => {
         new HttpException('err', HttpStatus.BAD_REQUEST),
       );
     });
+
+    it('should return an exception if update by email fails', async () => {
+      repository.save = jest.fn().mockRejectedValueOnce(null);
+      await expect(
+        service.updateByEmail('not a correct email'),
+      ).rejects.toThrow(HttpException);
+    });
   });
 
   describe('updateByPassword() method', () => {
@@ -204,6 +205,13 @@ describe('UsersService', () => {
       await expect(
         service.updateByPassword('test@example.com', 'pass123'),
       ).rejects.toThrow(new HttpException('err', HttpStatus.BAD_REQUEST));
+    });
+
+    it('should return an exception if update by password fails', async () => {
+      repository.save = jest.fn().mockRejectedValueOnce(null);
+      await expect(
+        service.updateByPassword('not a correct email', 'not correct password'),
+      ).rejects.toThrow(HttpException);
     });
   });
 
@@ -224,6 +232,17 @@ describe('UsersService', () => {
         service.updateProfileUser('anyid', updateProfileUser),
       ).rejects.toThrow(new HttpException('err', HttpStatus.BAD_REQUEST));
     });
+
+    it('should return an exception if update profile user fails', async () => {
+      repository.save = jest.fn().mockRejectedValueOnce(null);
+      await expect(
+        service.updateProfileUser('not a correct id', {
+          name: 'not a correct name',
+          username: 'not a correct username',
+          email: 'not a correct email',
+        }),
+      ).rejects.toThrow(HttpException);
+    });
   });
 
   describe('updateUser() method', () => {
@@ -231,15 +250,16 @@ describe('UsersService', () => {
       expect(await service.updateUser('anyid', updateUser)).toEqual(updateUser);
     });
 
-    it('should throw an exception if it not update a user', async () => {
-      jest
-        .spyOn(service, 'updateUser')
-        .mockRejectedValueOnce(
-          new HttpException('err', HttpStatus.BAD_REQUEST),
-        );
-      await expect(service.updateUser('anyid', updateUser)).rejects.toThrow(
-        new HttpException('err', HttpStatus.BAD_REQUEST),
-      );
+    it('should return an exception if update profile user fails', async () => {
+      repository.update = jest.fn().mockRejectedValueOnce(null);
+      await expect(
+        service.updateUser('not a correct id', {
+          name: 'not a correct name',
+          username: 'not a correct username',
+          email: 'not a correct email',
+          password: 'not a correct password',
+        }),
+      ).rejects.toThrow(HttpException);
     });
   });
 

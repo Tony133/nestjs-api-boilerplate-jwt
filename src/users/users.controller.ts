@@ -3,9 +3,7 @@ import {
   Put,
   Get,
   Body,
-  Res,
   Param,
-  UseGuards,
   HttpStatus,
   NotFoundException,
   Delete,
@@ -37,7 +35,7 @@ export class UsersController {
 
   @Get('/:userId/profile')
   public async getUser(@Param('userId') userId: string): Promise<any> {
-    const user = await this.usersService.findById(userId);
+    const user = await this.findOneUser(userId);
 
     if (!user) {
       throw new NotFoundException('User does not exist!');

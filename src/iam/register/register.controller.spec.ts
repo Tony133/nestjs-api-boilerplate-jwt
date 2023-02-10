@@ -5,6 +5,7 @@ import { UsersService } from '../../users/users.service';
 import { MailerService } from '../../shared/mailer/mailer.service';
 import { ConfigService } from '@nestjs/config';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { BadRequestException } from '@nestjs/common';
 
 const registerUserDto: RegisterUserDto = {
   name: 'name #1',
@@ -53,6 +54,18 @@ describe('Register Controller', () => {
 
       await registerController.register(registerUserDto);
       expect(createSpy).toHaveBeenCalledWith(registerUserDto);
+    });
+
+    it('should throw an exception if it not register fails', async () => {
+      registerService.register = jest.fn().mockRejectedValueOnce(null);
+      await expect(
+        registerController.register({
+          name: 'not a correct name',
+          email: 'not a correct email',
+          username: 'not a correct username',
+          password: 'not a correct password',
+        }),
+      ).rejects.toThrow(BadRequestException);
     });
   });
 });

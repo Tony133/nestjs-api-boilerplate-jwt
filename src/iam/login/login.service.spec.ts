@@ -8,7 +8,7 @@ import { Users } from '../../users/entities/users.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginDto } from './dto/login.dto';
-import { UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedException, HttpException } from '@nestjs/common';
 
 const oneUser = {
   id: 1,
@@ -41,6 +41,7 @@ const payload = {
 describe('LoginService', () => {
   let loginService: LoginService;
   let usersService: UsersService;
+  let hashingService: HashingService;
   let repository: Repository<Users>;
 
   beforeEach(async () => {
@@ -76,6 +77,7 @@ describe('LoginService', () => {
 
     loginService = module.get<LoginService>(LoginService);
     usersService = module.get<UsersService>(UsersService);
+    hashingService = module.get<HashingService>(HashingService);
     repository = module.get<Repository<Users>>(getRepositoryToken(Users));
   });
 
@@ -100,6 +102,24 @@ describe('LoginService', () => {
       await expect(loginService.login(loginDto)).rejects.toThrow(
         new UnauthorizedException('User does not exists'),
       );
+    });
+
+    it('should return an exception if wrong password', async () => {
+      usersService.findByEmail = jest.fn().mockRejectedValueOnce(null);
+      hashingService.compare = jest.fn().mockReturnValue(false);
+      await expect(
+        hashingService.compare('password', 'not a correct password'),
+      ).toBe(false);
+    });
+
+    it('should return an exception if login fails', async () => {
+      usersService.findByEmail = jest.fn().mockRejectedValueOnce(null);
+      await expect(
+        loginService.login({
+          email: 'not a correct email',
+          password: 'not a correct password',
+        }),
+      ).rejects.toThrow(HttpException);
     });
   });
 });

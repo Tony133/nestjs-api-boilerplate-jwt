@@ -22,6 +22,7 @@ const user = {
 describe('ForgotPasswordService', () => {
   let service: ForgotPasswordService;
   let repository: Repository<Users>;
+  let mailerService: MailerService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -58,6 +59,7 @@ describe('ForgotPasswordService', () => {
     }).compile();
 
     service = module.get<ForgotPasswordService>(ForgotPasswordService);
+    mailerService = module.get<MailerService>(MailerService);
     repository = module.get<Repository<Users>>(getRepositoryToken(Users));
   });
 

@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BcryptService } from './bcrypt.service';
-import { compare } from 'bcrypt';
 
 describe('BcryptService', () => {
   let service: BcryptService;
@@ -11,8 +10,8 @@ describe('BcryptService', () => {
         {
           provide: BcryptService,
           useValue: {
-            hash: jest.fn(),
-            compare: jest.fn(),
+            hash: jest.fn(() => 'pass123'),
+            compare: jest.fn(() => true),
           },
         },
       ],

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ForgotPasswordController } from './forgot-password.controller';
 import { ForgotPasswordService } from './forgot-password.service';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 const forgotPasswordDto: ForgotPasswordDto = {
   email: 'test@example.com',
@@ -52,6 +52,17 @@ describe('ForgotPassword Controller', () => {
       expect(
         forgotPasswordService.forgotPassword({ email: 'test@example.com' }),
       ).rejects.toThrow(new NotFoundException());
+    });
+
+    it('should throw an exception if it not find an user email', async () => {
+      forgotPasswordService.forgotPassword = jest
+        .fn()
+        .mockRejectedValueOnce(null);
+      await expect(
+        forgotPasswordController.forgotPassword({
+          email: 'not a correct email',
+        }),
+      ).rejects.toThrow(BadRequestException);
     });
   });
 });

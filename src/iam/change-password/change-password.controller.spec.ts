@@ -59,5 +59,17 @@ describe('ChangePassword Controller', () => {
         expect(error.message).toBe('Error: Change password failed!');
       }
     });
+
+    it('should throw an exception if it not find an user email', async () => {
+      changePasswordService.changePassword = jest
+        .fn()
+        .mockRejectedValueOnce(null);
+      await expect(
+        changePasswordController.changePassword({
+          email: 'not a correct email',
+          password: 'not a correct password',
+        }),
+      ).rejects.toThrow(BadRequestException);
+    });
   });
 });

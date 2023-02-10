@@ -3,6 +3,7 @@ import {
   NotFoundException,
   HttpException,
   HttpStatus,
+  BadRequestException,
 } from '@nestjs/common';
 import { Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,7 +32,7 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new NotFoundException(`User ${email} not found`);
+      throw new NotFoundException(`User not found`);
     }
 
     return user;
@@ -112,13 +113,9 @@ export class UsersService {
         { ...userUpdateDto },
       );
 
-      if (!user) {
-        throw new NotFoundException(`User #${id} does not exist`);
-      }
-
       return user;
     } catch (err) {
-      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+      throw new BadRequestException('User not updated');
     }
   }
 
