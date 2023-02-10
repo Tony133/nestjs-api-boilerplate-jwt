@@ -27,28 +27,26 @@ export class LoginService {
 
   public async login(loginDto: LoginDto): Promise<any> {
     try {
-      const user = this.findUserByEmail(loginDto);
+      const user = await this.findUserByEmail(loginDto);
       if (!user) {
         throw new UnauthorizedException('User does not exists');
       }
 
       const passwordIsValid = await this.hashingService.compare(
         loginDto.password,
-        (
-          await user
-        ).password,
+        user.password,
       );
 
-      if (!passwordIsValid == true) {
+      if (!passwordIsValid) {
         throw new UnauthorizedException(
           'Authentication failed. Wrong password',
         );
       }
 
       return await this.signToken({
-        name: (await user).name,
-        email: (await user).email,
-        id: (await user).id,
+        name: user.name,
+        email: user.email,
+        id: user.id,
       });
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);

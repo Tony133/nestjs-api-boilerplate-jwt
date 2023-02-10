@@ -83,10 +83,6 @@ export class UsersController {
 
   @Delete('/:userId')
   public async deleteUser(@Param('userId') userId: string): Promise<void> {
-    const user = this.usersService.deleteUser(userId);
-    if (!user) {
-      throw new NotFoundException('User does not exist!');
-    }
-    return user;
+    await this.usersService.deleteUser(userId);
   }
 }

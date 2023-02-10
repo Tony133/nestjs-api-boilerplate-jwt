@@ -281,5 +281,12 @@ describe('UsersService', () => {
         new HttpException('err', HttpStatus.BAD_REQUEST),
       );
     });
+    it('should throw an error if no user is found with an id', async () => {
+      repository.findOneBy = jest.fn().mockResolvedValueOnce(undefined);
+      await expect(service.deleteUser('bad id')).rejects.toThrow(
+        NotFoundException,
+      );
+      expect(repository.findOneBy).toBeCalledTimes(1);
+    });
   });
 });
