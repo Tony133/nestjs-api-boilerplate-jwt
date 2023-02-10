@@ -6,7 +6,6 @@ import { LoginService } from './login.service';
 import { UsersService } from '../../users/users.service';
 import { Users } from '../../users/entities/users.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { LoginDto } from './dto/login.dto';
 import { UnauthorizedException, HttpException } from '@nestjs/common';
 
@@ -25,6 +24,10 @@ const loginDto: LoginDto = {
 
 const userLogin = {
   sub: 1,
+  accessToken: undefined,
+  audience: 'some string',
+  expiresIn: 'some string',
+  issuer: 'some string',
   user: {
     id: 1,
     name: 'name #1',
@@ -42,7 +45,6 @@ describe('LoginService', () => {
   let loginService: LoginService;
   let usersService: UsersService;
   let hashingService: HashingService;
-  let repository: Repository<Users>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -55,15 +57,25 @@ describe('LoginService', () => {
             signToken: jest.fn(() => payload),
           },
         },
-        ConfigService,
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn().mockReturnValue('some string'),
+          },
+        },
         {
           provide: HashingService,
           useValue: {
-            hash: jest.fn(() => 'pass123'),
-            compare: jest.fn(() => true),
+            hash: jest.fn(() => Promise.resolve('pass123')),
+            compare: jest.fn(() => Promise.resolve(true)),
           },
         },
-        UsersService,
+        {
+          provide: UsersService,
+          useValue: {
+            findByEmail: jest.fn().mockResolvedValue(oneUser),
+          },
+        },
         {
           provide: getRepositoryToken(Users),
           useValue: {
@@ -78,7 +90,6 @@ describe('LoginService', () => {
     loginService = module.get<LoginService>(LoginService);
     usersService = module.get<UsersService>(UsersService);
     hashingService = module.get<HashingService>(HashingService);
-    repository = module.get<Repository<Users>>(getRepositoryToken(Users));
   });
 
   it('should be defined', () => {
@@ -94,26 +105,19 @@ describe('LoginService', () => {
       expect(await loginService.login(loginDto)).toEqual(userLogin);
     });
 
-    it('should return an exception if login fails', async () => {
-      jest
-        .spyOn(loginService, 'login')
-        .mockRejectedValue(new UnauthorizedException('User does not exists'));
-
-      await expect(loginService.login(loginDto)).rejects.toThrow(
-        new UnauthorizedException('User does not exists'),
-      );
-    });
-
     it('should return an exception if wrong password', async () => {
-      usersService.findByEmail = jest.fn().mockRejectedValueOnce(null);
-      hashingService.compare = jest.fn().mockReturnValue(false);
+      usersService.findByEmail = jest.fn().mockResolvedValueOnce(oneUser);
+      hashingService.compare = jest.fn().mockResolvedValueOnce(false);
       await expect(
-        hashingService.compare('password', 'not a correct password'),
-      ).toBe(false);
+        loginService.login({
+          email: 'someemail@test.com',
+          password: 'not a correct password',
+        }),
+      ).rejects.toThrow(HttpException);
     });
 
     it('should return an exception if login fails', async () => {
-      usersService.findByEmail = jest.fn().mockRejectedValueOnce(null);
+      usersService.findByEmail = jest.fn().mockResolvedValueOnce(null);
       await expect(
         loginService.login({
           email: 'not a correct email',

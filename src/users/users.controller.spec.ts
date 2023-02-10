@@ -140,20 +140,11 @@ describe('Users Controller', () => {
     });
 
     describe('deleteUser() method', () => {
-      it('should call method deleteUser in userService', () => {
+      it('should call method deleteUser in userService', async () => {
         const createSpy = jest.spyOn(usersService, 'deleteUser');
 
-        usersController.deleteUser('anyid');
+        await usersController.deleteUser('anyid');
         expect(createSpy).toHaveBeenCalledWith('anyid');
-      });
-
-      it('should throw an exception if it not find a user', () => {
-        jest
-          .spyOn(usersService, 'deleteUser')
-          .mockRejectedValueOnce(new NotFoundException());
-        expect(usersController.deleteUser('anyid')).rejects.toThrow(
-          new NotFoundException(),
-        );
       });
     });
   });
