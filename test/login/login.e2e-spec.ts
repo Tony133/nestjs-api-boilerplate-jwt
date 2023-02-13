@@ -2,8 +2,17 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
 import { MailerService } from '../../src/shared/mailer/mailer.service';
-import { HttpStatus } from '@nestjs/common';
+import { BadRequestException, HttpStatus } from '@nestjs/common';
 import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
+
+const user = {
+  email: 'test@example.it',
+  password: '123456',
+};
+
+const expectedUser = expect.objectContaining({
+  ...user,
+});
 
 describe('App (e2e)', () => {
   let app;
@@ -17,7 +26,7 @@ describe('App (e2e)', () => {
         sendMail: jest.fn(() => true),
       })
       .overrideGuard(AccessTokenGuard)
-      .useValue({ canActivate: () => true })
+      .useValue({ canActivate: () => false })
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -32,7 +41,10 @@ describe('App (e2e)', () => {
           email: 'test@example.it',
           password: '123456',
         })
-        .expect(HttpStatus.OK);
+        .expect(HttpStatus.OK)
+        .then(({ body }) => {
+          expect(body).toEqual(expectedUser);
+        });
     });
 
     it('should throw an error for a bad email', () => {
@@ -41,7 +53,13 @@ describe('App (e2e)', () => {
         .send({
           password: '123456',
         })
-        .expect(HttpStatus.BAD_REQUEST);
+        .then(({ body }) => {
+          expect(body).toEqual({
+            password: '123456',
+          });
+          expect(HttpStatus.BAD_REQUEST);
+          expect(new BadRequestException());
+        });
     });
 
     it('should throw an error for a bad password', () => {
@@ -50,7 +68,13 @@ describe('App (e2e)', () => {
         .send({
           email: 'test@example.it',
         })
-        .expect(HttpStatus.BAD_REQUEST);
+        .then(({ body }) => {
+          expect(body).toEqual({
+            email: 'test@example.it',
+          });
+          expect(HttpStatus.BAD_REQUEST);
+          expect(new BadRequestException());
+        });
     });
   });
 

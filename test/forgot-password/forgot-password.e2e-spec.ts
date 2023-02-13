@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
 import { MailerService } from '../../src/shared/mailer/mailer.service';
-import { HttpStatus } from '@nestjs/common';
+import { BadRequestException, HttpStatus } from '@nestjs/common';
 import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
 
 describe('App (e2e)', () => {
@@ -31,15 +31,24 @@ describe('App (e2e)', () => {
         .send({
           email: 'test@example.it',
         })
-        .expect(HttpStatus.OK);
+        .expect(HttpStatus.OK)
+        .then(({ body }) => {
+          expect(body).toEqual({
+            email: 'test@example.it',
+          });
+        });
     });
   });
 
   it('should throw an error for a bad email', () => {
     return request(app.getHttpServer())
       .post('/auth/forgot-password')
-      .send({})
-      .expect(HttpStatus.BAD_REQUEST);
+      .send(null)
+      .then(({ body }) => {
+        expect(body).toEqual(null);
+        expect(HttpStatus.BAD_REQUEST);
+        expect(new BadRequestException());
+      });
   });
 
   afterAll(async () => {

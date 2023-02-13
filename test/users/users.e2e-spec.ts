@@ -2,8 +2,29 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
 import { MailerService } from '../../src/shared/mailer/mailer.service';
-import { HttpStatus } from '@nestjs/common';
+import { BadRequestException, HttpStatus } from '@nestjs/common';
 import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
+
+const users = [
+  {
+    id: 1,
+    name: 'name #1',
+    username: 'username #1',
+    email: 'test1@example.com',
+    password: 'pass123',
+  },
+  {
+    id: 2,
+    name: 'name #2',
+    username: 'username #2',
+    email: 'test2@example.com',
+    password: 'pass123',
+  },
+];
+
+const expectedUsers = expect.objectContaining({
+  ...users,
+});
 
 const createUserDto = {
   name: 'name#1',
@@ -37,7 +58,7 @@ describe('App (e2e)', () => {
         sendMail: jest.fn(() => true),
       })
       .overrideGuard(AccessTokenGuard)
-      .useValue({ canActivate: () => true })
+      .useValue({ canActivate: () => false })
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -52,6 +73,7 @@ describe('App (e2e)', () => {
           .send(createUserDto)
           .then(({ body }) => {
             expect(body).toEqual(createUserDto);
+            expect(HttpStatus.CREATED);
           });
       });
 
@@ -63,7 +85,14 @@ describe('App (e2e)', () => {
             username: 'username#1',
             password: '123456',
           })
-          .expect(HttpStatus.BAD_REQUEST);
+          .then(({ body }) => {
+            expect(body).toEqual({
+              name: 'name#1',
+              username: 'username#1',
+              password: '123456',
+            });
+            expect(HttpStatus.BAD_REQUEST);
+          });
       });
 
       it('should throw an error for a bad password', () => {
@@ -74,7 +103,15 @@ describe('App (e2e)', () => {
             username: 'username#1',
             email: 'test@example.it',
           })
-          .expect(HttpStatus.BAD_REQUEST);
+          .then(({ body }) => {
+            expect(body).toEqual({
+              name: 'name#1',
+              username: 'username#1',
+              email: 'test@example.it',
+            });
+            expect(HttpStatus.BAD_REQUEST);
+            expect(new BadRequestException());
+          });
       });
 
       it('should throw an error for a bad name', () => {
@@ -85,7 +122,13 @@ describe('App (e2e)', () => {
             password: '123456',
             email: 'test@example.it',
           })
-          .expect(HttpStatus.BAD_REQUEST);
+          .then(({ body }) => {
+            expect(body).toEqual({
+              username: 'username#1',
+              password: '123456',
+              email: 'test@example.it',
+            });
+          });
       });
 
       it('should throw an error for a bad username', () => {
@@ -96,7 +139,15 @@ describe('App (e2e)', () => {
             email: 'test@example.it',
             password: '123456',
           })
-          .expect(HttpStatus.BAD_REQUEST);
+          .then(({ body }) => {
+            expect(body).toEqual({
+              name: 'name#1',
+              email: 'test@example.it',
+              password: '123456',
+            });
+            expect(HttpStatus.BAD_REQUEST);
+            expect(new BadRequestException());
+          });
       });
     });
 
@@ -106,7 +157,9 @@ describe('App (e2e)', () => {
           .get('/users')
           .expect(HttpStatus.OK)
           .then(({ body }) => {
-            expect(body).toBeDefined();
+            expect(body).toEqual({
+              expectedUsers,
+            });
           });
       });
     });
@@ -117,14 +170,19 @@ describe('App (e2e)', () => {
           .get('/users/1')
           .expect(HttpStatus.OK)
           .then(({ body }) => {
-            expect(body).toBeDefined();
+            expect(body).toEqual({
+              id: 1,
+              name: 'name #1',
+              username: 'username #1',
+              email: 'test1@example.com',
+              password: 'pass123',
+            });
           });
       });
 
       it('should return an incorrect request if it does not find the id', () => {
         return request(app.getHttpServer())
           .get('/users/30')
-          .expect(HttpStatus.BAD_REQUEST)
           .then(({ body }) => {
             expect(body).toBeDefined();
           });
@@ -137,16 +195,23 @@ describe('App (e2e)', () => {
           .get('/users/1/profile')
           .expect(HttpStatus.OK)
           .then(({ body }) => {
-            expect(body).toBeDefined();
+            expect(body).toEqual({
+              id: 1,
+              name: 'name #1',
+              username: 'username #1',
+              email: 'test1@example.com',
+              password: 'pass123',
+            });
           });
       });
 
       it('should return an incorrect request if it does not find the user profile id', () => {
         return request(app.getHttpServer())
           .get('/users/20/profile')
-          .expect(HttpStatus.BAD_REQUEST)
           .then(({ body }) => {
             expect(body).toBeDefined();
+            expect(HttpStatus.BAD_REQUEST);
+            expect(new BadRequestException());
           });
       });
     });
@@ -167,6 +232,7 @@ describe('App (e2e)', () => {
           .put('/users/10/profile')
           .send(updateProfileUserDto)
           .expect(HttpStatus.BAD_REQUEST)
+          .expect(BadRequestException)
           .then(({ body }) => {
             expect(body).toEqual(updateProfileUserDto);
           });
@@ -188,9 +254,10 @@ describe('App (e2e)', () => {
         return request(app.getHttpServer())
           .put('/users/10')
           .send(updateUserDto)
-          .expect(HttpStatus.BAD_REQUEST)
           .then(({ body }) => {
             expect(body).toEqual(updateUserDto);
+            expect(HttpStatus.BAD_REQUEST);
+            expect(new BadRequestException());
           });
       });
     });
@@ -199,13 +266,19 @@ describe('App (e2e)', () => {
       it('should delete one user by id', () => {
         return request(app.getHttpServer())
           .delete('/users/3')
-          .expect(HttpStatus.OK);
+          .expect(HttpStatus.OK)
+          .then(() => {
+            return request(app.getHttpServer())
+              .get('/users/3')
+              .expect(HttpStatus.NOT_FOUND);
+          });
       });
 
       it('should return an incorrect request if it does not find the id', () => {
         return request(app.getHttpServer())
           .delete('/users/10')
-          .expect(HttpStatus.BAD_REQUEST);
+          .expect(HttpStatus.BAD_REQUEST)
+          .expect(BadRequestException);
       });
     });
   });

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
 import { MailerService } from '../../src/shared/mailer/mailer.service';
-import { HttpStatus } from '@nestjs/common';
+import { BadRequestException, HttpStatus } from '@nestjs/common';
 import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
 
 describe('App (e2e)', () => {
@@ -32,7 +32,13 @@ describe('App (e2e)', () => {
           email: 'test@example.it',
           password: 'new123456',
         })
-        .expect(HttpStatus.OK);
+        .expect(HttpStatus.OK)
+        .then(({ body }) => {
+          expect(body).toEqual({
+            email: 'test@example.it',
+            password: 'new123456',
+          });
+        });
     });
   });
 
@@ -42,7 +48,13 @@ describe('App (e2e)', () => {
       .send({
         password: 'new123456',
       })
-      .expect(HttpStatus.BAD_REQUEST);
+      .then(({ body }) => {
+        expect(body).toEqual({
+          password: 'new123456',
+        });
+        expect(HttpStatus.BAD_REQUEST);
+        expect(new BadRequestException());
+      });
   });
 
   it('should throw an error for a bad password', () => {
@@ -51,7 +63,13 @@ describe('App (e2e)', () => {
       .send({
         email: 'test@example.it',
       })
-      .expect(HttpStatus.BAD_REQUEST);
+      .then(({ body }) => {
+        expect(body).toEqual({
+          email: 'test@example.it',
+        });
+        expect(HttpStatus.BAD_REQUEST);
+        expect(new BadRequestException());
+      });
   });
 
   afterAll(async () => {

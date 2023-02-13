@@ -2,8 +2,19 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
 import { MailerService } from '../../src/shared/mailer/mailer.service';
-import { HttpStatus } from '@nestjs/common';
+import { BadRequestException, HttpStatus } from '@nestjs/common';
 import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
+
+const user = {
+  name: 'name#1 register',
+  username: 'username#1 register',
+  email: 'test1@example.it',
+  password: '123456789',
+};
+
+const expectedUser = expect.objectContaining({
+  ...user,
+});
 
 describe('App (e2e)', () => {
   let app;
@@ -17,7 +28,7 @@ describe('App (e2e)', () => {
         sendMail: jest.fn(() => true),
       })
       .overrideGuard(AccessTokenGuard)
-      .useValue({ canActivate: () => true })
+      .useValue({ canActivate: () => false })
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -34,7 +45,10 @@ describe('App (e2e)', () => {
           email: 'test1@example.it',
           password: '123456789',
         })
-        .expect(HttpStatus.CREATED);
+        .then(({ body }) => {
+          expect(body).toEqual(expectedUser);
+          expect(HttpStatus.CREATED);
+        });
     });
 
     it('should throw an error for a bad email', () => {
@@ -45,7 +59,15 @@ describe('App (e2e)', () => {
           username: 'username#1 register',
           password: '123456789',
         })
-        .expect(HttpStatus.BAD_REQUEST);
+        .then(({ body }) => {
+          expect(body).toEqual({
+            name: 'name#1 register',
+            username: 'username#1 register',
+            password: '123456789',
+          });
+          expect(HttpStatus.BAD_REQUEST);
+          expect(new BadRequestException());
+        });
     });
 
     it('should throw an error for a bad name', () => {
@@ -56,7 +78,15 @@ describe('App (e2e)', () => {
           email: 'test1@example.it',
           password: '123456789',
         })
-        .expect(HttpStatus.BAD_REQUEST);
+        .expect(HttpStatus.BAD_REQUEST)
+        .then(({ body }) => {
+          expect(body).toEqual({
+            username: 'username#1 register',
+            email: 'test1@example.it',
+            password: '123456789',
+          });
+          expect(new BadRequestException());
+        });
     });
 
     it('should throw an error for a bad username', () => {
@@ -67,7 +97,15 @@ describe('App (e2e)', () => {
           email: 'test1@example.it',
           password: '123456789',
         })
-        .expect(HttpStatus.BAD_REQUEST);
+        .then(({ body }) => {
+          expect(body).toEqual({
+            name: 'name#1 register',
+            email: 'test1@example.it',
+            password: '123456789',
+          });
+          expect(HttpStatus.BAD_REQUEST);
+          expect(new BadRequestException());
+        });
     });
 
     it('should throw an error for a bad password', () => {
@@ -78,7 +116,15 @@ describe('App (e2e)', () => {
           username: 'username#1 register',
           email: 'test1@example.it',
         })
-        .expect(HttpStatus.BAD_REQUEST);
+        .then(({ body }) => {
+          expect(body).toEqual({
+            name: 'name#1 register',
+            username: 'username#1 register',
+            email: 'test1@example.it',
+          });
+          expect(HttpStatus.BAD_REQUEST);
+          expect(new BadRequestException());
+        });
     });
   });
 
