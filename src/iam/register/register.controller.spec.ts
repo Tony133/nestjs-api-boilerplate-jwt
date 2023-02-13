@@ -23,7 +23,12 @@ describe('Register Controller', () => {
       controllers: [RegisterController],
       providers: [
         RegisterService,
-        MailerService,
+        {
+          provide: MailerService,
+          useValue: {
+            sendMail: jest.fn(),
+          },
+        },
         {
           provide: ConfigService,
           useValue: {
