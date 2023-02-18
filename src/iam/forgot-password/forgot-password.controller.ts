@@ -7,9 +7,12 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
+import { AuthGuard } from '../login/decorators/auth-guard.decorator';
+import { AuthType } from '../login/enums/auth-type.enum';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 
 @ApiTags('auth')
+@AuthGuard(AuthType.None)
 @Controller('auth/forgot-password')
 export class ForgotPasswordController {
   constructor(private readonly forgotPasswordService: ForgotPasswordService) {}
