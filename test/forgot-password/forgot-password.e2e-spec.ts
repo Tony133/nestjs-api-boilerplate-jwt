@@ -10,7 +10,7 @@ import {
 import { ForgotPasswordDto } from 'src/iam/forgot-password/dto/forgot-password.dto';
 
 const user = {
-  email: 'test1@example.it',
+  email: 'test@example.com',
 };
 
 describe('App (e2e)', () => {

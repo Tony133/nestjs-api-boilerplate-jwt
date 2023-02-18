@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
 import { MailerService } from '../../src/shared/mailer/mailer.service';
-import { BadRequestException, HttpStatus } from '@nestjs/common';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
 
 const users = [
@@ -13,32 +13,7 @@ const users = [
     email: 'test1@example.com',
     password: 'pass123',
   },
-  {
-    id: 2,
-    name: 'name #2',
-    username: 'username #2',
-    email: 'test2@example.com',
-    password: 'pass123',
-  },
 ];
-
-const expectedUsers = expect.objectContaining({
-  ...users,
-});
-
-const createUserDto = {
-  name: 'name#1',
-  username: 'username#1',
-  email: 'test@example.it',
-  password: '123456',
-};
-
-const updateUserDto = {
-  name: 'name#1 update',
-  username: 'username#1 update',
-  email: 'test@example.it',
-  password: '123456',
-};
 
 const updateProfileUserDto = {
   name: 'name#1 update',
@@ -62,104 +37,38 @@ describe('App (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
+    app.setGlobalPrefix('api');
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        transform: true,
+        forbidNonWhitelisted: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      }),
+    );
+
     await app.init();
   });
 
   describe('UserController (e2e)', () => {
-    describe('Create user [POST /api/users]', () => {
-      it('should create one user ', async () => {
-        return request(app.getHttpServer())
-          .post('/users')
-          .send(createUserDto)
-          .then(({ body }) => {
-            expect(body).toEqual(createUserDto);
-            expect(HttpStatus.CREATED);
-          });
-      });
-
-      it('should throw an error for a bad email', () => {
-        return request(app.getHttpServer())
-          .post('/users')
-          .send({
-            name: 'name#1',
-            username: 'username#1',
-            password: '123456',
-          })
-          .then(({ body }) => {
-            expect(body).toEqual({
-              name: 'name#1',
-              username: 'username#1',
-              password: '123456',
-            });
-            expect(HttpStatus.BAD_REQUEST);
-          });
-      });
-
-      it('should throw an error for a bad password', () => {
-        return request(app.getHttpServer())
-          .post('/users')
-          .send({
-            name: 'name#1',
-            username: 'username#1',
-            email: 'test@example.it',
-          })
-          .then(({ body }) => {
-            expect(body).toEqual({
-              name: 'name#1',
-              username: 'username#1',
-              email: 'test@example.it',
-            });
-            expect(HttpStatus.BAD_REQUEST);
-            expect(new BadRequestException());
-          });
-      });
-
-      it('should throw an error for a bad name', () => {
-        return request(app.getHttpServer())
-          .post('/users')
-          .send({
-            username: 'username#1',
-            password: '123456',
-            email: 'test@example.it',
-          })
-          .then(({ body }) => {
-            expect(body).toEqual({
-              username: 'username#1',
-              password: '123456',
-              email: 'test@example.it',
-            });
-          });
-      });
-
-      it('should throw an error for a bad username', () => {
-        return request(app.getHttpServer())
-          .post('/users')
-          .send({
-            name: 'name#1',
-            email: 'test@example.it',
-            password: '123456',
-          })
-          .then(({ body }) => {
-            expect(body).toEqual({
-              name: 'name#1',
-              email: 'test@example.it',
-              password: '123456',
-            });
-            expect(HttpStatus.BAD_REQUEST);
-            expect(new BadRequestException());
-          });
-      });
-    });
-
     describe('Get all users [GET /api/users]', () => {
       it('should get all users', async () => {
         return await request(app.getHttpServer())
-          .get('/users')
+          .get('/api/users')
           .expect(HttpStatus.OK)
           .then(({ body }) => {
-            expect(body).toEqual({
-              expectedUsers,
-            });
+            expect(body).toEqual([
+              {
+                id: 1,
+                name: 'name #1',
+                username: 'username #1',
+                email: 'test1@example.com',
+                password:
+                  '$2b$10$hgJzgGh2tkqqIYpIYQI9pO0Q1S9Vd.OXnJcsm1oA1nYvd9yet8sxi',
+              },
+            ]);
           });
       });
     });
@@ -167,7 +76,7 @@ describe('App (e2e)', () => {
     describe('Get one user [GET /api/users/:id]', () => {
       it('should get one user', async () => {
         return await request(app.getHttpServer())
-          .get('/users/1')
+          .get('/api/users/1')
           .expect(HttpStatus.OK)
           .then(({ body }) => {
             expect(body).toEqual({
@@ -175,16 +84,21 @@ describe('App (e2e)', () => {
               name: 'name #1',
               username: 'username #1',
               email: 'test1@example.com',
-              password: 'pass123',
+              password:
+                '$2b$10$hgJzgGh2tkqqIYpIYQI9pO0Q1S9Vd.OXnJcsm1oA1nYvd9yet8sxi',
             });
           });
       });
 
-      it('should return an incorrect request if it does not find the id', () => {
-        return request(app.getHttpServer())
-          .get('/users/30')
+      it('should return an incorrect request if it does not find the id', async () => {
+        return await request(app.getHttpServer())
+          .get('/api/users/30')
           .then(({ body }) => {
-            expect(body).toBeDefined();
+            expect(body).toEqual({
+              error: 'Not Found',
+              message: 'User #30 not found',
+              statusCode: HttpStatus.NOT_FOUND,
+            });
           });
       });
     });
@@ -192,93 +106,100 @@ describe('App (e2e)', () => {
     describe('Get one user profile [GET /api/users/:id/profile]', () => {
       it('should get one user profile', async () => {
         return await request(app.getHttpServer())
-          .get('/users/1/profile')
+          .get('/api/users/1/profile')
           .expect(HttpStatus.OK)
           .then(({ body }) => {
             expect(body).toEqual({
-              id: 1,
-              name: 'name #1',
-              username: 'username #1',
-              email: 'test1@example.com',
-              password: 'pass123',
+              user: {
+                id: 1,
+                name: 'name #1',
+                username: 'username #1',
+                email: 'test1@example.com',
+                password:
+                  '$2b$10$hgJzgGh2tkqqIYpIYQI9pO0Q1S9Vd.OXnJcsm1oA1nYvd9yet8sxi',
+              },
+              status: HttpStatus.OK,
             });
           });
       });
 
-      it('should return an incorrect request if it does not find the user profile id', () => {
-        return request(app.getHttpServer())
-          .get('/users/20/profile')
-          .then(({ body }) => {
-            expect(body).toBeDefined();
-            expect(HttpStatus.BAD_REQUEST);
-            expect(new BadRequestException());
-          });
+      it('should return an incorrect request if it does not find the user profile id', async () => {
+        return await request(app.getHttpServer())
+          .get('/api/users/20/profile')
+          .expect(HttpStatus.NOT_FOUND);
       });
     });
 
     describe('Update one user profile [PUT /api/users/:id/profile]', () => {
-      it('should update one user profile by id', () => {
-        return request(app.getHttpServer())
-          .put('/users/4/profile')
-          .send(updateProfileUserDto)
+      it('should update one user profile by id', async () => {
+        return await request(app.getHttpServer())
+          .put('/api/users/1/profile')
+          .send({
+            name: 'name #1',
+            username: 'username #1',
+            email: 'test1@example.com',
+          })
           .expect(HttpStatus.OK)
           .then(({ body }) => {
-            expect(body).toEqual(updateProfileUserDto);
+            expect(body).toEqual({
+              message: 'User Updated successfully!',
+              status: HttpStatus.OK,
+            });
           });
       });
 
-      it('should return an incorrect request if it does not find the id', () => {
-        return request(app.getHttpServer())
-          .put('/users/10/profile')
+      it('should return an incorrect request if it does not find the id', async () => {
+        return await request(app.getHttpServer())
+          .put('/api/users/10/profile')
           .send(updateProfileUserDto)
-          .expect(HttpStatus.BAD_REQUEST)
-          .expect(BadRequestException)
-          .then(({ body }) => {
-            expect(body).toEqual(updateProfileUserDto);
-          });
+          .expect(HttpStatus.BAD_REQUEST);
       });
     });
-
+    //
     describe('Update one user [PUT /api/users/:id]', () => {
-      it('should update one user', () => {
-        return request(app.getHttpServer())
-          .put('/users/2')
-          .send(updateUserDto)
+      it('should update one user', async () => {
+        return await request(app.getHttpServer())
+          .put('/api/users/1')
+          .send({
+            name: 'name #1',
+            username: 'username #1',
+            email: 'test1@example.com',
+            password:
+              '$2b$10$hgJzgGh2tkqqIYpIYQI9pO0Q1S9Vd.OXnJcsm1oA1nYvd9yet8sxi',
+          })
           .expect(HttpStatus.OK)
           .then(({ body }) => {
-            expect(body).toEqual(updateUserDto);
+            expect(body).toEqual({
+              message: 'User Updated successfully!',
+              status: HttpStatus.OK,
+            });
           });
       });
 
-      it('should return an incorrect request if it does not find the id', () => {
-        return request(app.getHttpServer())
-          .put('/users/10')
-          .send(updateUserDto)
-          .then(({ body }) => {
-            expect(body).toEqual(updateUserDto);
-            expect(HttpStatus.BAD_REQUEST);
-            expect(new BadRequestException());
-          });
+      it('should return an incorrect request if it does not find the id', async () => {
+        return await request(app.getHttpServer())
+          .put('/api/users/10')
+          .send(null)
+          .expect(HttpStatus.BAD_REQUEST);
       });
     });
 
     describe('Delete on user [DELETE /api/users/:id]', () => {
-      it('should delete one user by id', () => {
-        return request(app.getHttpServer())
-          .delete('/users/3')
+      it('should delete one user by id', async () => {
+        return await request(app.getHttpServer())
+          .delete('/api/users/1')
           .expect(HttpStatus.OK)
           .then(() => {
             return request(app.getHttpServer())
-              .get('/users/3')
+              .get('/users/1')
               .expect(HttpStatus.NOT_FOUND);
           });
       });
 
       it('should return an incorrect request if it does not find the id', () => {
         return request(app.getHttpServer())
-          .delete('/users/10')
-          .expect(HttpStatus.BAD_REQUEST)
-          .expect(BadRequestException);
+          .delete('/api/users/10')
+          .expect(HttpStatus.NOT_FOUND);
       });
     });
   });
