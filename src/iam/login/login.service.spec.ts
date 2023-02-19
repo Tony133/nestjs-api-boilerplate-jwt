@@ -1,4 +1,4 @@
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HashingService } from '../../shared/hashing/hashing.service';
@@ -8,6 +8,7 @@ import { Users } from '../../users/entities/users.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { LoginDto } from './dto/login.dto';
 import { UnauthorizedException, HttpException } from '@nestjs/common';
+import jwtConfig from './config/jwt.config';
 
 const oneUser = {
   id: 1,
@@ -23,11 +24,8 @@ const loginDto: LoginDto = {
 };
 
 const userLogin = {
-  sub: 1,
   accessToken: undefined,
-  audience: 'some string',
-  expiresIn: 'some string',
-  issuer: 'some string',
+  refreshToken: undefined,
   user: {
     id: 1,
     name: 'name #1',
@@ -41,13 +39,22 @@ const payload = {
   email: 'test@example.com',
 };
 
+const refreshTokenDto = {
+  refreshToken: 'token',
+};
+
+const id = 1;
+
 describe('LoginService', () => {
   let loginService: LoginService;
   let usersService: UsersService;
   let hashingService: HashingService;
+  let config: ConfigType<typeof jwtConfig>;
+  let jwtService: JwtService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ConfigModule.forFeature(jwtConfig)],
       providers: [
         LoginService,
         {
@@ -55,6 +62,7 @@ describe('LoginService', () => {
           useValue: {
             signAsync: jest.fn(),
             signToken: jest.fn(() => payload),
+            verifyAsync: jest.fn(),
           },
         },
         {
@@ -74,6 +82,7 @@ describe('LoginService', () => {
           provide: UsersService,
           useValue: {
             findByEmail: jest.fn().mockResolvedValue(oneUser),
+            findBySub: jest.fn().mockResolvedValue(oneUser),
           },
         },
         {
@@ -82,14 +91,17 @@ describe('LoginService', () => {
             findByEmail: jest.fn(),
             findOneBy: jest.fn().mockReturnValue(oneUser),
             findOne: jest.fn().mockReturnValue(oneUser),
+            findBySub: jest.fn().mockReturnValueOnce(oneUser),
           },
         },
       ],
     }).compile();
 
+    config = module.get<ConfigType<typeof jwtConfig>>(jwtConfig.KEY);
     loginService = module.get<LoginService>(LoginService);
     usersService = module.get<UsersService>(UsersService);
     hashingService = module.get<HashingService>(HashingService);
+    jwtService = module.get<JwtService>(JwtService);
   });
 
   it('should be defined', () => {
@@ -103,6 +115,26 @@ describe('LoginService', () => {
 
     it('should generate token jwt', async () => {
       expect(await loginService.login(loginDto)).toEqual(userLogin);
+    });
+
+    it('should generate refresh token jwt', async () => {
+      usersService.findBySub = jest.fn().mockResolvedValueOnce(oneUser);
+      jwtService.verifyAsync = jest.fn(() => id as any);
+
+      expect(
+        await loginService.refreshTokens({
+          refreshToken: 'token',
+        }),
+      ).toEqual(userLogin);
+    });
+
+    it('should return an exception if refresh token fails', async () => {
+      usersService.findBySub = jest.fn().mockResolvedValueOnce(null);
+      await expect(
+        loginService.refreshTokens({
+          refreshToken: 'not a correct token jwt',
+        }),
+      ).rejects.toThrow(UnauthorizedException);
     });
 
     it('should return an exception if wrong password', async () => {

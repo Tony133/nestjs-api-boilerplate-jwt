@@ -10,7 +10,7 @@ describe('BcryptService', () => {
         {
           provide: BcryptService,
           useValue: {
-            hash: jest.fn(() => 'pass123'),
+            hash: jest.fn(),
             compare: jest.fn(() => true),
           },
         },

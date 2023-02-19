@@ -87,6 +87,7 @@ describe('UsersService', () => {
             find: jest.fn().mockResolvedValue(userArray),
             findOne: jest.fn().mockResolvedValue(oneUser),
             findOneBy: jest.fn().mockResolvedValueOnce(oneUser),
+            findOneByOrFail: jest.fn().mockResolvedValueOnce(oneUser),
             save: jest.fn().mockReturnValue(createUser),
             updateByEmail: jest.fn().mockResolvedValue(updateUserByEmail),
             updateByPassword: jest.fn().mockResolvedValue(updateUserByPassword),
@@ -125,6 +126,18 @@ describe('UsersService', () => {
       );
     });
   });
+
+  describe('findBySub() method', () => {
+    it('should find a user by sub or fail', async () => {
+      expect(await service.findBySub(1)).toEqual(oneUser);
+    });
+
+    it('should throw an exception if it not found a user by sub', async () => {
+      repository.findOneByOrFail = jest.fn().mockResolvedValueOnce(null);
+      await expect(service.findBySub(1)).rejects.toThrow(NotFoundException);
+    });
+  });
+
   describe('findById() method', () => {
     it('should find a user by id', async () => {
       expect(await service.findById('anyid')).toEqual(oneUser);

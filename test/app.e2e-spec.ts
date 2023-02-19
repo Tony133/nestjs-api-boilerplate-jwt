@@ -7,6 +7,7 @@ import { AccessTokenGuard } from '../src/iam/login/guards/access-token/access-to
 describe('App (e2e)', () => {
   let app;
   let accessTokenJwt: string;
+  let refreshTokenJwt: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -51,15 +52,19 @@ describe('App (e2e)', () => {
           })
           .then(({ body }) => {
             accessTokenJwt = body.accessToken;
+            refreshTokenJwt = body.refreshToken;
+
             expect(accessTokenJwt).toMatch(
               /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
             );
+
+            expect(refreshTokenJwt).toMatch(
+              /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
+            );
+
             expect(body).toEqual({
-              sub: 1,
-              expiresIn: '3600',
-              audience: '127.0.0.1:3001',
-              issuer: '127.0.0.1:3001',
               accessToken: accessTokenJwt,
+              refreshToken: refreshTokenJwt,
               user: { name: 'name #1', email: 'test@example.com', id: 1 },
             });
 

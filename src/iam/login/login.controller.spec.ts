@@ -3,10 +3,15 @@ import { UsersService } from '../../users/users.service';
 import { LoginController } from './login.controller';
 import { LoginService } from './login.service';
 import { LoginDto } from './dto/login.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 const loginDto: LoginDto = {
   email: 'test@example.com',
   password: 'password123',
+};
+
+const refreshTokenDto: RefreshTokenDto = {
+  refreshToken: 'token',
 };
 
 describe('Login Controller', () => {
@@ -21,6 +26,7 @@ describe('Login Controller', () => {
           provide: LoginService,
           useValue: {
             login: jest.fn(() => {}),
+            refreshTokens: jest.fn(() => {}),
           },
         },
         {
@@ -46,6 +52,13 @@ describe('Login Controller', () => {
 
       await loginController.login(loginDto);
       expect(createSpy).toHaveBeenCalledWith(loginDto);
+    });
+
+    it('should call method refresh tokens in loginService', async () => {
+      const createSpy = jest.spyOn(loginService, 'refreshTokens');
+
+      await loginController.refreshTokens(refreshTokenDto);
+      expect(createSpy).toHaveBeenCalledWith(refreshTokenDto);
     });
   });
 });
