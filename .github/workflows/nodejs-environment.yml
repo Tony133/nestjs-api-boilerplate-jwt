@@ -65,7 +65,17 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: cp .env.example-test .env
-      - name: Run tests e2e
+      - name: Run tests e2e -- register
         run: npm run test:e2e -- register.e2e-spec.ts
+      - name: Run tests e2e -- login
+        run: npm run test:e2e -- login.e2e-spec.ts
+      - name: Run tests e2e -- hello
+        run: npm run test:e2e -- app.e2e-spec.ts
+      - name: Run tests e2e -- forgot-password
+        run: npm run test:e2e -- forgot-password.e2e-spec.ts
+      - name: Run tests e2e -- change-password
+        run: npm run test:e2e -- change-password.e2e-spec.ts
+      - name: Run tests e2e -- users
+        run: npm run test:e2e -- users.e2e-spec.ts
       - name: Stop Docker-Compose
         run: docker-compose down
