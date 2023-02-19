@@ -179,6 +179,12 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 
 ```
 
+## Refresh token with curl
+
+```bash
+   $ curl -H 'content-type: application/json' -v -X POST -d '{"refreshToken": "[:token]"}' http://127.0.0.1:3000/api/auth/refresh-tokens
+```
+
 ## Forgot password with curl
 
 ```bash

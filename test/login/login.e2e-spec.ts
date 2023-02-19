@@ -33,6 +33,7 @@ describe('App (e2e)', () => {
 
   describe('LoginController (e2e) -  [POST /api/auth/login]', () => {
     let accessTokenJwt: string;
+    let refreshTokenJwt: string;
 
     it('should authenticates user with valid credentials and provides a jwt token', () => {
       return request(app.getHttpServer())
@@ -43,21 +44,61 @@ describe('App (e2e)', () => {
         })
         .then(({ body }) => {
           accessTokenJwt = body.accessToken;
+          refreshTokenJwt = body.refreshToken;
           expect(accessTokenJwt).toMatch(
             /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
           );
 
+          expect(refreshTokenJwt).toMatch(
+            /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
+          );
+
           expect(body).toEqual({
-            sub: 1,
-            expiresIn: '3600',
-            audience: '127.0.0.1:3001',
-            issuer: '127.0.0.1:3001',
+            refreshToken: refreshTokenJwt,
             accessToken: accessTokenJwt,
             user: { name: 'name #1', email: 'test@example.com', id: 1 },
           });
 
           expect(HttpStatus.OK);
         });
+    });
+
+    it('should refresh token by jwt token used', () => {
+      return request(app.getHttpServer())
+        .post('/api/auth/refresh-tokens')
+        .send({
+          refreshToken: `${accessTokenJwt}`,
+        })
+        .then(({ body }) => {
+          accessTokenJwt = body.accessToken;
+          refreshTokenJwt = body.refreshToken;
+          expect(accessTokenJwt).toMatch(
+            /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
+          );
+
+          expect(refreshTokenJwt).toMatch(
+            /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
+          );
+
+          expect(body).toEqual({
+            refreshToken: refreshTokenJwt,
+            accessToken: accessTokenJwt,
+            user: { name: 'name #1', email: 'test@example.com', id: 1 },
+          });
+
+          expect(HttpStatus.OK);
+        });
+    });
+
+    it('should fail if the token passed for refresh is incorrect', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/api/auth/refresh-tokens')
+        .send({
+          refreshTokes: 'token wrong',
+        })
+        .expect(HttpStatus.BAD_REQUEST);
+
+      expect(response.body.accessToken).not.toBeDefined();
     });
 
     it('should fails to authenticate user with an incorrect password', async () => {
