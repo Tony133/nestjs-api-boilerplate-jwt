@@ -64,7 +64,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
-      - run: cp .env.example-test .env
+      - run: cp .env.example-test-e2e .env
       - name: Run tests e2e -- register
         run: npm run test:e2e -- register.e2e-spec.ts
       - name: Run tests e2e -- login
