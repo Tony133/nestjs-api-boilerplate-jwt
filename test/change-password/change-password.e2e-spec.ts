@@ -7,12 +7,14 @@ import {
   HttpStatus,
   ValidationPipe,
 } from '@nestjs/common';
-import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
 
 const user = {
   email: 'test@example.com',
   password: 'pass123',
 };
+
+const accessToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidG9ueSIsImVtYWlsIjoidG9ueV9hZG1pbkBuZXN0Lml0IiwiaWQiOjIsImlhdCI6MTY3NjgwMTIyNX0.50TONI5Ejl6ZClkjPYHIJhaXE51RKceowuMzkylY3zU';
 
 describe('App (e2e)', () => {
   let app;
@@ -25,8 +27,6 @@ describe('App (e2e)', () => {
       .useValue({
         sendMail: jest.fn(() => true),
       })
-      .overrideGuard(AccessTokenGuard)
-      .useValue({ canActivate: () => false })
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -49,6 +49,7 @@ describe('App (e2e)', () => {
     it('should change password an user', async () => {
       return await request(app.getHttpServer())
         .post('/api/auth/change-password')
+        .set('Authorization', `Bearer ${accessToken}`)
         .send(user)
         .then(({ body }) => {
           expect(body).toEqual({
@@ -63,6 +64,7 @@ describe('App (e2e)', () => {
   it('should throw an error for a bad email', async () => {
     return await request(app.getHttpServer())
       .post('/api/auth/change-password')
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({
         password: 'new123456',
       })
@@ -84,6 +86,7 @@ describe('App (e2e)', () => {
   it('should throw an error for a bad password', async () => {
     return await request(app.getHttpServer())
       .post('/api/auth/change-password')
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({
         email: 'test@example.it',
       })
