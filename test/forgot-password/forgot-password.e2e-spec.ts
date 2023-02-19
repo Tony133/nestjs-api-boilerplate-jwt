@@ -43,7 +43,7 @@ describe('App (e2e)', () => {
   });
 
   describe('ForgotPassowrdController (e2e) - [POST /api/auth/forgot-password]', () => {
-    it('should generate a password per user if they have forgotten their password.', () => {
+    it('should generate a new password per user if they have forgotten their password.', () => {
       return request(app.getHttpServer())
         .post('/api/auth/forgot-password')
         .send(user as ForgotPasswordDto)

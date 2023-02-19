@@ -7,7 +7,6 @@ import {
   HttpStatus,
   ValidationPipe,
 } from '@nestjs/common';
-import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
 import { UserDto } from 'src/users/dto/user.dto';
 import { HashingService } from '../../src/shared/hashing/hashing.service';
 
@@ -37,8 +36,6 @@ describe('App (e2e)', () => {
       .useValue({
         sendMail: jest.fn(() => true),
       })
-      .overrideGuard(AccessTokenGuard)
-      .useValue({ canActivate: () => false })
       .compile();
 
     app = moduleFixture.createNestApplication();

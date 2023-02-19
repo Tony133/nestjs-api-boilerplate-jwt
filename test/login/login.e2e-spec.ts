@@ -1,22 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
-import { MailerService } from '../../src/shared/mailer/mailer.service';
 import {
   BadRequestException,
   HttpStatus,
   ValidationPipe,
 } from '@nestjs/common';
-import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
-
-const user = {
-  email: 'test@example.it',
-  password: '123456',
-};
-
-const expectedUser = expect.objectContaining({
-  ...user,
-});
 
 describe('App (e2e)', () => {
   let app;
@@ -24,14 +13,7 @@ describe('App (e2e)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    })
-      .overrideProvider(MailerService)
-      .useValue({
-        sendMail: jest.fn(() => true),
-      })
-      .overrideGuard(AccessTokenGuard)
-      .useValue({ canActivate: () => false })
-      .compile();
+    }).compile();
 
     app = moduleFixture.createNestApplication();
     app.setGlobalPrefix('api');
@@ -50,7 +32,9 @@ describe('App (e2e)', () => {
   });
 
   describe('LoginController (e2e) -  [POST /api/auth/login]', () => {
-    it('Login and generate token JWT', () => {
+    let accessTokenJwt: string;
+
+    it('should authenticates user with valid credentials and provides a jwt token', () => {
       return request(app.getHttpServer())
         .post('/api/auth/login')
         .send({
@@ -58,9 +42,31 @@ describe('App (e2e)', () => {
           password: 'pass123',
         })
         .then(({ body }) => {
-          console.log(body);
+          accessTokenJwt = body.accessToken;
+          expect(accessTokenJwt).toMatch(
+            /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
+          );
+
+          expect(body).toEqual({
+            sub: 1,
+            expiresIn: '3600',
+            audience: '127.0.0.1:3001',
+            issuer: '127.0.0.1:3001',
+            accessToken: accessTokenJwt,
+            user: { name: 'name #1', email: 'test@example.com', id: 1 },
+          });
+
           expect(HttpStatus.OK);
         });
+    });
+
+    it('should fails to authenticate user with an incorrect password', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/api/auth/login')
+        .send({ email: 'test@example.com', password: 'wrong' })
+        .expect(HttpStatus.BAD_REQUEST);
+
+      expect(response.body.accessToken).not.toBeDefined();
     });
 
     it('should throw an error for a bad email', () => {

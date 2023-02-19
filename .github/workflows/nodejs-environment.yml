@@ -23,4 +23,59 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run build --if-present
+      
+  unit-tests:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+    needs: [build]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
       - run: npm run test
+
+  e2e-test:
+
+    runs-on: ubuntu-latest
+  
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+    needs: [unit-tests]
+  
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Start Docker-Compose
+        run: docker-compose up -d db-test
+      - name: Install npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: cp .env.example-test .env
+      - name: Run tests e2e -- register
+        run: npm run test:e2e -- register.e2e-spec.ts
+      - name: Run tests e2e -- login
+        run: npm run test:e2e -- login.e2e-spec.ts
+      - name: Run tests e2e -- hello
+        run: npm run test:e2e -- app.e2e-spec.ts
+      - name: Run tests e2e -- forgot-password
+        run: npm run test:e2e -- forgot-password.e2e-spec.ts
+      - name: Run tests e2e -- change-password
+        run: npm run test:e2e -- change-password.e2e-spec.ts
+      - name: Run tests e2e -- users
+        run: npm run test:e2e -- users.e2e-spec.ts
+      - name: Stop Docker-Compose
+        run: docker-compose down

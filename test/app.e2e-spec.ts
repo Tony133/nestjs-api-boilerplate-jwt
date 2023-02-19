@@ -4,6 +4,9 @@ import { AppModule } from './../src/app.module';
 import { HttpStatus } from '@nestjs/common';
 import { AccessTokenGuard } from '../src/iam/login/guards/access-token/access-token.guard';
 
+const accessToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidG9ueSIsImVtYWlsIjoidG9ueV9hZG1pbkBuZXN0Lml0IiwiaWQiOjIsImlhdCI6MTY3NjgwMTIyNX0.50TONI5Ejl6ZClkjPYHIJhaXE51RKceowuMzkylY3zU';
+
 describe('App (e2e)', () => {
   let app;
 
@@ -32,6 +35,7 @@ describe('App (e2e)', () => {
     it('Endpoint secure [GET /api/secure]', () => {
       return request(app.getHttpServer())
         .get('/secure')
+        .set('Authorization', `Bearer ${accessToken}`)
         .expect(HttpStatus.OK)
         .expect({
           message:
