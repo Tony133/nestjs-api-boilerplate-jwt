@@ -57,7 +57,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Start Docker-Compose (Scenario One)
+      - name: Start Docker-Compose (Test Case One)
         run: docker-compose up -d db-test
       - name: Install npm
         uses: actions/setup-node@v3
@@ -77,14 +77,8 @@ jobs:
         run: npm run test:e2e -- users.e2e-spec.ts
       - name: Stop Docker-Compose
         run: docker-compose down
-      - name: Start Docker-Compose (Scenario Two)
+      - name: Start Docker-Compose (Test Case Two)
         run: docker-compose up -d db-test
-      - name: Install npm
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: cp .env.example-test-e2e .env
       - name: Run tests e2e -- register
         run: npm run test:e2e -- register.e2e-spec.ts
       - name: Run tests e2e -- forgot-password
