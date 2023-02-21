@@ -7,17 +7,16 @@ import {
   HttpStatus,
   ValidationPipe,
 } from '@nestjs/common';
+import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
 
 const user = {
   email: 'test@example.com',
   password: 'pass123',
 };
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidG9ueSIsImVtYWlsIjoidG9ueV9hZG1pbkBuZXN0Lml0IiwiaWQiOjIsImlhdCI6MTY3NjgwMTIyNX0.50TONI5Ejl6ZClkjPYHIJhaXE51RKceowuMzkylY3zU';
-
 describe('App (e2e)', () => {
   let app;
+  let accessTokenJwt: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -27,6 +26,8 @@ describe('App (e2e)', () => {
       .useValue({
         sendMail: jest.fn(() => true),
       })
+      .overrideGuard(AccessTokenGuard)
+      .useValue({ canActivate: () => false })
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -45,11 +46,39 @@ describe('App (e2e)', () => {
     await app.init();
   });
 
+  describe('should sign in and get a "live" JWT', () => {
+    it('should authenticates user with valid credentials and provides a jwt token', () => {
+      return request(app.getHttpServer())
+        .post('/api/auth/login')
+        .send({
+          email: 'test@example.com',
+          password: 'pass123',
+        })
+        .then(({ body }) => {
+          accessTokenJwt = body.accessToken;
+          expect(accessTokenJwt).toMatch(
+            /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
+          );
+
+          expect(body).toEqual({
+            sub: 1,
+            expiresIn: '3600',
+            audience: '127.0.0.1:3001',
+            issuer: '127.0.0.1:3001',
+            accessToken: accessTokenJwt,
+            user: { name: 'name #1', email: 'test@example.com', id: 1 },
+          });
+
+          expect(HttpStatus.OK);
+        });
+    });
+  });
+
   describe('ChangePasswordController (e2e) - [POST /api/auth/change-password]', () => {
     it('should change password an user', async () => {
       return await request(app.getHttpServer())
         .post('/api/auth/change-password')
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', `Bearer ${accessTokenJwt}`)
         .send(user)
         .then(({ body }) => {
           expect(body).toEqual({
@@ -64,7 +93,7 @@ describe('App (e2e)', () => {
   it('should throw an error for a bad email', async () => {
     return await request(app.getHttpServer())
       .post('/api/auth/change-password')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${accessTokenJwt}`)
       .send({
         password: 'new123456',
       })
@@ -86,7 +115,7 @@ describe('App (e2e)', () => {
   it('should throw an error for a bad password', async () => {
     return await request(app.getHttpServer())
       .post('/api/auth/change-password')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${accessTokenJwt}`)
       .send({
         email: 'test@example.it',
       })

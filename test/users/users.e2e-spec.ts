@@ -21,11 +21,9 @@ const updateProfileUserDto = {
   email: 'test@example.it',
 };
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidG9ueSIsImVtYWlsIjoidG9ueV9hZG1pbkBuZXN0Lml0IiwiaWQiOjIsImlhdCI6MTY3NjgwMTIyNX0.50TONI5Ejl6ZClkjPYHIJhaXE51RKceowuMzkylY3zU';
-
 describe('App (e2e)', () => {
   let app;
+  let accessTokenJwt: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -56,11 +54,38 @@ describe('App (e2e)', () => {
   });
 
   describe('UserController (e2e)', () => {
+    describe('should sign in and get a "live" JWT', () => {
+      it('should authenticates user with valid credentials and provides a jwt token', () => {
+        return request(app.getHttpServer())
+          .post('/api/auth/login')
+          .send({
+            email: 'test@example.com',
+            password: 'pass123',
+          })
+          .then(({ body }) => {
+            accessTokenJwt = body.accessToken;
+            expect(accessTokenJwt).toMatch(
+              /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
+            );
+
+            expect(body).toEqual({
+              sub: 1,
+              expiresIn: '3600',
+              audience: '127.0.0.1:3001',
+              issuer: '127.0.0.1:3001',
+              accessToken: accessTokenJwt,
+              user: { name: 'name #1', email: 'test@example.com', id: 1 },
+            });
+
+            expect(HttpStatus.OK);
+          });
+      });
+    });
     describe('Get all users [GET /api/users]', () => {
       it('should get all users', async () => {
         return await request(app.getHttpServer())
           .get('/api/users')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .expect(HttpStatus.OK)
           .then(({ body }) => {
             expect(body).toEqual([
@@ -80,7 +105,7 @@ describe('App (e2e)', () => {
       it('should get one user', async () => {
         return await request(app.getHttpServer())
           .get('/api/users/1')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .expect(HttpStatus.OK)
           .then(({ body }) => {
             expect(body).toEqual({
@@ -96,7 +121,7 @@ describe('App (e2e)', () => {
       it('should return an incorrect request if it does not find the id', async () => {
         return await request(app.getHttpServer())
           .get('/api/users/30')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .then(({ body }) => {
             expect(body).toEqual({
               error: 'Not Found',
@@ -111,7 +136,7 @@ describe('App (e2e)', () => {
       it('should get one user profile', async () => {
         return await request(app.getHttpServer())
           .get('/api/users/1/profile')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .expect(HttpStatus.OK)
           .then(({ body }) => {
             expect(body).toEqual({
@@ -130,7 +155,7 @@ describe('App (e2e)', () => {
       it('should return an incorrect request if it does not find the user profile id', async () => {
         return await request(app.getHttpServer())
           .get('/api/users/20/profile')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .expect(HttpStatus.NOT_FOUND);
       });
     });
@@ -139,7 +164,7 @@ describe('App (e2e)', () => {
       it('should update one user profile by id', async () => {
         return await request(app.getHttpServer())
           .put('/api/users/1/profile')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .send({
             name: 'name #1',
             username: 'username #1',
@@ -157,7 +182,7 @@ describe('App (e2e)', () => {
       it('should return an incorrect request if it does not find the id', async () => {
         return await request(app.getHttpServer())
           .put('/api/users/10/profile')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .send(updateProfileUserDto)
           .expect(HttpStatus.BAD_REQUEST);
       });
@@ -167,7 +192,7 @@ describe('App (e2e)', () => {
       it('should update one user', async () => {
         return await request(app.getHttpServer())
           .put('/api/users/1')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .send({
             name: 'name #1',
             username: 'username #1',
@@ -187,7 +212,7 @@ describe('App (e2e)', () => {
       it('should return an incorrect request if it does not find the id', async () => {
         return await request(app.getHttpServer())
           .put('/api/users/10')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .send(null)
           .expect(HttpStatus.BAD_REQUEST);
       });
@@ -197,7 +222,7 @@ describe('App (e2e)', () => {
       it('should delete one user by id', async () => {
         return await request(app.getHttpServer())
           .delete('/api/users/1')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .expect(HttpStatus.OK)
           .then(() => {
             return request(app.getHttpServer())
@@ -209,7 +234,7 @@ describe('App (e2e)', () => {
       it('should return an incorrect request if it does not find the id', () => {
         return request(app.getHttpServer())
           .delete('/api/users/10')
-          .set('Authorization', `Bearer ${accessToken}`)
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
           .expect(HttpStatus.NOT_FOUND);
       });
     });

@@ -1,14 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { HttpStatus } from '@nestjs/common';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { AccessTokenGuard } from '../src/iam/login/guards/access-token/access-token.guard';
-
-const accessToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidG9ueSIsImVtYWlsIjoidG9ueV9hZG1pbkBuZXN0Lml0IiwiaWQiOjIsImlhdCI6MTY3NjgwMTIyNX0.50TONI5Ejl6ZClkjPYHIJhaXE51RKceowuMzkylY3zU';
 
 describe('App (e2e)', () => {
   let app;
+  let accessTokenJwt: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -19,28 +17,65 @@ describe('App (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
+    app.setGlobalPrefix('api');
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        transform: true,
+        forbidNonWhitelisted: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      }),
+    );
     await app.init();
   });
 
   describe('AppController (e2e)', () => {
-    it('Endpoint [GET /api]', () => {
+    it('should return the follwing message: "This is a simple example of item returned by your APIs." [GET /api]', () => {
       return request(app.getHttpServer())
-        .get('/')
-        .expect(HttpStatus.OK)
+        .get('/api')
         .expect({
           message: 'This is a simple example of item returned by your APIs.',
-        });
+        })
+        .expect(HttpStatus.OK);
     });
 
-    it('Endpoint secure [GET /api/secure]', () => {
-      return request(app.getHttpServer())
-        .get('/secure')
-        .set('Authorization', `Bearer ${accessToken}`)
-        .expect(HttpStatus.OK)
-        .expect({
-          message:
-            'Access to protected resources granted! This protected resource is displayed when the token is successfully provided.',
-        });
+    describe('should sign in and get a "live" JWT', () => {
+      it('should authenticates user with valid credentials and provides a jwt token', () => {
+        return request(app.getHttpServer())
+          .post('/api/auth/login')
+          .send({
+            email: 'test@example.com',
+            password: 'pass123',
+          })
+          .then(({ body }) => {
+            accessTokenJwt = body.accessToken;
+            expect(accessTokenJwt).toMatch(
+              /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/,
+            );
+            expect(body).toEqual({
+              sub: 1,
+              expiresIn: '3600',
+              audience: '127.0.0.1:3001',
+              issuer: '127.0.0.1:3001',
+              accessToken: accessTokenJwt,
+              user: { name: 'name #1', email: 'test@example.com', id: 1 },
+            });
+
+            expect(HttpStatus.OK);
+          });
+      });
+
+      it('should return the follwing message: "Access to protected resources granted! This protected resource is displayed when the token is successfully provided". - ( endpoint protected ) [GET /api/secure]', () => {
+        return request(app.getHttpServer())
+          .get('/api/secure')
+          .set('Authorization', `Bearer ${accessTokenJwt}`)
+          .expect({
+            message:
+              'Access to protected resources granted! This protected resource is displayed when the token is successfully provided.',
+          });
+      });
     });
   });
 

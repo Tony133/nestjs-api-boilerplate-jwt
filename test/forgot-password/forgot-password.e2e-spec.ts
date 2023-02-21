@@ -8,9 +8,17 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ForgotPasswordDto } from 'src/iam/forgot-password/dto/forgot-password.dto';
+import { UserDto } from '../../src/users/dto/user.dto';
 
 const user = {
   email: 'test@example.com',
+};
+
+const createUser = {
+  name: 'name #1',
+  username: 'username #1',
+  email: 'test@example.com',
+  password: 'pass123',
 };
 
 describe('App (e2e)', () => {
@@ -43,6 +51,19 @@ describe('App (e2e)', () => {
   });
 
   describe('ForgotPassowrdController (e2e) - [POST /api/auth/forgot-password]', () => {
+    it('should create user', async () => {
+      return await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send(createUser as UserDto)
+        .then(({ body }) => {
+          expect(body).toEqual({
+            message: 'User registration successfully!',
+            status: 201,
+          });
+          expect(HttpStatus.CREATED);
+        });
+    });
+
     it('should generate a new password per user if they have forgotten their password.', () => {
       return request(app.getHttpServer())
         .post('/api/auth/forgot-password')
