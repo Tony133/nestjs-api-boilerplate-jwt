@@ -27,7 +27,7 @@ describe('App (e2e)', () => {
         sendMail: jest.fn(() => true),
       })
       .overrideGuard(AccessTokenGuard)
-      .useValue({ canActivate: () => false })
+      .useValue({ canActivate: () => true })
       .compile();
 
     app = moduleFixture.createNestApplication();
