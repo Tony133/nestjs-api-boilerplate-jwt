@@ -24,7 +24,7 @@
     "@nestjs/common": "^9.3.3",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.3.3",
-    "@nestjs/jwt": "^10.0.1",
+    "@nestjs/jwt": "^10.0.2",
     "@nestjs/mapped-types": "1.2.2",
     "@nestjs/platform-express": "^9.3.3",
     "@nestjs/swagger": "^6.2.1",
