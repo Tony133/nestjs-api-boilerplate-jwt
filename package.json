@@ -40,7 +40,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^4.1.2",
     "rxjs": "^7.8.0",
-    "typeorm": "^0.3.12",
+    "typeorm": "^0.3.14",
     "yup": "^1.0.0"
   },
   "devDependencies": {
