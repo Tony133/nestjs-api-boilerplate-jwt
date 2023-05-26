@@ -41,7 +41,7 @@
     "rimraf": "^5.0.1",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.14",
-    "yup": "^1.1.1"
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.5.0",
