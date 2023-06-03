@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HashingService } from '../../shared/hashing/hashing.service';
 import { MailerService } from '../../shared/mailer/mailer.service';
-import { IUsers } from '../../users/interfaces/users.interface';
+import { AccountsUsers } from '../../users/interfaces/accounts-users.interface';
 import { UsersService } from '../../users/users.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 
@@ -13,7 +13,9 @@ export class RegisterService {
     private readonly hashingService: HashingService,
   ) {}
 
-  public async register(registerUserDto: RegisterUserDto): Promise<IUsers> {
+  public async register(
+    registerUserDto: RegisterUserDto,
+  ): Promise<AccountsUsers> {
     registerUserDto.password = await this.hashingService.hash(
       registerUserDto.password,
     );

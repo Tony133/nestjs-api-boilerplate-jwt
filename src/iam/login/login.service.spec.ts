@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HashingService } from '../../shared/hashing/hashing.service';
 import { LoginService } from './login.service';
 import { UsersService } from '../../users/users.service';
-import { Users } from '../../users/entities/users.entity';
+import { Users } from '../../users/models/users.model';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { LoginDto } from './dto/login.dto';
 import { UnauthorizedException, HttpException } from '@nestjs/common';

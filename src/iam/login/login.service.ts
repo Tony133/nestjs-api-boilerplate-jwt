@@ -7,13 +7,13 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../../users/users.service';
-import { IUsers } from '../../users/interfaces/users.interface';
+import { AccountsUsers } from '../../users/interfaces/accounts-users.interface';
 import { LoginDto } from './dto/login.dto';
 import { ConfigType } from '@nestjs/config';
 import { HashingService } from '../../shared/hashing/hashing.service';
 import { JWTPayload } from './interfaces/jwt-payload.interface';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
-import { Users } from '../../users/entities/users.entity';
+import { Users } from '../../users/models/users.model';
 import jwtConfig from './config/jwt.config';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class LoginService {
     private readonly hashingService: HashingService,
   ) {}
 
-  public async findUserByEmail(loginDto: LoginDto): Promise<IUsers> {
+  public async findUserByEmail(loginDto: LoginDto): Promise<AccountsUsers> {
     return await this.usersService.findByEmail(loginDto.email);
   }
 

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from '../../users/entities/users.entity';
+import { Users } from '../../users/models/users.model';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { MailerService } from '../../shared/mailer/mailer.service';
 import { UtilsService } from '../../shared/utils/utils.service';

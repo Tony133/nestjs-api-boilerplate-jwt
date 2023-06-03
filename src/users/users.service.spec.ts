@@ -1,12 +1,11 @@
-import { HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
+import { HttpException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { BcryptService } from '../shared/hashing/bcrypt.service';
 import { HashingService } from '../shared/hashing/hashing.service';
 import { UserDto } from './dto/user.dto';
-import { Users } from './entities/users.entity';
 import { UsersService } from './users.service';
+import { UsersTypeOrmRepository } from './repositories/implementations/users.typeorm.repository';
+import { USERS_REPOSITORY_TOKEN } from './repositories/users.repository.interface';
 
 const userArray = [
   {
@@ -71,7 +70,7 @@ const updateUser = {
 
 describe('UsersService', () => {
   let service: UsersService;
-  let repository: Repository<Users>;
+  let repository: UsersTypeOrmRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -82,25 +81,25 @@ describe('UsersService', () => {
           useClass: BcryptService,
         },
         {
-          provide: getRepositoryToken(Users),
+          provide: USERS_REPOSITORY_TOKEN,
           useValue: {
-            find: jest.fn().mockResolvedValue(userArray),
-            findOne: jest.fn().mockResolvedValue(oneUser),
-            findOneBy: jest.fn().mockResolvedValueOnce(oneUser),
-            findOneByOrFail: jest.fn().mockResolvedValueOnce(oneUser),
-            save: jest.fn().mockReturnValue(createUser),
-            updateByEmail: jest.fn().mockResolvedValue(updateUserByEmail),
+            findAll: jest.fn().mockResolvedValue(userArray),
+            findByEmail: jest.fn().mockResolvedValue(oneUser),
+            findBySub: jest.fn().mockResolvedValueOnce(oneUser),
+            findById: jest.fn().mockResolvedValueOnce(oneUser),
+            create: jest.fn().mockReturnValue(createUser),
+            updateByEmail: jest.fn().mockReturnValue(updateUserByEmail),
             updateByPassword: jest.fn().mockResolvedValue(updateUserByPassword),
             updateProfileUser: jest.fn().mockResolvedValue(updateProfileUser),
-            update: jest.fn().mockReturnValue(updateUser),
-            remove: jest.fn(),
+            updateUser: jest.fn().mockResolvedValue(updateUser),
+            deleteUser: jest.fn(),
           },
         },
       ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
-    repository = module.get<Repository<Users>>(getRepositoryToken(Users));
+    repository = module.get(USERS_REPOSITORY_TOKEN);
   });
 
   it('should be defined', () => {
@@ -120,7 +119,7 @@ describe('UsersService', () => {
     });
 
     it('should throw an exception if it not found a user by email', async () => {
-      repository.findOneBy = jest.fn().mockResolvedValueOnce(null);
+      repository.findByEmail = jest.fn().mockResolvedValueOnce(null);
       await expect(service.findByEmail('not a correct email')).rejects.toThrow(
         NotFoundException,
       );
@@ -133,7 +132,7 @@ describe('UsersService', () => {
     });
 
     it('should throw an exception if it not found a user by sub', async () => {
-      repository.findOneByOrFail = jest.fn().mockResolvedValueOnce(null);
+      repository.findBySub = jest.fn().mockResolvedValueOnce(null);
       await expect(service.findBySub(1)).rejects.toThrow(NotFoundException);
     });
   });
@@ -144,7 +143,7 @@ describe('UsersService', () => {
     });
 
     it('should throw an exception if it not found a user by id', async () => {
-      repository.findOneBy = jest.fn().mockResolvedValueOnce(null);
+      repository.findById = jest.fn().mockResolvedValueOnce(null);
       await expect(service.findById('not a correct id')).rejects.toThrow(
         NotFoundException,
       );
@@ -164,7 +163,7 @@ describe('UsersService', () => {
     });
 
     it('should return an exception if login fails', async () => {
-      repository.save = jest.fn().mockRejectedValueOnce(null);
+      repository.create = jest.fn().mockRejectedValueOnce(null);
       await expect(
         service.create({
           name: 'not a correct name',
@@ -184,7 +183,7 @@ describe('UsersService', () => {
     });
 
     it('should return an exception if update by email fails', async () => {
-      repository.save = jest.fn().mockRejectedValueOnce(null);
+      repository.updateByEmail = jest.fn().mockRejectedValueOnce(null);
       await expect(
         service.updateByEmail('not a correct email'),
       ).rejects.toThrow(HttpException);
@@ -199,7 +198,7 @@ describe('UsersService', () => {
     });
 
     it('should return an exception if update by password fails', async () => {
-      repository.save = jest.fn().mockRejectedValueOnce(null);
+      repository.updateByPassword = jest.fn().mockRejectedValueOnce(null);
       await expect(
         service.updateByPassword('not a correct email', 'not correct password'),
       ).rejects.toThrow(HttpException);
@@ -214,7 +213,7 @@ describe('UsersService', () => {
     });
 
     it('should return an exception if update profile user fails', async () => {
-      repository.save = jest.fn().mockRejectedValueOnce(null);
+      repository.updateProfileUser = jest.fn().mockRejectedValueOnce(null);
       await expect(
         service.updateProfileUser('not a correct id', {
           name: 'not a correct name',
@@ -231,7 +230,7 @@ describe('UsersService', () => {
     });
 
     it('should return an exception if update profile user fails', async () => {
-      repository.update = jest.fn().mockRejectedValueOnce(null);
+      repository.updateUser = jest.fn().mockRejectedValueOnce(null);
       await expect(
         service.updateUser('not a correct id', {
           name: 'not a correct name',
@@ -245,18 +244,18 @@ describe('UsersService', () => {
 
   describe('deleteUser() method', () => {
     it('should remove a user by id', async () => {
-      const removeSpy = jest.spyOn(repository, 'remove');
+      const removeSpy = jest.spyOn(repository, 'deleteUser');
       const user = await service.deleteUser('any id');
       expect(removeSpy).toBeCalledWith(oneUser);
       expect(user).toBeUndefined();
     });
 
     it('should throw an error if no user is found with an id', async () => {
-      repository.findOneBy = jest.fn().mockResolvedValueOnce(undefined);
+      repository.findById = jest.fn().mockResolvedValueOnce(undefined);
       await expect(service.deleteUser('bad id')).rejects.toThrow(
         NotFoundException,
       );
-      expect(repository.findOneBy).toBeCalledTimes(1);
+      expect(repository.findById).toBeCalledTimes(1);
     });
   });
 });

@@ -169,14 +169,12 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 
 ```bash
    $ curl -H 'content-type: application/json' -v -X POST -d '{"email": "tony_admin@nest.it", "password": "secret"}' http://127.0.0.1:3000/api/auth/login
-
 ```
 
 ## Registration user with Curl
 
 ```bash
    $ curl -H 'content-type: application/json' -v -X POST -d '{"name": "tony", "email": "tony_admin@nest.it", "username":"tony_admin", "password": "secret"}' http://127.0.0.1:3000/api/auth/register
-
 ```
 
 ## Refresh token with curl
@@ -218,7 +216,7 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ## Update User with Curl
 
 ```bash
-   $ curl -H 'content-type: application/json' -v -X PATCH -d '{"name": "tony", "email": "tony_admin@nest.it", "username": "tony_admin", "password":"secret"}' http://127.0.0.1:3000/api/users/:id  -H 'Authorization: Bearer [:token]'
+   $ curl -H 'content-type: application/json' -v -X PUT -d '{"name": "tony", "email": "tony_admin@nest.it", "username": "tony_admin", "password":"secret"}' http://127.0.0.1:3000/api/users/:id  -H 'Authorization: Bearer [:token]'
 ```
 
 ## Delete User by Id with Curl
