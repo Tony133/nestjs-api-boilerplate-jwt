@@ -4,32 +4,30 @@ import {
   HttpException,
   HttpStatus,
   BadRequestException,
+  Inject,
 } from '@nestjs/common';
-import { Repository, UpdateResult } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from './entities/users.entity';
-import { IUsers } from './interfaces/users.interface';
+import { UpdateResult } from 'typeorm';
+import { AccountsUsers } from './interfaces/accounts-users.interface';
+import { Users } from './models/users.model';
 import { UserDto } from './dto/user.dto';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { UserUpdateDto } from './dto/user-update.dto';
-import { HashingService } from '../shared/hashing/hashing.service';
+import { USERS_REPOSITORY_TOKEN } from './repositories/users.repository.interface';
+import { UsersTypeOrmRepository } from './repositories/implementations/users.typeorm.repository';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(Users)
-    private readonly userRepository: Repository<Users>,
-    private readonly hashingService: HashingService,
+    @Inject(USERS_REPOSITORY_TOKEN)
+    private readonly usersRepository: UsersTypeOrmRepository,
   ) {}
 
   public async findAll(): Promise<Users[]> {
-    return await this.userRepository.find();
+    return await this.usersRepository.findAll();
   }
 
   public async findByEmail(email: string): Promise<Users> {
-    const user = await this.userRepository.findOneBy({
-      email: email,
-    });
+    const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
       throw new NotFoundException(`User not found`);
@@ -39,9 +37,7 @@ export class UsersService {
   }
 
   public async findBySub(sub: number): Promise<Users> {
-    const user = await this.userRepository.findOneByOrFail({
-      id: sub,
-    });
+    const user = await this.usersRepository.findBySub(sub);
 
     if (!user) {
       throw new NotFoundException(`User not found`);
@@ -51,9 +47,7 @@ export class UsersService {
   }
 
   public async findById(userId: string): Promise<Users> {
-    const user = await this.userRepository.findOneBy({
-      id: +userId,
-    });
+    const user = await this.usersRepository.findById(userId);
 
     if (!user) {
       throw new NotFoundException(`User #${userId} not found`);
@@ -62,9 +56,9 @@ export class UsersService {
     return user;
   }
 
-  public async create(userDto: UserDto): Promise<IUsers> {
+  public async create(userDto: UserDto): Promise<AccountsUsers> {
     try {
-      return await this.userRepository.save(userDto);
+      return await this.usersRepository.create(userDto);
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
@@ -72,12 +66,7 @@ export class UsersService {
 
   public async updateByEmail(email: string): Promise<Users> {
     try {
-      const user = await this.userRepository.findOneBy({ email: email });
-      user.password = await this.hashingService.hash(
-        Math.random().toString(36).slice(-8),
-      );
-
-      return await this.userRepository.save(user);
+      return await this.usersRepository.updateByEmail(email);
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
@@ -88,10 +77,7 @@ export class UsersService {
     password: string,
   ): Promise<Users> {
     try {
-      const user = await this.userRepository.findOneBy({ email: email });
-      user.password = await this.hashingService.hash(password);
-
-      return await this.userRepository.save(user);
+      return await this.usersRepository.updateByPassword(email, password);
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
@@ -102,12 +88,7 @@ export class UsersService {
     userProfileDto: UserProfileDto,
   ): Promise<Users> {
     try {
-      const user = await this.userRepository.findOneBy({ id: +id });
-      user.name = userProfileDto.name;
-      user.email = userProfileDto.email;
-      user.username = userProfileDto.username;
-
-      return await this.userRepository.save(user);
+      return await this.usersRepository.updateProfileUser(id, userProfileDto);
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
@@ -118,14 +99,7 @@ export class UsersService {
     userUpdateDto: UserUpdateDto,
   ): Promise<UpdateResult> {
     try {
-      const user = await this.userRepository.update(
-        {
-          id: +id,
-        },
-        { ...userUpdateDto },
-      );
-
-      return user;
+      return await this.usersRepository.updateUser(id, userUpdateDto);
     } catch (err) {
       throw new BadRequestException('User not updated');
     }
@@ -133,6 +107,6 @@ export class UsersService {
 
   public async deleteUser(id: string): Promise<void> {
     const user = await this.findById(id);
-    await this.userRepository.remove(user);
+    return await this.usersRepository.deleteUser(user);
   }
 }

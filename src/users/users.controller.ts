@@ -12,7 +12,7 @@ import {
 import { UsersService } from './users.service';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { UserUpdateDto } from './dto/user-update.dto';
-import { IUsers } from './interfaces/users.interface';
+import { AccountsUsers } from './interfaces/accounts-users.interface';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../iam/login/decorators/auth-guard.decorator';
 import { AuthType } from '../iam/login/enums/auth-type.enum';
@@ -24,12 +24,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  public async findAllUser(): Promise<IUsers[]> {
+  public async findAllUser(): Promise<AccountsUsers[]> {
     return this.usersService.findAll();
   }
 
   @Get('/:userId')
-  public async findOneUser(@Param('userId') userId: string): Promise<IUsers> {
+  public async findOneUser(
+    @Param('userId') userId: string,
+  ): Promise<AccountsUsers> {
     return this.usersService.findById(userId);
   }
 

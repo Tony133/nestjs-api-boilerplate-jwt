@@ -87,6 +87,7 @@
       "/src/helpers",
       "/src/main.ts",
       "/src/repl.ts",
+      "/src/users/repositories",
       ".constants.ts",
       ".guard.ts",
       ".config.ts"

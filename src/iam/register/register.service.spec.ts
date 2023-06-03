@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from '../../users/users.service';
 import { RegisterService } from './register.service';
-import { Users } from '../../users/entities/users.entity';
+import { Users } from '../../users/models/users.model';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { HashingService } from '../../shared/hashing/hashing.service';
