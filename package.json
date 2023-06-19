@@ -44,7 +44,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.2",
+    "@nestjs/cli": "^10.0.3",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.0",
     "@types/express": "^4.17.17",
