@@ -172,13 +172,13 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ## Generate Token JWT Authentication with Curl
 
 ```bash
-   $ curl -H 'content-type: application/json' -v -X POST -d '{"email": "tony_admin@nest.it", "password": "secret"}' http://127.0.0.1:3000/api/auth/login
+   $ curl -H 'content-type: application/json' -v -X POST -d '{"email": "tony_admin@nest.com", "password": "secret"}' http://127.0.0.1:3000/api/auth/login
 ```
 
 ## Registration user with Curl
 
 ```bash
-   $ curl -H 'content-type: application/json' -v -X POST -d '{"name": "tony", "email": "tony_admin@nest.it", "username":"tony_admin", "password": "secret"}' http://127.0.0.1:3000/api/auth/register
+   $ curl -H 'content-type: application/json' -v -X POST -d '{"name": "tony", "email": "tony_admin@nest.com", "username":"tony_admin", "password": "secret"}' http://127.0.0.1:3000/api/auth/register
 ```
 
 ## Refresh token with curl
@@ -190,19 +190,19 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ## Forgot password with curl
 
 ```bash
-   $ curl -H 'content-type: application/json' -v -X POST -d '{"email": "tony_admin@nest.it"}' http://127.0.0.1:3000/api/auth/forgot-password
+   $ curl -H 'content-type: application/json' -v -X POST -d '{"email": "tony_admin@nest.com"}' http://127.0.0.1:3000/api/auth/forgot-password
 ```
 
 ## Change password User with curl
 
 ```bash
-   $ curl -H 'content-type: application/json' -v -X POST -d '{"email": "tony_admin@nest.it", "password": "secret123"}' http://127.0.0.1:3000/api/auth/change-password  -H 'Authorization: Bearer [:token]'
+   $ curl -H 'content-type: application/json' -v -X POST -d '{"email": "tony_admin@nest.com", "password": "secret123"}' http://127.0.0.1:3000/api/auth/change-password  -H 'Authorization: Bearer [:token]'
 ```
 
 ## Update profile User with curl
 
 ```bash
-   $ curl -H 'content-type: application/json' -v -X PUT -d '{"name": "tony", "email": "tony_admin@nest.it", "username": "tony_admin"}' http://127.0.0.1:3000/api/users/:id/profile  -H 'Authorization: Bearer [:token]'
+   $ curl -H 'content-type: application/json' -v -X PUT -d '{"name": "tony", "email": "tony_admin@nest.com", "username": "tony_admin"}' http://127.0.0.1:3000/api/users/:id/profile  -H 'Authorization: Bearer [:token]'
 ```
 
 ## Users list with Curl
@@ -220,7 +220,7 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ## Update User with Curl
 
 ```bash
-   $ curl -H 'content-type: application/json' -v -X PUT -d '{"name": "tony", "email": "tony_admin@nest.it", "username": "tony_admin", "password":"secret"}' http://127.0.0.1:3000/api/users/:id  -H 'Authorization: Bearer [:token]'
+   $ curl -H 'content-type: application/json' -v -X PUT -d '{"name": "tony", "email": "tony_admin@nest.com", "username": "tony_admin", "password":"secret"}' http://127.0.0.1:3000/api/users/:id  -H 'Authorization: Bearer [:token]'
 ```
 
 ## Delete User by Id with Curl
