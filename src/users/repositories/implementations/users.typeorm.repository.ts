@@ -13,10 +13,11 @@ export class UsersTypeOrmRepository implements UsersRepository {
     private readonly hashingService: HashingService,
   ) {}
 
-  async findAll() {
+  public async findAll() {
     return await this.usersRepository.find();
   }
-  async findByEmail(email: string) {
+  
+  public async findByEmail(email: string) {
     return await this.usersRepository.findOneBy({
       email: email,
     });
