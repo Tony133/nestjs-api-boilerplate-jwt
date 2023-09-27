@@ -38,7 +38,7 @@
     "mysql2": "^3.3.5",
     "nodemailer": "^6.9.3",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^5.0.1",
+    "rimraf": "^5.0.5",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.16",
     "yup": "^1.2.0"
