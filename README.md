@@ -228,3 +228,7 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ```bash
    $ curl -H 'content-type: application/json' -H 'Accept: application/json' -v -X DELETE http://127.0.0.1:3000/api/users/:id  -H 'Authorization: Bearer [:token]'
 ```
+
+## License
+
+ [MIT licensed](LICENSE)
