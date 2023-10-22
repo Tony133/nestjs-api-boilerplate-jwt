@@ -24,10 +24,12 @@ import * as Yup from 'yup';
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        ttl: config.get<number>('THROTTLE_TTL'),
-        limit: config.get<number>('THROTTLE_LIMIT'),
-      }),
+      useFactory: (config: ConfigService) => [
+        {
+          ttl: config.get<number>('THROTTLE_TTL'),
+          limit: config.get<number>('THROTTLE_LIMIT'),
+        },
+      ],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
