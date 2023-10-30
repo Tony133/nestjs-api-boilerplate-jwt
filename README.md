@@ -12,7 +12,7 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 10.x
    $ npm install
 ```
 
-## Set Enviroment for secret key JWT and other configurations
+## Set Environment for secret key JWT and other configurations
 
 ```bash
    $ cp .env.example .env
@@ -24,7 +24,7 @@ To set up on multiple environments, such as dev, stage or prod, we do as follows
    $ cp .env.example .env.dev # or .env.stage, etc
 ```
 
-## Config settings .env for send notification when a user registers, forgot password or change password
+## Config settings .env for sending a notification when a user registers, forgets password or changes password
 
 ```
    EMAIL_HOST=smtp.mailtrap.io
@@ -39,9 +39,9 @@ To set up on multiple environments, such as dev, stage or prod, we do as follows
    EMAIL_DEFAULT_LAYOUT='index'
 ```
 
-## Config settings .env for connect MySQL
+## Config settings .env to connect MySQL
 
-Once the database has been configured, start the Nest App via `npm run start:dev` it automatically synchronizes the entities so ready to use. :heart_eyes_cat:
+Once the database has been configured, start the Nest App via `npm run start:dev` it automatically synchronizes the entities so it is ready to use. :heart_eyes_cat:
 
 ```
    TYPEORM_CONNECTION = "mysql"
@@ -90,7 +90,7 @@ or
     $ npm run start:prod
 ```
 
-## Runnig the app in REPL mode
+## Running the app in REPL mode
 
 ```bash
    $ npm run start -- --entryFile repl
@@ -135,7 +135,7 @@ http://127.0.0.1:3000/docs-yaml
 
 ```
 
-Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file and set `NODE_ENV` to `local` or `dev`or `staging` to access the SWAGGER(Open Api) documentation with basic authentication.
+Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file and set `NODE_ENV` to `local` or `dev` or `staging` to access the SWAGGER(Open API) documentation with basic authentication.
 
 ```
 
