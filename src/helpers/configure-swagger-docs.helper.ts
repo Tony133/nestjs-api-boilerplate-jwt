@@ -29,7 +29,7 @@ export function configureSwaggerDocs(
       .addTag('auth')
       .addTag('users')
       .build();
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('/docs', app, document);
+    const documentFactory = () => SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('/docs', app, documentFactory);
   }
 }
