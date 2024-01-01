@@ -37,7 +37,7 @@
     "express-basic-auth": "^1.2.1",
     "handlebars": "^4.7.8",
     "mysql2": "^3.6.3",
-    "nodemailer": "^6.9.7",
+    "nodemailer": "^6.9.8",
     "reflect-metadata": "^0.1.14",
     "rimraf": "^5.0.5",
     "rxjs": "^7.8.1",
