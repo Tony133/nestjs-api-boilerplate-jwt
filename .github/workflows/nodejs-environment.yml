@@ -16,13 +16,19 @@ jobs:
         node-version: [18.x, 20.x]
 
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        name: Use Node.js ${{ matrix.node-version }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run build --if-present
+          cache: 'pnpm'
+        name: Install pnpm
+      - run: pnpm install
+
+
       
   unit-tests:
 
@@ -34,13 +40,18 @@ jobs:
     needs: [build]
 
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        name: Use Node.js ${{ matrix.node-version }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run test
+          cache: 'pnpm'
+        name: Run unit test
+      - run: pnpm install 
+      - run: pnpm test
 
   e2e-test:
 
@@ -52,30 +63,34 @@ jobs:
     needs: [unit-tests]
   
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        name: Use Node.js ${{ matrix.node-version }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - name: Start Docker-Compose
         run: docker-compose up -d db-test
-      - name: Install npm
+      - name: Install pnpm
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
+      - run: pnpm install
       - run: cp .env.example-test-e2e .env
       - name: Run tests e2e -- register
-        run: npm run test:e2e -- register.e2e-spec.ts
+        run: pnpm test:e2e -- register.e2e-spec.ts
       - name: Run tests e2e -- login
-        run: npm run test:e2e -- login.e2e-spec.ts
+        run: pnpm test:e2e -- login.e2e-spec.ts
       - name: Run tests e2e -- hello
-        run: npm run test:e2e -- app.e2e-spec.ts
+        run: pnpm test:e2e -- app.e2e-spec.ts
       - name: Run tests e2e -- change-password
-        run: npm run test:e2e -- change-password.e2e-spec.ts
+        run: pnpm test:e2e -- change-password.e2e-spec.ts
       - name: Run tests e2e -- users
-        run: npm run test:e2e -- users.e2e-spec.ts
+        run: pnpm test:e2e -- users.e2e-spec.ts
       - name: Run tests e2e -- forgot-password
-        run: npm run test:e2e -- forgot-password.e2e-spec.ts
+        run: pnpm test:e2e -- forgot-password.e2e-spec.ts
       - name: Stop Docker-Compose
         run: docker-compose down

@@ -9,7 +9,7 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 10.x
 ## Installation
 
 ```bash
-   $ npm install
+   $ pnpm install
 ```
 
 ## Set Environment for secret key JWT and other configurations
@@ -41,7 +41,7 @@ To set up on multiple environments, such as dev, stage or prod, we do as follows
 
 ## Config settings .env to connect MySQL
 
-Once the database has been configured, start the Nest App via `npm run start:dev` it automatically synchronizes the entities so it is ready to use. :heart_eyes_cat:
+Once the database has been configured, start the Nest App via `pnpm run start:dev` it automatically synchronizes the entities so it is ready to use. :heart_eyes_cat:
 
 ```
    TYPEORM_CONNECTION = "mysql"
@@ -62,7 +62,7 @@ Once the database has been configured, start the Nest App via `npm run start:dev
 ## Install TypeScript Node
 
 ```bash
-   $ npm install -g ts-node
+   $ pnpm install -g ts-node
 ```
 
 ## Running migrations with typeorm
@@ -81,25 +81,25 @@ or
 
 ```bash
     # development
-    $ npm run start
+    $ pnpm start
 
     # watch mode
-    $ npm run start:dev
+    $ pnpm start:dev
 
     # production mode
-    $ npm run start:prod
+    $ pnpm start:prod
 ```
 
 ## Running the app in REPL mode
 
 ```bash
-   $ npm run start -- --entryFile repl
+   $ pnpm start --entryFile repl
 ```
 
 or
 
 ```bash
-   $ npm run start:repl
+   $ pnpm start:repl
 ```
 
 ## Docker
