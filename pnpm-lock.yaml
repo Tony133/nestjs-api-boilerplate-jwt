@@ -137,8 +137,8 @@ devDependencies:
     specifier: ^6.3.3
     version: 6.3.4
   ts-jest:
-    specifier: ^29.1.1
-    version: 29.1.1(@babel/core@7.23.7)(jest@29.7.0)(typescript@5.3.3)
+    specifier: ^29.1.2
+    version: 29.1.2(@babel/core@7.23.7)(jest@29.7.0)(typescript@5.3.3)
   ts-loader:
     specifier: ^9.5.0
     version: 9.5.1(typescript@5.3.3)(webpack@5.89.0)
@@ -5981,9 +5981,9 @@ packages:
       typescript: 5.3.3
     dev: true
 
-  /ts-jest@29.1.1(@babel/core@7.23.7)(jest@29.7.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-D6xjnnbP17cC85nliwGiL+tpoKN0StpgE0TeOjXQTU6MVCfsB4v7aW05CgQ/1OywGb0x/oy9hHFnN+sczTiRaA==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+  /ts-jest@29.1.2(@babel/core@7.23.7)(jest@29.7.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-br6GJoH/WUX4pu7FbZXuWGKGNDuU7b8Uj77g/Sp7puZV6EXzuByl6JrECvm0MzVzSTkSHWTihsXt+5XYER5b+g==}
+    engines: {node: ^16.10.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
       '@babel/core': '>=7.0.0-beta.0 <8'
