@@ -77,8 +77,8 @@ devDependencies:
     specifier: ^18.0.0
     version: 18.4.4(@types/node@20.11.5)(typescript@5.3.3)
   '@commitlint/config-angular':
-    specifier: ^18.0.0
-    version: 18.4.4
+    specifier: ^18.5.0
+    version: 18.5.0
   '@nestjs/cli':
     specifier: ^10.1.18
     version: 10.3.0
@@ -574,8 +574,8 @@ packages:
     engines: {node: '>=v18'}
     dev: true
 
-  /@commitlint/config-angular@18.4.4:
-    resolution: {integrity: sha512-bmW32RPEn5UH1bM5nyPM8kO2B6+cJgP9sWa8uUD9yI8hRshcKUFuK7gVUxZLcXO7gZWuJRcvXXcC2Vv76cKNHg==}
+  /@commitlint/config-angular@18.5.0:
+    resolution: {integrity: sha512-3oTM/fQ+YgPpgKjS6LF9XBs/4JZCYmzQ1/S8AIf+8Z/1xj09S5qyZt2+N+UKP0ZnWhkHwjD8Om6yR6VBma/JJg==}
     engines: {node: '>=v18'}
     dependencies:
       '@commitlint/config-angular-type-enum': 18.4.4
