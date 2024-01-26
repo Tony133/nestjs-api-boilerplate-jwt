@@ -37,7 +37,7 @@
     "dotenv": "^16.3.2",
     "express-basic-auth": "^1.2.1",
     "handlebars": "^4.7.8",
-    "mysql2": "^3.6.3",
+    "mysql2": "^3.9.0",
     "nodemailer": "^6.9.7",
     "reflect-metadata": "^0.1.14",
     "rimraf": "^5.0.5",
