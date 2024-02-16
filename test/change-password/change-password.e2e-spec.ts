@@ -5,6 +5,7 @@ import { MailerService } from '../../src/shared/mailer/mailer.service';
 import {
   BadRequestException,
   HttpStatus,
+  INestApplication,
   ValidationPipe,
 } from '@nestjs/common';
 import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
@@ -15,7 +16,7 @@ const user = {
 };
 
 describe('App (e2e)', () => {
-  let app;
+  let app: INestApplication<any>;
   let accessTokenJwt: string;
   let refreshTokenJwt: string;
 

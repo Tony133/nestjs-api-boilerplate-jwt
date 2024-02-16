@@ -5,6 +5,7 @@ import { MailerService } from '../../src/shared/mailer/mailer.service';
 import {
   BadRequestException,
   HttpStatus,
+  INestApplication,
   ValidationPipe,
 } from '@nestjs/common';
 import { ForgotPasswordDto } from 'src/iam/forgot-password/dto/forgot-password.dto';
@@ -22,7 +23,7 @@ const createUser = {
 };
 
 describe('App (e2e)', () => {
-  let app;
+  let app: INestApplication<any>;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({

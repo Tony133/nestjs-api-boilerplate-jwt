@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { HttpStatus, ValidationPipe } from '@nestjs/common';
+import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { AccessTokenGuard } from '../src/iam/login/guards/access-token/access-token.guard';
 
 describe('App (e2e)', () => {
-  let app;
+  let app: INestApplication<any>;
   let accessTokenJwt: string;
   let refreshTokenJwt: string;
 

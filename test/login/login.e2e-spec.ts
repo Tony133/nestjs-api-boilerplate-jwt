@@ -4,11 +4,12 @@ import { AppModule } from './../../src/app.module';
 import {
   BadRequestException,
   HttpStatus,
+  INestApplication,
   ValidationPipe,
 } from '@nestjs/common';
 
 describe('App (e2e)', () => {
-  let app;
+  let app: INestApplication<any>;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
