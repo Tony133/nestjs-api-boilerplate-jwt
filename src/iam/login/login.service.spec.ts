@@ -24,8 +24,8 @@ const loginDto: LoginDto = {
 };
 
 const userLogin = {
-  accessToken: undefined,
-  refreshToken: undefined,
+  accessToken: undefined as any,
+  refreshToken: undefined as any,
   user: {
     id: 1,
     name: 'name #1',
