@@ -3,16 +3,16 @@ import { UserUpdateDto } from '../dto/user-update.dto';
 import { UserDto } from '../dto/user.dto';
 
 export interface UsersRepository {
-  findAll();
-  findByEmail(email: string);
-  findBySub(sub: number);
-  findById(userId: string);
-  create(userDto: UserDto);
-  updateByEmail(email: string);
-  updateByPassword(email: string, password: string);
-  updateProfileUser(id: string, userProfileDto: UserProfileDto);
-  updateUser(id: string, userUpdateDto: UserUpdateDto);
-  deleteUser(id: string);
+  findAll(): void;
+  findByEmail(email: string): void;
+  findBySub(sub: number): void;
+  findById(userId: string): void;
+  create(userDto: UserDto): void;
+  updateByEmail(email: string): void;
+  updateByPassword(email: string, password: string): void;
+  updateProfileUser(id: string, userProfileDto: UserProfileDto): void;
+  updateUser(id: string, userUpdateDto: UserUpdateDto): void;
+  deleteUser(id: string): void;
 }
 
 export const USERS_REPOSITORY_TOKEN = 'users-repository-token';

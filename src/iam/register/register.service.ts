@@ -25,7 +25,7 @@ export class RegisterService {
     return this.usersService.create(registerUserDto);
   }
 
-  private sendMailRegisterUser(user): void {
+  private sendMailRegisterUser(user: RegisterUserDto): void {
     try {
       this.mailerService.sendMail({
         to: user.email,

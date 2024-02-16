@@ -9,7 +9,9 @@ export function configureSwaggerDocs(
   app: INestApplication,
   configService: ConfigService,
 ) {
-  if (SWAGGER_ENVS.includes(configService.get<string>('NODE_ENV'))) {
+  if (
+    SWAGGER_ENVS.includes(configService.get<string | undefined>('NODE_ENV'))
+  ) {
     app.use(
       ['/docs', '/docs-json', '/docs-yaml'],
       basicAuth({

@@ -21,7 +21,7 @@ export class ChangePasswordService {
     );
   }
 
-  private sendMailChangePassword(user): void {
+  private sendMailChangePassword(user: ChangePasswordDto | any): void {
     try {
       this.mailerService.sendMail({
         to: user.email,

@@ -31,7 +31,7 @@ export class ForgotPasswordService {
     return await this.userRepository.save(userUpdate);
   }
 
-  private sendMailForgotPassword(email, password): void {
+  private sendMailForgotPassword(email: string, password: string): void {
     try {
       this.mailerService.sendMail({
         to: email,

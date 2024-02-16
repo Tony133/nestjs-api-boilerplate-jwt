@@ -16,7 +16,7 @@ export class UsersTypeOrmRepository implements UsersRepository {
   public async findAll() {
     return await this.usersRepository.find();
   }
-  
+
   public async findByEmail(email: string) {
     return await this.usersRepository.findOneBy({
       email: email,
@@ -29,7 +29,7 @@ export class UsersTypeOrmRepository implements UsersRepository {
     });
   }
 
-  public async findById(userId: string): Promise<Users> {
+  public async findById(userId: string): Promise<Users | null> {
     return await this.usersRepository.findOneBy({
       id: +userId,
     });
@@ -82,7 +82,7 @@ export class UsersTypeOrmRepository implements UsersRepository {
     );
   }
 
-  public async deleteUser(user): Promise<void> {
+  public async deleteUser(user: any): Promise<void> {
     await this.usersRepository.remove(user);
   }
 }

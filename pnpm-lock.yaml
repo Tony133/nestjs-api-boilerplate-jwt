@@ -74,27 +74,11 @@ dependencies:
 
 devDependencies:
   '@commitlint/cli':
-<<<<<<< Updated upstream
-    specifier: ^18.6.0
-    version: 18.6.0(@types/node@20.11.5)(typescript@5.3.3)
-||||||| Stash base
-    specifier: ^18.0.0
-    version: 18.4.4(@types/node@20.11.5)(typescript@5.3.3)
-=======
     specifier: ^18.6.1
     version: 18.6.1(@types/node@20.11.19)(typescript@5.3.3)
->>>>>>> Stashed changes
   '@commitlint/config-angular':
-<<<<<<< Updated upstream
-    specifier: ^18.5.0
-    version: 18.5.0
-||||||| Stash base
-    specifier: ^18.0.0
-    version: 18.4.4
-=======
     specifier: ^18.6.1
     version: 18.6.1
->>>>>>> Stashed changes
   '@nestjs/cli':
     specifier: ^10.3.2
     version: 10.3.2
@@ -104,6 +88,9 @@ devDependencies:
   '@nestjs/testing':
     specifier: ^10.3.3
     version: 10.3.3(@nestjs/common@10.3.3)(@nestjs/core@10.3.3)(@nestjs/platform-express@10.3.3)
+  '@types/bcrypt':
+    specifier: ^5.0.2
+    version: 5.0.2
   '@types/express':
     specifier: ^4.17.21
     version: 4.17.21
@@ -123,27 +110,11 @@ devDependencies:
     specifier: ^6.0.2
     version: 6.0.2
   '@typescript-eslint/eslint-plugin':
-<<<<<<< Updated upstream
-    specifier: ^7.0.0
-    version: 7.0.1(@typescript-eslint/parser@7.0.1)(eslint@8.56.0)(typescript@5.3.3)
-||||||| Stash base
-    specifier: ^6.8.0
-    version: 6.19.0(@typescript-eslint/parser@6.19.0)(eslint@8.56.0)(typescript@5.3.3)
-=======
     specifier: ^7.0.1
     version: 7.0.1(@typescript-eslint/parser@7.0.1)(eslint@8.56.0)(typescript@5.3.3)
->>>>>>> Stashed changes
   '@typescript-eslint/parser':
-<<<<<<< Updated upstream
-    specifier: ^7.0.0
-    version: 7.0.1(eslint@8.56.0)(typescript@5.3.3)
-||||||| Stash base
-    specifier: ^6.8.0
-    version: 6.19.0(eslint@8.56.0)(typescript@5.3.3)
-=======
     specifier: ^7.0.1
     version: 7.0.1(eslint@8.56.0)(typescript@5.3.3)
->>>>>>> Stashed changes
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
@@ -154,30 +125,14 @@ devDependencies:
     specifier: ^5.1.3
     version: 5.1.3(eslint-config-prettier@9.1.0)(eslint@8.56.0)(prettier@3.2.5)
   husky:
-<<<<<<< Updated upstream
-    specifier: ^9.0.0
-    version: 9.0.1
-||||||| Stash base
-    specifier: ^8.0.3
-    version: 8.0.3
-=======
     specifier: ^9.0.11
     version: 9.0.11
->>>>>>> Stashed changes
   jest:
     specifier: ^29.7.0
     version: 29.7.0(@types/node@20.11.19)(ts-node@10.9.2)
   nodemailer-express-handlebars:
-<<<<<<< Updated upstream
-    specifier: ^6.1.0
-    version: 6.1.0(express-handlebars@7.1.2)(nodemailer@6.9.9)
-||||||| Stash base
-    specifier: ^6.1.0
-    version: 6.1.0(express-handlebars@7.1.2)(nodemailer@6.9.8)
-=======
     specifier: ^6.1.2
     version: 6.1.2(express-handlebars@7.1.2)(nodemailer@6.9.9)
->>>>>>> Stashed changes
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
@@ -185,16 +140,8 @@ devDependencies:
     specifier: ^6.3.4
     version: 6.3.4
   ts-jest:
-<<<<<<< Updated upstream
-    specifier: ^29.1.2
-    version: 29.1.2(@babel/core@7.23.7)(jest@29.7.0)(typescript@5.3.3)
-||||||| Stash base
-    specifier: ^29.1.1
-    version: 29.1.1(@babel/core@7.23.7)(jest@29.7.0)(typescript@5.3.3)
-=======
     specifier: ^29.1.2
     version: 29.1.2(@babel/core@7.23.9)(jest@29.7.0)(typescript@5.3.3)
->>>>>>> Stashed changes
   ts-loader:
     specifier: ^9.5.1
     version: 9.5.1(typescript@5.3.3)(webpack@5.90.2)
@@ -605,38 +552,16 @@ packages:
     dev: true
     optional: true
 
-<<<<<<< Updated upstream
-  /@commitlint/cli@18.6.0(@types/node@20.11.5)(typescript@5.3.3):
-    resolution: {integrity: sha512-FiH23cr9QG8VdfbmvJJZmdfHGVMCouOOAzoXZ3Cd7czGC52RbycwNt8YCI7SA69pAl+t30vh8LMaO/N+kcel6w==}
-||||||| Stash base
-  /@commitlint/cli@18.4.4(@types/node@20.11.5)(typescript@5.3.3):
-    resolution: {integrity: sha512-Ro3wIo//fV3XiV1EkdpHog6huaEyNcUAVrSmtgKqYM5g982wOWmP4FXvEDFwRMVgz878CNBvvCc33dMZ5AQJ/g==}
-=======
   /@commitlint/cli@18.6.1(@types/node@20.11.19)(typescript@5.3.3):
     resolution: {integrity: sha512-5IDE0a+lWGdkOvKH892HHAZgbAjcj1mT5QrfA/SVbLJV/BbBMGyKN0W5mhgjekPJJwEQdVNvhl9PwUacY58Usw==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     hasBin: true
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/format': 18.6.0
-      '@commitlint/lint': 18.6.0
-      '@commitlint/load': 18.6.0(@types/node@20.11.5)(typescript@5.3.3)
-      '@commitlint/read': 18.6.0
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/format': 18.4.4
-      '@commitlint/lint': 18.4.4
-      '@commitlint/load': 18.4.4(@types/node@20.11.5)(typescript@5.3.3)
-      '@commitlint/read': 18.4.4
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/format': 18.6.1
       '@commitlint/lint': 18.6.1
       '@commitlint/load': 18.6.1(@types/node@20.11.19)(typescript@5.3.3)
       '@commitlint/read': 18.6.1
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       execa: 5.1.1
       lodash.isfunction: 3.0.9
       resolve-from: 5.0.0
@@ -652,62 +577,26 @@ packages:
     engines: {node: '>=v18'}
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/config-angular@18.5.0:
-    resolution: {integrity: sha512-3oTM/fQ+YgPpgKjS6LF9XBs/4JZCYmzQ1/S8AIf+8Z/1xj09S5qyZt2+N+UKP0ZnWhkHwjD8Om6yR6VBma/JJg==}
-||||||| Stash base
-  /@commitlint/config-angular@18.4.4:
-    resolution: {integrity: sha512-bmW32RPEn5UH1bM5nyPM8kO2B6+cJgP9sWa8uUD9yI8hRshcKUFuK7gVUxZLcXO7gZWuJRcvXXcC2Vv76cKNHg==}
-=======
   /@commitlint/config-angular@18.6.1:
     resolution: {integrity: sha512-Aki/xnNPc36bo47gkD/BIgR+vWAik/9k3l+9I46K3UlZadcE1XqqrEPkFWwhGHEGb4X3571IUbJZM33qXuSIcw==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
       '@commitlint/config-angular-type-enum': 18.6.1
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/config-validator@18.6.0:
-    resolution: {integrity: sha512-Ptfa865arNozlkjxrYG3qt6wT9AlhNUHeuDyKEZiTL/l0ftncFhK/KN0t/EAMV2tec+0Mwxo0FmhbESj/bI+1g==}
-||||||| Stash base
-  /@commitlint/config-validator@18.4.4:
-    resolution: {integrity: sha512-/QI8KIg/h7O0Eus36fPcEcO3QPBcdXuGfZeCF5m15k0EB2bcU8s6pHNTNEa6xz9PrAefHCL+yzRJj7w20T6Mow==}
-=======
   /@commitlint/config-validator@18.6.1:
     resolution: {integrity: sha512-05uiToBVfPhepcQWE1ZQBR/Io3+tb3gEotZjnI4tTzzPk16NffN6YABgwFQCLmzZefbDcmwWqJWc2XT47q7Znw==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       ajv: 8.12.0
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/ensure@18.6.0:
-    resolution: {integrity: sha512-xY07NmOBJ7JuhX3tic021PaeLepZARIQyqpAQoNQZoml1keBFfB6MbA7XlWZv0ebbarUFE4yhKxOPw+WFv7/qw==}
-||||||| Stash base
-  /@commitlint/ensure@18.4.4:
-    resolution: {integrity: sha512-KjD19p6julB5WrQL+Cd8p+AePwpl1XzGAjB0jnuFMKWtji9L7ucCZUKDstGjlkBZGGzH/nvdB8K+bh5K27EVUg==}
-=======
   /@commitlint/ensure@18.6.1:
     resolution: {integrity: sha512-BPm6+SspyxQ7ZTsZwXc7TRQL5kh5YWt3euKmEIBZnocMFkJevqs3fbLRb8+8I/cfbVcAo4mxRlpTPfz8zX7SnQ==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       lodash.camelcase: 4.3.0
       lodash.kebabcase: 4.1.1
       lodash.snakecase: 4.1.1
@@ -720,110 +609,40 @@ packages:
     engines: {node: '>=v18'}
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/format@18.6.0:
-    resolution: {integrity: sha512-8UNWfs2slPPSQiiVpLGJTnPHv7Jkd5KYxfbNXbmLL583bjom4RrylvyrCVnmZReA8nNad7pPXq6mDH4FNVj6xg==}
-||||||| Stash base
-  /@commitlint/format@18.4.4:
-    resolution: {integrity: sha512-2v3V5hVlv0R3pe7p66IX5F7cjeVvGM5JqITRIbBCFvGHPJ/CG74rjTkAu0RBEiIhlk3eOaLjVGq3d5falPkLBA==}
-=======
   /@commitlint/format@18.6.1:
     resolution: {integrity: sha512-K8mNcfU/JEFCharj2xVjxGSF+My+FbUHoqR+4GqPGrHNqXOGNio47ziiR4HQUPKtiNs05o8/WyLBoIpMVOP7wg==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       chalk: 4.1.2
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/is-ignored@18.6.0:
-    resolution: {integrity: sha512-Xjx/ZyyJ4FdLuz0FcOvqiqSFgiO2yYj3QN9XlvyrxqbXTxPVC7QFEXJYBVPulUSN/gR7WXH1Udw+HYYfD17xog==}
-||||||| Stash base
-  /@commitlint/is-ignored@18.4.4:
-    resolution: {integrity: sha512-rXWes9owKBTjfTr6Od7YlflRg4N+ngkOH+dUZhk0qL/XQb26mHz0EgVgdixMVBac1OsohRwJaLmVHX+5F6vfmg==}
-=======
   /@commitlint/is-ignored@18.6.1:
     resolution: {integrity: sha512-MOfJjkEJj/wOaPBw5jFjTtfnx72RGwqYIROABudOtJKW7isVjFe9j0t8xhceA02QebtYf4P/zea4HIwnXg8rvA==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/types': 18.6.0
-      semver: 7.5.4
-||||||| Stash base
-      '@commitlint/types': 18.4.4
-      semver: 7.5.4
-=======
       '@commitlint/types': 18.6.1
       semver: 7.6.0
->>>>>>> Stashed changes
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/lint@18.6.0:
-    resolution: {integrity: sha512-ycbuDWfyykPmslgiHzhz8dL6F0BJYltXLVfc+M49z0c+FNITM0v+r0Vd2+Tdtq06VTc894p2+YSmZhulY8Jn3Q==}
-||||||| Stash base
-  /@commitlint/lint@18.4.4:
-    resolution: {integrity: sha512-SoyQstVxMY5Z4GnFRtRzy+NWYb+yVseXgir+7BxnpB59oH05C9XztRrhDw6OnkNeXhjINTpi1HLnuY7So+CaAQ==}
-=======
   /@commitlint/lint@18.6.1:
     resolution: {integrity: sha512-8WwIFo3jAuU+h1PkYe5SfnIOzp+TtBHpFr4S8oJWhu44IWKuVx6GOPux3+9H1iHOan/rGBaiacicZkMZuluhfQ==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/is-ignored': 18.6.0
-      '@commitlint/parse': 18.6.0
-      '@commitlint/rules': 18.6.0
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/is-ignored': 18.4.4
-      '@commitlint/parse': 18.4.4
-      '@commitlint/rules': 18.4.4
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/is-ignored': 18.6.1
       '@commitlint/parse': 18.6.1
       '@commitlint/rules': 18.6.1
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/load@18.6.0(@types/node@20.11.5)(typescript@5.3.3):
-    resolution: {integrity: sha512-RRssj7TmzT0bowoEKlgwg8uQ7ORXWkw7lYLsZZBMi9aInsJuGNLNWcMxJxRZbwxG3jkCidGUg85WmqJvRjsaDA==}
-||||||| Stash base
-  /@commitlint/load@18.4.4(@types/node@20.11.5)(typescript@5.3.3):
-    resolution: {integrity: sha512-RaDIa9qwOw2xRJ3Jr2DBXd14rmnHJIX2XdZF4kmoF1rgsg/+7cvrExLSUNAkQUNimyjCn1b/bKX2Omm+GdY0XQ==}
-=======
   /@commitlint/load@18.6.1(@types/node@20.11.19)(typescript@5.3.3):
     resolution: {integrity: sha512-p26x8734tSXUHoAw0ERIiHyW4RaI4Bj99D8YgUlVV9SedLf8hlWAfyIFhHRIhfPngLlCe0QYOdRKYFt8gy56TA==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/config-validator': 18.6.0
-      '@commitlint/execute-rule': 18.4.4
-      '@commitlint/resolve-extends': 18.6.0
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/config-validator': 18.4.4
-      '@commitlint/execute-rule': 18.4.4
-      '@commitlint/resolve-extends': 18.4.4
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/config-validator': 18.6.1
       '@commitlint/execute-rule': 18.6.1
       '@commitlint/resolve-extends': 18.6.1
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       chalk: 4.1.2
       cosmiconfig: 8.3.6(typescript@5.3.3)
       cosmiconfig-typescript-loader: 5.0.0(@types/node@20.11.19)(cosmiconfig@8.3.6)(typescript@5.3.3)
@@ -841,111 +660,45 @@ packages:
     engines: {node: '>=v18'}
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/parse@18.6.0:
-    resolution: {integrity: sha512-Y/G++GJpATFw54O0jikc/h2ibyGHgghtPnwsOk3O/aU092ydJ5XEHYcd7xGNQYuLweLzQis2uEwRNk9AVIPbQQ==}
-||||||| Stash base
-  /@commitlint/parse@18.4.4:
-    resolution: {integrity: sha512-99G7dyn/OoyNWXJni0Ki0K3aJd01pEb/Im/Id6y4X7PN+kGOahjz2z/cXYYHn7xDdooqFVdiVrVLeChfgpWZ2g==}
-=======
   /@commitlint/parse@18.6.1:
     resolution: {integrity: sha512-eS/3GREtvVJqGZrwAGRwR9Gdno3YcZ6Xvuaa+vUF8j++wsmxrA2En3n0ccfVO2qVOLJC41ni7jSZhQiJpMPGOQ==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       conventional-changelog-angular: 7.0.0
       conventional-commits-parser: 5.0.0
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/read@18.6.0:
-    resolution: {integrity: sha512-w39ji8VfWhPKRquPhRHB3Yd8XIHwaNHgOh28YI1QEmZ59qVpuVUQo6h/NsVb+uoC6LbXZiofTZv2iFR084jKEA==}
-||||||| Stash base
-  /@commitlint/read@18.4.4:
-    resolution: {integrity: sha512-r58JbWky4gAFPea/CZmvlqP9Ehbs+8gSEUqhIJOojKzTc3xlxFnZUDVPcEnnaqzQEEoV6C69VW7xuzdcBlu/FQ==}
-=======
   /@commitlint/read@18.6.1:
     resolution: {integrity: sha512-ia6ODaQFzXrVul07ffSgbZGFajpe8xhnDeLIprLeyfz3ivQU1dIoHp7yz0QIorZ6yuf4nlzg4ZUkluDrGN/J/w==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/top-level': 18.4.4
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/top-level': 18.4.4
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/top-level': 18.6.1
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       git-raw-commits: 2.0.11
       minimist: 1.2.8
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/resolve-extends@18.6.0:
-    resolution: {integrity: sha512-k2Xp+Fxeggki2i90vGrbiLDMefPius3zGSTFFlRAPKce/SWLbZtI+uqE9Mne23mHO5lmcSV8z5m6ziiJwGpOcg==}
-||||||| Stash base
-  /@commitlint/resolve-extends@18.4.4:
-    resolution: {integrity: sha512-RRpIHSbRnFvmGifVk21Gqazf1QF/yeP+Kkg/e3PlkegcOKd/FGOXp/Kx9cvSO2K7ucSn4GD/oBvgasFoy+NCAw==}
-=======
   /@commitlint/resolve-extends@18.6.1:
     resolution: {integrity: sha512-ifRAQtHwK+Gj3Bxj/5chhc4L2LIc3s30lpsyW67yyjsETR6ctHAHRu1FSpt0KqahK5xESqoJ92v6XxoDRtjwEQ==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/config-validator': 18.6.0
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/config-validator': 18.4.4
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/config-validator': 18.6.1
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       import-fresh: 3.3.0
       lodash.mergewith: 4.6.2
       resolve-from: 5.0.0
       resolve-global: 1.0.0
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/rules@18.6.0:
-    resolution: {integrity: sha512-pTalvCEvuCWrBWZA/YqO/3B3nZnY3Ncc+TmQsRajBdC1tkQIm5Iovdo4Ec7f2Dw1tVvpYMUUNAgcWqsY0WckWg==}
-||||||| Stash base
-  /@commitlint/rules@18.4.4:
-    resolution: {integrity: sha512-6Uzlsnl/GljEI+80NWjf4ThOfR8NIsbm18IfXYuCEchlwMHSxiuYG4rHSK5DNmG/+MIo8eR5VdQ0gQyt7kWzAA==}
-=======
   /@commitlint/rules@18.6.1:
     resolution: {integrity: sha512-kguM6HxZDtz60v/zQYOe0voAtTdGybWXefA1iidjWYmyUUspO1zBPQEmJZ05/plIAqCVyNUTAiRPWIBKLCrGew==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
-<<<<<<< Updated upstream
-      '@commitlint/ensure': 18.6.0
-      '@commitlint/message': 18.4.4
-      '@commitlint/to-lines': 18.4.4
-      '@commitlint/types': 18.6.0
-||||||| Stash base
-      '@commitlint/ensure': 18.4.4
-      '@commitlint/message': 18.4.4
-      '@commitlint/to-lines': 18.4.4
-      '@commitlint/types': 18.4.4
-=======
       '@commitlint/ensure': 18.6.1
       '@commitlint/message': 18.6.1
       '@commitlint/to-lines': 18.6.1
       '@commitlint/types': 18.6.1
->>>>>>> Stashed changes
       execa: 5.1.1
     dev: true
 
@@ -961,16 +714,8 @@ packages:
       find-up: 5.0.0
     dev: true
 
-<<<<<<< Updated upstream
-  /@commitlint/types@18.6.0:
-    resolution: {integrity: sha512-oavoKLML/eJa2rJeyYSbyGAYzTxQ6voG5oeX3OrxpfrkRWhJfm4ACnhoRf5tgiybx2MZ+EVFqC1Lw3W8/uwpZA==}
-||||||| Stash base
-  /@commitlint/types@18.4.4:
-    resolution: {integrity: sha512-/FykLtodD8gKs3+VNkAUwofu4LBHankclj+I8fB2jTRvG6PV7k/OUt4P+VbM7ip853qS4F0g7Z6hLNa6JeMcAQ==}
-=======
   /@commitlint/types@18.6.1:
     resolution: {integrity: sha512-gwRLBLra/Dozj2OywopeuHj2ac26gjGkz2cZ+86cTJOdtWfiRRr4+e77ZDAGc6MDWxaWheI+mAV5TLWWRwqrFg==}
->>>>>>> Stashed changes
     engines: {node: '>=v18'}
     dependencies:
       chalk: 4.1.2
@@ -1703,6 +1448,12 @@ packages:
       '@babel/types': 7.23.9
     dev: true
 
+  /@types/bcrypt@5.0.2:
+    resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
+    dependencies:
+      '@types/node': 20.11.19
+    dev: true
+
   /@types/body-parser@1.19.5:
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
     dependencies:
@@ -2013,22 +1764,10 @@ packages:
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.56.0)
       '@types/json-schema': 7.0.15
-<<<<<<< Updated upstream
-      '@types/semver': 7.5.6
-      '@typescript-eslint/scope-manager': 7.0.1
-      '@typescript-eslint/types': 7.0.1
-      '@typescript-eslint/typescript-estree': 7.0.1(typescript@5.3.3)
-||||||| Stash base
-      '@types/semver': 7.5.6
-      '@typescript-eslint/scope-manager': 6.19.0
-      '@typescript-eslint/types': 6.19.0
-      '@typescript-eslint/typescript-estree': 6.19.0(typescript@5.3.3)
-=======
       '@types/semver': 7.5.7
       '@typescript-eslint/scope-manager': 7.0.1
       '@typescript-eslint/types': 7.0.1
       '@typescript-eslint/typescript-estree': 7.0.1(typescript@5.3.3)
->>>>>>> Stashed changes
       eslint: 8.56.0
       semver: 7.6.0
     transitivePeerDependencies:
@@ -3919,19 +3658,9 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: true
 
-<<<<<<< Updated upstream
-  /husky@9.0.1:
-    resolution: {integrity: sha512-rXCT8yF2v3awSG03AG6IgICDhJ+m8o3jL1ROwsT4nQZ6urEyKSj0IWFDIh5YC2zgZeAxWksNMbN6rYY4BE1Zrw==}
-    engines: {node: '>=18'}
-||||||| Stash base
-  /husky@8.0.3:
-    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
-    engines: {node: '>=14'}
-=======
   /husky@9.0.11:
     resolution: {integrity: sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==}
     engines: {node: '>=18'}
->>>>>>> Stashed changes
     hasBin: true
     dev: true
 
@@ -5211,16 +4940,8 @@ packages:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
     dev: true
 
-<<<<<<< Updated upstream
-  /nodemailer-express-handlebars@6.1.0(express-handlebars@7.1.2)(nodemailer@6.9.9):
-    resolution: {integrity: sha512-CWhsoDDa5JbvQmOxTOJhISFuUqDLKW0kvL09whIDBnD71P8ykATCQ+xOjQfltXR5qpK15m0AqwE/kHgbYx/zsQ==}
-||||||| Stash base
-  /nodemailer-express-handlebars@6.1.0(express-handlebars@7.1.2)(nodemailer@6.9.8):
-    resolution: {integrity: sha512-CWhsoDDa5JbvQmOxTOJhISFuUqDLKW0kvL09whIDBnD71P8ykATCQ+xOjQfltXR5qpK15m0AqwE/kHgbYx/zsQ==}
-=======
   /nodemailer-express-handlebars@6.1.2(express-handlebars@7.1.2)(nodemailer@6.9.9):
     resolution: {integrity: sha512-p5ZKPe8PmiDZquNqi+uDKE1eKXOcqOVPdnmhWELCT1HHoaYXcVwM7wQE1R7wtPPracZRH2hL7mEWiXhVwr5hng==}
->>>>>>> Stashed changes
     engines: {node: 14.* || 16.* || >= 18}
     peerDependencies:
       express-handlebars: '>= 6.0.0'
@@ -6299,19 +6020,9 @@ packages:
       typescript: 5.3.3
     dev: true
 
-<<<<<<< Updated upstream
-  /ts-jest@29.1.2(@babel/core@7.23.7)(jest@29.7.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-br6GJoH/WUX4pu7FbZXuWGKGNDuU7b8Uj77g/Sp7puZV6EXzuByl6JrECvm0MzVzSTkSHWTihsXt+5XYER5b+g==}
-    engines: {node: ^16.10.0 || ^18.0.0 || >=20.0.0}
-||||||| Stash base
-  /ts-jest@29.1.1(@babel/core@7.23.7)(jest@29.7.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-D6xjnnbP17cC85nliwGiL+tpoKN0StpgE0TeOjXQTU6MVCfsB4v7aW05CgQ/1OywGb0x/oy9hHFnN+sczTiRaA==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-=======
   /ts-jest@29.1.2(@babel/core@7.23.9)(jest@29.7.0)(typescript@5.3.3):
     resolution: {integrity: sha512-br6GJoH/WUX4pu7FbZXuWGKGNDuU7b8Uj77g/Sp7puZV6EXzuByl6JrECvm0MzVzSTkSHWTihsXt+5XYER5b+g==}
     engines: {node: ^16.10.0 || ^18.0.0 || >=20.0.0}
->>>>>>> Stashed changes
     hasBin: true
     peerDependencies:
       '@babel/core': '>=7.0.0-beta.0 <8'
