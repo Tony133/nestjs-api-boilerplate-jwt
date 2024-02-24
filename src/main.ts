@@ -31,13 +31,15 @@ async function bootstrap() {
   });
   const port = configService.get<number>('NODE_API_PORT') || 3000;
   await app.listen(port, '0.0.0.0');
-  Logger.debug(
-    `${await app.getUrl()} - Environment: ${configService.get<string>(
-      'NODE_ENV',
-    )}`,
-    'Environment',
-  );
+  if (configService.get<string>('NODE_ENV') === 'dev') {
+    Logger.debug(
+      `${await app.getUrl()} - Environment: ${configService.get<string>(
+        'NODE_ENV',
+      )}`,
+      'Environment',
+    );
 
-  Logger.debug(`Url for OpenApi: ${await app.getUrl()}/docs`, 'Swagger');
+    Logger.debug(`Url for OpenApi: ${await app.getUrl()}/docs`, 'Swagger');
+  }
 }
 bootstrap();
