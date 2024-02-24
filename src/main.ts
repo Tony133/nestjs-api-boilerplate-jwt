@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { configureSwaggerDocs } from './helpers/configure-swagger-docs.helper';
+import { configureAuthSwaggerDocs } from './helpers/configure-auth-swagger-docs.helper';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,6 +21,7 @@ async function bootstrap() {
     }),
   );
 
+  configureAuthSwaggerDocs(app, configService);
   configureSwaggerDocs(app, configService);
 
   app.enableCors({
@@ -29,13 +31,13 @@ async function bootstrap() {
   });
   const port = configService.get<number>('NODE_API_PORT') || 3000;
   await app.listen(port, '0.0.0.0');
-  Logger.log(
+  Logger.debug(
     `${await app.getUrl()} - Environment: ${configService.get<string>(
       'NODE_ENV',
     )}`,
     'Environment',
   );
 
-  Logger.log(`Url for OpenApi: ${await app.getUrl()}/docs`, 'Swagger');
+  Logger.debug(`Url for OpenApi: ${await app.getUrl()}/docs`, 'Swagger');
 }
 bootstrap();
