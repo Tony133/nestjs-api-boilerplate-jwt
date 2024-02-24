@@ -30,10 +30,10 @@ async function bootstrap() {
   const port = configService.get<number>('NODE_API_PORT') || 3000;
   await app.listen(port, '0.0.0.0');
   Logger.log(
-    `${await app.getUrl()} - Enviroment: ${configService.get<string>(
+    `${await app.getUrl()} - Environment: ${configService.get<string>(
       'NODE_ENV',
     )}`,
-    'Enviroment',
+    'Environment',
   );
 
   Logger.log(`Url for OpenApi: ${await app.getUrl()}/docs`, 'Swagger');
