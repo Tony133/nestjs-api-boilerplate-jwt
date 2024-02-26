@@ -36,7 +36,7 @@
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "handlebars": "^4.7.8",
-    "mysql2": "^3.9.1",
+    "mysql2": "^3.9.2",
     "nodemailer": "^6.9.9",
     "reflect-metadata": "^0.2.1",
     "rimraf": "^5.0.5",
