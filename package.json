@@ -45,7 +45,7 @@
     "yup": "^1.3.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
+    "@commitlint/cli": "^19.0.3",
     "@commitlint/config-angular": "^19.0.0",
     "@nestjs/cli": "^10.3.2",
     "@nestjs/schematics": "^10.1.1",
