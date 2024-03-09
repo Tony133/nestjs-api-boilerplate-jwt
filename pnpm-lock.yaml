@@ -52,7 +52,7 @@ dependencies:
     version: 3.9.2
   nodemailer:
     specifier: ^6.9.11
-    version: 6.9.11
+    version: 6.9.12
   reflect-metadata:
     specifier: ^0.2.1
     version: 0.2.1
@@ -129,7 +129,7 @@ devDependencies:
     version: 29.7.0(@types/node@20.11.25)(ts-node@10.9.2)
   nodemailer-express-handlebars:
     specifier: ^6.1.2
-    version: 6.1.2(express-handlebars@7.1.2)(nodemailer@6.9.11)
+    version: 6.1.2(express-handlebars@7.1.2)(nodemailer@6.9.12)
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
@@ -4909,7 +4909,7 @@ packages:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
     dev: true
 
-  /nodemailer-express-handlebars@6.1.2(express-handlebars@7.1.2)(nodemailer@6.9.11):
+  /nodemailer-express-handlebars@6.1.2(express-handlebars@7.1.2)(nodemailer@6.9.12):
     resolution: {integrity: sha512-p5ZKPe8PmiDZquNqi+uDKE1eKXOcqOVPdnmhWELCT1HHoaYXcVwM7wQE1R7wtPPracZRH2hL7mEWiXhVwr5hng==}
     engines: {node: 14.* || 16.* || >= 18}
     peerDependencies:
@@ -4917,11 +4917,11 @@ packages:
       nodemailer: '>= 6.0.0'
     dependencies:
       express-handlebars: 7.1.2
-      nodemailer: 6.9.11
+      nodemailer: 6.9.12
     dev: true
 
-  /nodemailer@6.9.11:
-    resolution: {integrity: sha512-UiAkgiERuG94kl/3bKfE8o10epvDnl0vokNEtZDPTq9BWzIl6EFT9336SbIT4oaTBD8NmmUTLsQyXHV82eXSWg==}
+  /nodemailer@6.9.12:
+    resolution: {integrity: sha512-pnLo7g37Br3jXbF0bl5DekBJihm2q+3bB3l2o/B060sWmb5l+VqeScAQCBqaQ+5ezRZFzW5SciZNGdRDEbq89w==}
     engines: {node: '>=6.0.0'}
 
   /nopt@5.0.0:
