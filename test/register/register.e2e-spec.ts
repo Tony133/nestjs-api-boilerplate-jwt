@@ -8,7 +8,7 @@ import {
   INestApplication,
   ValidationPipe,
 } from '@nestjs/common';
-import { UserDto } from 'src/users/dto/user.dto';
+import { UserDto } from '../../src/users/dto/user.dto';
 import { HashingService } from '../../src/shared/hashing/hashing.service';
 
 const user = {
