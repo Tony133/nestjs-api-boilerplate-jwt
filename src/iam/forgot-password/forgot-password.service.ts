@@ -6,6 +6,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { MailerService } from '../../shared/mailer/mailer.service';
 import { UtilsService } from '../../shared/utils/utils.service';
 import { HashingService } from '../../shared/hashing/hashing.service';
+import { forgotPasswordEmail } from '../../shared/mailer/mailer.constants';
 
 @Injectable()
 export class ForgotPasswordService {
@@ -38,13 +39,7 @@ export class ForgotPasswordService {
         from: 'from@example.com',
         subject: 'Forgot Password successful ✔',
         text: 'Forgot Password successful!',
-        template: 'index',
-        context: {
-          title: 'Forgot Password successful!',
-          description:
-            'Request Reset Password Successfully!  ✔, This is your new password: ' +
-            password,
-        },
+        html: forgotPasswordEmail(password),
       });
       Logger.log('[MailService] Forgot Password: Send Mail successfully!');
     } catch (err) {

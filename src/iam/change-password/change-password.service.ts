@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { UsersService } from '../../users/users.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { MailerService } from '../../shared/mailer/mailer.service';
+import { changePasswordEmail } from '../../shared/mailer/mailer.constants';
 
 @Injectable()
 export class ChangePasswordService {
@@ -20,7 +21,6 @@ export class ChangePasswordService {
       changePasswordDto.password,
     );
   }
-
   private sendMailChangePassword(user: ChangePasswordDto | any): void {
     try {
       this.mailerService.sendMail({
@@ -28,14 +28,7 @@ export class ChangePasswordService {
         from: 'from@example.com',
         subject: 'Change Password successful ✔',
         text: 'Change Password successful!',
-        template: 'index',
-        context: {
-          title: 'Change Password successful!',
-          description:
-            'Change Password Successfully! ✔, This is your new password: ' +
-            user.password,
-          nameUser: user.name,
-        },
+        html: changePasswordEmail(user),
       });
       Logger.log('[MailService] Change Password: Send Mail successfully!');
     } catch (err) {

@@ -33,10 +33,6 @@ To set up on multiple environments, such as dev, stage or prod, we do as follows
    EMAIL_AUTH_PASSWORD=[:password]
    EMAIL_DEBUG=true
    EMAIL_LOGGER=true
-   EMAIL_LAYOUT_DIR='templates/emails/'
-   EMAIL_PARTIAL_DIR='templates/emails/'
-   EMAIL_VIEW_PATH='/templates/emails/'
-   EMAIL_DEFAULT_LAYOUT='index'
 ```
 
 ## Config settings .env to connect MySQL
