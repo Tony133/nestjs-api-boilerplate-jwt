@@ -29,6 +29,7 @@ async function bootstrap() {
     methods: 'GET,POST,PUT,PATCH,DELETE',
     credentials: true,
   });
+
   const port = configService.get<number>('NODE_API_PORT') || 3000;
   await app.listen(port, '0.0.0.0');
   if (configService.get<string>('NODE_ENV') === 'dev') {
