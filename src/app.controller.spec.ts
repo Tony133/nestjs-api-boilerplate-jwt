@@ -61,14 +61,14 @@ describe('AppController', () => {
     it('should call method getHello() in AppService', () => {
       const createSpy = jest.spyOn(appService, 'getHello');
 
-      appController.getHello(response as any);
+      appController.getHello();
       expect(createSpy).toHaveBeenCalled();
     });
 
     it('should call method getProtectedResource() in AppService', () => {
       const createSpy = jest.spyOn(appService, 'getSecureResource');
 
-      appController.getProtectedResource(response as any);
+      appController.getProtectedResource();
       expect(createSpy).toHaveBeenCalled();
     });
   });
