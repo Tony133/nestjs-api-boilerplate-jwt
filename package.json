@@ -35,7 +35,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
-    "mysql2": "^3.9.1",
+    "mysql2": "^3.9.3",
     "nodemailer": "^6.9.13",
     "reflect-metadata": "^0.2.1",
     "rimraf": "^5.0.5",
