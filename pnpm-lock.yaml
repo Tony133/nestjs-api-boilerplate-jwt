@@ -80,8 +80,8 @@ devDependencies:
     specifier: ^10.1.1
     version: 10.1.1(typescript@5.4.3)
   '@nestjs/testing':
-    specifier: ^10.3.3
-    version: 10.3.6(@nestjs/common@10.3.6)(@nestjs/core@10.3.6)(@nestjs/platform-express@10.3.6)
+    specifier: ^10.3.7
+    version: 10.3.7(@nestjs/common@10.3.6)(@nestjs/core@10.3.6)(@nestjs/platform-express@10.3.6)
   '@types/bcrypt':
     specifier: ^5.0.2
     version: 5.0.2
@@ -1303,8 +1303,8 @@ packages:
       swagger-ui-dist: 5.11.2
     dev: false
 
-  /@nestjs/testing@10.3.6(@nestjs/common@10.3.6)(@nestjs/core@10.3.6)(@nestjs/platform-express@10.3.6):
-    resolution: {integrity: sha512-9atg+aGqhg3ZhwTz2oHMa3hg3JJ6XQfQcRhkiIsOegCIiV/esqBH7R71kAJC6ppOlKtT3XHngFvlIxo4tODKfw==}
+  /@nestjs/testing@10.3.7(@nestjs/common@10.3.6)(@nestjs/core@10.3.6)(@nestjs/platform-express@10.3.6):
+    resolution: {integrity: sha512-PmwZXyoCC/m3F3IFgpgD+SNN6cDPQa/vi3YQxFruvfX3cuHq+P6ZFvBB7hwaKKsLlhA0so42LsMm41oFBkdouw==}
     peerDependencies:
       '@nestjs/common': ^10.0.0
       '@nestjs/core': ^10.0.0
