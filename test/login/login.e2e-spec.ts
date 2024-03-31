@@ -4,19 +4,24 @@ import { AppModule } from './../../src/app.module';
 import {
   BadRequestException,
   HttpStatus,
-  INestApplication,
   ValidationPipe,
 } from '@nestjs/common';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 
 describe('App (e2e)', () => {
-  let app: INestApplication<any>;
+  let app: NestFastifyApplication;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleFixture.createNestApplication<NestFastifyApplication>(
+      new FastifyAdapter()
+    );
     app.setGlobalPrefix('api');
     app.useGlobalPipes(
       new ValidationPipe({
@@ -30,6 +35,7 @@ describe('App (e2e)', () => {
     );
 
     await app.init();
+    await app.getHttpAdapter().getInstance().ready();
   });
 
   describe('LoginController (e2e) -  [POST /api/auth/login]', () => {
@@ -106,7 +112,7 @@ describe('App (e2e)', () => {
       const response = await request(app.getHttpServer())
         .post('/api/auth/login')
         .send({ email: 'test@example.com', password: 'wrong' })
-        .expect(HttpStatus.BAD_REQUEST);
+        .expect(HttpStatus.UNAUTHORIZED);
 
       expect(response.body.accessToken).not.toBeDefined();
     });

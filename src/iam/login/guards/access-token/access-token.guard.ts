@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Request } from 'express';
+import { FastifyRequest } from 'fastify';
 import { REQUEST_USER_KEY, TYPE_TOKEN_BEARER } from '../../../iam.constants';
 import jwtConfig from '../../config/jwt.config';
 
@@ -39,7 +39,7 @@ export class AccessTokenGuard implements CanActivate {
     return true;
   }
 
-  private extractTokenFromHeader(request: Request): string | undefined {
+  private extractTokenFromHeader(request: FastifyRequest): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === TYPE_TOKEN_BEARER ? token : undefined;
   }
