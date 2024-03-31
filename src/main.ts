@@ -4,10 +4,17 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { configureSwaggerDocs } from './helpers/configure-swagger-docs.helper';
 import { configureAuthSwaggerDocs } from './helpers/configure-auth-swagger-docs.helper';
+import { FastifyAdapter } from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const fastifyAdapter = new FastifyAdapter();
+  const app = await NestFactory.create(AppModule, fastifyAdapter);
   const configService = app.get<ConfigService>(ConfigService);
+
+  await fastifyAdapter.register(require('@fastify/cors'), {
+    origin: true,
+    methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  });
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
@@ -23,12 +30,6 @@ async function bootstrap() {
 
   configureAuthSwaggerDocs(app, configService);
   configureSwaggerDocs(app, configService);
-
-  app.enableCors({
-    origin: configService.get<string>('ENDPOINT_CORS'),
-    methods: 'GET,POST,PUT,PATCH,DELETE',
-    credentials: true,
-  });
 
   const port = configService.get<number>('NODE_API_PORT') || 3000;
   await app.listen(port, '0.0.0.0');

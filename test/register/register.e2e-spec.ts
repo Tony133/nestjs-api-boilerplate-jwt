@@ -5,11 +5,14 @@ import { MailerService } from '../../src/shared/mailer/mailer.service';
 import {
   BadRequestException,
   HttpStatus,
-  INestApplication,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserDto } from '../../src/users/dto/user.dto';
 import { HashingService } from '../../src/shared/hashing/hashing.service';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 
 const user = {
   name: 'name #1',
@@ -19,7 +22,7 @@ const user = {
 };
 
 describe('App (e2e)', () => {
-  let app: INestApplication<any>;
+  let app: NestFastifyApplication<any>;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -39,7 +42,9 @@ describe('App (e2e)', () => {
       })
       .compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleFixture.createNestApplication<NestFastifyApplication>(
+      new FastifyAdapter()
+    );
     app.setGlobalPrefix('api');
     app.useGlobalPipes(
       new ValidationPipe({
@@ -53,31 +58,42 @@ describe('App (e2e)', () => {
     );
 
     await app.init();
+    await app.getHttpAdapter().getInstance().ready();
   });
 
   describe('RegisterController (e2e) - [POST /api/auth/register]', () => {
     it('should register user', async () => {
-      return await request(app.getHttpServer())
-        .post('/api/auth/register')
-        .send(user as UserDto)
-        .then(({ body }) => {
-          expect(body).toEqual({
-            message: 'User registration successfully!',
-            status: 201,
-          });
-          expect(HttpStatus.CREATED);
+
+      return await app.inject({
+        method: 'POST',
+        url: '/api/auth/register',
+        payload: {
+          name: 'name #1',
+          username: 'username#1 register',
+          email: 'test@example.it',
+          password: '123456789',
+        }
+      }).then(({ body }: any) => {
+        expect(body).toEqual({
+          message: 'User registration successfully!',
+          status: 201,
         });
+        expect(HttpStatus.CREATED);
+    });
     });
 
     it('should throw an error for a bad email', async () => {
-      return await request(app.getHttpServer())
-        .post('/api/auth/register')
-        .send({
-          name: 'name#1 register',
-          username: 'username#1 register',
-          password: '123456789',
+      return await app
+        .inject({
+          method: 'POST',
+          url: '/api/auth/register',
+          payload: {
+            name: 'name#1 register',
+            username: 'username#1 register',
+            password: '123456789',
+          }
         })
-        .then(({ body }) => {
+        .then(({ body }: any) => {
           expect(body).toEqual({
             error: 'Bad Request',
             message: [
@@ -93,15 +109,16 @@ describe('App (e2e)', () => {
     });
 
     it('should throw an error for a bad name', async () => {
-      return await request(app.getHttpServer())
-        .post('/api/auth/register')
-        .send({
-          username: 'username#1 register',
-          email: 'test@example.it',
-          password: '123456789',
-        })
-        .expect(HttpStatus.BAD_REQUEST)
-        .then(({ body }) => {
+      return await app.inject({
+          method: 'POST',
+          url: '/api/auth/register',
+          payload: {
+            username: 'username#1 register',
+            email: 'test@example.it',
+            password: '123456789',
+          }
+      }).expect(HttpStatus.BAD_REQUEST)
+        .then(({ body }: any) => {
           expect(body).toEqual({
             error: 'Bad Request',
             message: [
@@ -115,14 +132,15 @@ describe('App (e2e)', () => {
     });
 
     it('should throw an error for a bad username', async () => {
-      return await request(app.getHttpServer())
-        .post('/api/auth/register')
-        .send({
-          name: 'name#1 register',
-          email: 'test@example.it',
-          password: '123456789',
-        })
-        .then(({ body }) => {
+      return await app.inject({
+          method: 'POST',
+          url: '/api/auth/register',
+          payload: {
+            name: 'name#1 register',
+            email: 'test@example.it',
+            password: '123456789',
+          }
+        }).then(({ body }: any) => {
           expect(body).toEqual({
             error: 'Bad Request',
             message: [
@@ -137,26 +155,27 @@ describe('App (e2e)', () => {
     });
 
     it('should throw an error for a bad password', async () => {
-      return await request(app.getHttpServer())
-        .post('/api/auth/register')
-        .send({
+      return await app.inject({
+        method: 'POST',
+        url: '/api/auth/register',
+        payload: {
           name: 'name#1 register',
           username: 'username#1 register',
           email: 'test@example.it',
-        })
-        .then(({ body }) => {
-          expect(body).toEqual({
-            error: 'Bad Request',
-            message: [
-              'password must be shorter than or equal to 60 characters',
-              'password must be a string',
-              'password should not be empty',
-            ],
-            statusCode: 400,
-          });
-          expect(HttpStatus.BAD_REQUEST);
-          expect(new BadRequestException());
+        }
+      }).then(({ body }: any) => {
+        expect(body).toEqual({
+          error: 'Bad Request',
+          message: [
+            'password must be shorter than or equal to 60 characters',
+            'password must be a string',
+            'password should not be empty',
+          ],
+          statusCode: 400,
         });
+        expect(HttpStatus.BAD_REQUEST);
+        expect(new BadRequestException());
+      });
     });
   });
 
