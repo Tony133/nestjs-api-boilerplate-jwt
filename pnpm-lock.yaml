@@ -37,7 +37,8 @@ dependencies:
     version: 5.1.2(@nestjs/common@10.3.7)(@nestjs/core@10.3.7)(reflect-metadata@0.2.2)
   '@nestjs/typeorm':
     specifier: ^10.0.2
-    version: 10.0.2(@nestjs/common@10.3.7)(@nestjs/core@10.3.7)(reflect-metadata@0.2.2)(rxjs@7.8.1)(typeorm@0.3.20)  bcrypt:
+    version: 10.0.2(@nestjs/common@10.3.7)(@nestjs/core@10.3.7)(reflect-metadata@0.2.2)(rxjs@7.8.1)(typeorm@0.3.20)
+  bcrypt:
     specifier: ^5.1.1
     version: 5.1.1
   class-transformer:
@@ -97,7 +98,8 @@ devDependencies:
     specifier: ^29.5.12
     version: 29.5.12
   '@types/node':
-    specifier: ^20.12.2    version: 20.12.2
+    specifier: ^20.12.2
+    version: 20.12.2
   '@types/nodemailer':
     specifier: ^6.4.14
     version: 6.4.14
@@ -1546,7 +1548,6 @@ packages:
     resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
     dependencies:
       '@types/node': 20.12.2
-
     dev: true
 
   /@types/conventional-commits-parser@5.0.0:
@@ -3080,7 +3081,7 @@ packages:
       jest-message-util: 29.7.0
       jest-util: 29.7.0
     dev: true
-    
+
   /external-editor@3.1.0:
     resolution: {integrity: sha512-hMQ4CX1p1izmuLYyZqLMO/qGNw10wSv9QDCPfzXfyFrOaCSSoRfqE1Kf1s5an66J5JZC62NewG+mK49jOCtQew==}
     engines: {node: '>=4'}
