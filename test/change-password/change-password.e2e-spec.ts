@@ -5,10 +5,13 @@ import { MailerService } from '../../src/shared/mailer/mailer.service';
 import {
   BadRequestException,
   HttpStatus,
-  INestApplication,
   ValidationPipe,
 } from '@nestjs/common';
 import { AccessTokenGuard } from '../../src/iam/login/guards/access-token/access-token.guard';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 
 const user = {
   email: 'test@example.com',
@@ -16,7 +19,7 @@ const user = {
 };
 
 describe('App (e2e)', () => {
-  let app: INestApplication<any>;
+  let app: NestFastifyApplication;
   let accessTokenJwt: string;
   let refreshTokenJwt: string;
 
@@ -32,7 +35,9 @@ describe('App (e2e)', () => {
       .useValue({ canActivate: () => true })
       .compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleFixture.createNestApplication<NestFastifyApplication>(
+      new FastifyAdapter()
+    );
     app.setGlobalPrefix('api');
     app.useGlobalPipes(
       new ValidationPipe({
@@ -46,6 +51,7 @@ describe('App (e2e)', () => {
     );
 
     await app.init();
+    await app.getHttpAdapter().getInstance().ready();
   });
 
   describe('should sign in and get a "live" JWT', () => {

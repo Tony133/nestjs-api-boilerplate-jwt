@@ -5,11 +5,14 @@ import { MailerService } from '../../src/shared/mailer/mailer.service';
 import {
   BadRequestException,
   HttpStatus,
-  INestApplication,
   ValidationPipe,
 } from '@nestjs/common';
 import { ForgotPasswordDto } from 'src/iam/forgot-password/dto/forgot-password.dto';
 import { UserDto } from '../../src/users/dto/user.dto';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 
 const user = {
   email: 'test@example.com',
@@ -23,7 +26,7 @@ const createUser = {
 };
 
 describe('App (e2e)', () => {
-  let app: INestApplication<any>;
+  let app: NestFastifyApplication;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -35,7 +38,9 @@ describe('App (e2e)', () => {
       })
       .compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleFixture.createNestApplication<NestFastifyApplication>(
+      new FastifyAdapter()
+    );
     app.setGlobalPrefix('api');
     app.useGlobalPipes(
       new ValidationPipe({
@@ -49,6 +54,7 @@ describe('App (e2e)', () => {
     );
 
     await app.init();
+    await app.getHttpAdapter().getInstance().ready();
   });
 
   describe('ForgotPassowrdController (e2e) - [POST /api/auth/forgot-password]', () => {
