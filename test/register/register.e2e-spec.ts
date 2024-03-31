@@ -22,7 +22,7 @@ const user = {
 };
 
 describe('App (e2e)', () => {
-  let app: NestFastifyApplication<any>;
+  let app: NestFastifyApplication;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
