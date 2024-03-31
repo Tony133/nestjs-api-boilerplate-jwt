@@ -63,37 +63,27 @@ describe('App (e2e)', () => {
 
   describe('RegisterController (e2e) - [POST /api/auth/register]', () => {
     it('should register user', async () => {
-
-      return await app.inject({
-        method: 'POST',
-        url: '/api/auth/register',
-        payload: {
-          name: 'name #1',
-          username: 'username#1 register',
-          email: 'test@example.it',
-          password: '123456789',
-        }
-      }).then(({ body }: any) => {
-        expect(body).toEqual({
-          message: 'User registration successfully!',
-          status: 201,
+      return await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send(user as UserDto)
+        .then(({ body }) => {
+          expect(body).toEqual({
+            message: 'User registration successfully!',
+            status: 201,
+          });
+          expect(HttpStatus.CREATED);
         });
-        expect(HttpStatus.CREATED);
-    });
     });
 
     it('should throw an error for a bad email', async () => {
-      return await app
-        .inject({
-          method: 'POST',
-          url: '/api/auth/register',
-          payload: {
-            name: 'name#1 register',
-            username: 'username#1 register',
-            password: '123456789',
-          }
+      return await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({
+          name: 'name#1 register',
+          username: 'username#1 register',
+          password: '123456789',
         })
-        .then(({ body }: any) => {
+        .then(({ body }) => {
           expect(body).toEqual({
             error: 'Bad Request',
             message: [
@@ -109,16 +99,15 @@ describe('App (e2e)', () => {
     });
 
     it('should throw an error for a bad name', async () => {
-      return await app.inject({
-          method: 'POST',
-          url: '/api/auth/register',
-          payload: {
-            username: 'username#1 register',
-            email: 'test@example.it',
-            password: '123456789',
-          }
-      }).expect(HttpStatus.BAD_REQUEST)
-        .then(({ body }: any) => {
+      return await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({
+          username: 'username#1 register',
+          email: 'test@example.it',
+          password: '123456789',
+        })
+        .expect(HttpStatus.BAD_REQUEST)
+        .then(({ body }) => {
           expect(body).toEqual({
             error: 'Bad Request',
             message: [
@@ -132,15 +121,14 @@ describe('App (e2e)', () => {
     });
 
     it('should throw an error for a bad username', async () => {
-      return await app.inject({
-          method: 'POST',
-          url: '/api/auth/register',
-          payload: {
-            name: 'name#1 register',
-            email: 'test@example.it',
-            password: '123456789',
-          }
-        }).then(({ body }: any) => {
+      return await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({
+          name: 'name#1 register',
+          email: 'test@example.it',
+          password: '123456789',
+        })
+        .then(({ body }) => {
           expect(body).toEqual({
             error: 'Bad Request',
             message: [
@@ -155,27 +143,26 @@ describe('App (e2e)', () => {
     });
 
     it('should throw an error for a bad password', async () => {
-      return await app.inject({
-        method: 'POST',
-        url: '/api/auth/register',
-        payload: {
+      return await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({
           name: 'name#1 register',
           username: 'username#1 register',
           email: 'test@example.it',
-        }
-      }).then(({ body }: any) => {
-        expect(body).toEqual({
-          error: 'Bad Request',
-          message: [
-            'password must be shorter than or equal to 60 characters',
-            'password must be a string',
-            'password should not be empty',
-          ],
-          statusCode: 400,
+        })
+        .then(({ body }) => {
+          expect(body).toEqual({
+            error: 'Bad Request',
+            message: [
+              'password must be shorter than or equal to 60 characters',
+              'password must be a string',
+              'password should not be empty',
+            ],
+            statusCode: 400,
+          });
+          expect(HttpStatus.BAD_REQUEST);
+          expect(new BadRequestException());
         });
-        expect(HttpStatus.BAD_REQUEST);
-        expect(new BadRequestException());
-      });
     });
   });
 
