@@ -112,7 +112,7 @@ describe('App (e2e)', () => {
       const response = await request(app.getHttpServer())
         .post('/api/auth/login')
         .send({ email: 'test@example.com', password: 'wrong' })
-        .expect(HttpStatus.BAD_REQUEST);
+        .expect(HttpStatus.UNAUTHORIZED);
 
       expect(response.body.accessToken).not.toBeDefined();
     });
