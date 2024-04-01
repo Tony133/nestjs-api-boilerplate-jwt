@@ -83,12 +83,12 @@ export class UsersService {
     }
   }
 
-  public async updateProfileUser(
+  public async updateUserProfile(
     id: string,
     userProfileDto: UserProfileDto,
   ): Promise<Users> {
     try {
-      return await this.usersRepository.updateProfileUser(id, userProfileDto);
+      return await this.usersRepository.updateUserProfile(id, userProfileDto);
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }

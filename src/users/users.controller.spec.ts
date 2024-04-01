@@ -38,7 +38,7 @@ describe('Users Controller', () => {
           useValue: {
             findAll: jest.fn(() => {}),
             findById: jest.fn(() => userDto),
-            updateProfileUser: jest.fn(() => {}),
+            updateUserProfile: jest.fn(() => {}),
             updateUser: jest.fn(() => {}),
             deleteUser: jest.fn(() => userDto),
           },
@@ -89,18 +89,18 @@ describe('Users Controller', () => {
       });
     });
 
-    describe('updateProfileUser() method', () => {
+    describe('updateUserProfile() method', () => {
       it('should call method updateProfileUser in userService', async () => {
-        const createSpy = jest.spyOn(usersService, 'updateProfileUser');
+        const createSpy = jest.spyOn(usersService, 'updateUserProfile');
 
-        await usersController.updateProfileUser('1', userProfileDto);
+        await usersController.updateUserProfile('1', userProfileDto);
         expect(createSpy).toHaveBeenCalledWith('1', userProfileDto);
       });
 
       it('should return an exception if update profile user fails', async () => {
-        usersService.updateProfileUser = jest.fn().mockRejectedValueOnce(null);
+        usersService.updateUserProfile = jest.fn().mockRejectedValueOnce(null);
         await expect(
-          usersController.updateProfileUser('not a correct id', {
+          usersController.updateUserProfile('not a correct id', {
             name: 'not a correct name',
             username: 'not a correct username',
             email: 'not a correct email',

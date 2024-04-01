@@ -53,7 +53,7 @@ const updateUserByPassword = {
   password: 'pass123',
 };
 
-const updateProfileUser = {
+const updateUserProfile = {
   name: 'name #1',
   username: 'username #1',
   email: 'test@example.com',
@@ -90,7 +90,7 @@ describe('UsersService', () => {
             create: jest.fn().mockReturnValue(createUser),
             updateByEmail: jest.fn().mockReturnValue(updateUserByEmail),
             updateByPassword: jest.fn().mockResolvedValue(updateUserByPassword),
-            updateProfileUser: jest.fn().mockResolvedValue(updateProfileUser),
+            updateUserProfile: jest.fn().mockResolvedValue(updateUserProfile),
             updateUser: jest.fn().mockResolvedValue(updateUser),
             deleteUser: jest.fn(),
           },
@@ -205,17 +205,17 @@ describe('UsersService', () => {
     });
   });
 
-  describe('updateProfileUser() method', () => {
+  describe('updateUserProfile() method', () => {
     it('should update profile of a user by id', async () => {
       expect(
-        await service.updateProfileUser('anyid', updateProfileUser),
-      ).toEqual(updateProfileUser);
+        await service.updateUserProfile('anyid', updateUserProfile),
+      ).toEqual(updateUserProfile);
     });
 
     it('should return an exception if update profile user fails', async () => {
-      repository.updateProfileUser = jest.fn().mockRejectedValueOnce(null);
+      repository.updateUserProfile = jest.fn().mockRejectedValueOnce(null);
       await expect(
-        service.updateProfileUser('not a correct id', {
+        service.updateUserProfile('not a correct id', {
           name: 'not a correct name',
           username: 'not a correct username',
           email: 'not a correct email',

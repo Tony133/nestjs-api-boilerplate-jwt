@@ -10,7 +10,7 @@ export interface UsersRepository {
   create(userDto: UserDto): void;
   updateByEmail(email: string): void;
   updateByPassword(email: string, password: string): void;
-  updateProfileUser(id: string, userProfileDto: UserProfileDto): void;
+  updateUserProfile(id: string, userProfileDto: UserProfileDto): void;
   updateUser(id: string, userUpdateDto: UserUpdateDto): void;
   deleteUser(id: string): void;
 }

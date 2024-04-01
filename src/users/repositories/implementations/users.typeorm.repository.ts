@@ -58,7 +58,7 @@ export class UsersTypeOrmRepository implements UsersRepository {
     return await this.usersRepository.save(user);
   }
 
-  public async updateProfileUser(
+  public async updateUserProfile(
     id: string,
     userProfileDto: UserProfileDto,
   ): Promise<Users> {

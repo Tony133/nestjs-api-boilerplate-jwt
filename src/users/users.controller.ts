@@ -50,12 +50,12 @@ export class UsersController {
   }
 
   @Put('/:userId/profile')
-  public async updateProfileUser(
+  public async updateUserProfile(
     @Param('userId') userId: string,
     @Body() userProfileDto: UserProfileDto,
   ): Promise<any> {
     try {
-      await this.usersService.updateProfileUser(userId, userProfileDto);
+      await this.usersService.updateUserProfile(userId, userProfileDto);
 
       return {
         message: 'User Updated successfully!',
@@ -70,7 +70,7 @@ export class UsersController {
   public async updateUser(
     @Param('userId') userId: string,
     @Body() userUpdateDto: UserUpdateDto,
-  ) {
+  ): Promise<any> {
     try {
       await this.usersService.updateUser(userId, userUpdateDto);
 
