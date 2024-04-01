@@ -246,7 +246,7 @@ describe('UsersService', () => {
     it('should remove a user by id', async () => {
       const removeSpy = jest.spyOn(repository, 'deleteUser');
       const user = await service.deleteUser('any id');
-      expect(removeSpy).toBeCalledWith(oneUser);
+      expect(removeSpy).toHaveBeenCalledWith(oneUser);
       expect(user).toBeUndefined();
     });
 
@@ -255,7 +255,7 @@ describe('UsersService', () => {
       await expect(service.deleteUser('bad id')).rejects.toThrow(
         NotFoundException,
       );
-      expect(repository.findById).toBeCalledTimes(1);
+      expect(repository.findById).toHaveBeenCalledTimes(1);
     });
   });
 });
