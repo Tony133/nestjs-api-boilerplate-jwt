@@ -27,8 +27,8 @@ dependencies:
     specifier: 2.0.5
     version: 2.0.5(@nestjs/common@10.3.7)(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)
   '@nestjs/platform-fastify':
-    specifier: ^10.3.7
-    version: 10.3.7(@fastify/static@7.0.3)(@nestjs/common@10.3.7)(@nestjs/core@10.3.7)
+    specifier: ^10.3.8
+    version: 10.3.8(@fastify/static@7.0.3)(@nestjs/common@10.3.7)(@nestjs/core@10.3.7)
   '@nestjs/swagger':
     specifier: ^7.3.1
     version: 7.3.1(@fastify/static@7.0.3)(@nestjs/common@10.3.7)(@nestjs/core@10.3.7)(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)
@@ -1305,8 +1305,8 @@ packages:
       reflect-metadata: 0.2.2
     dev: false
 
-  /@nestjs/platform-fastify@10.3.7(@fastify/static@7.0.3)(@nestjs/common@10.3.7)(@nestjs/core@10.3.7):
-    resolution: {integrity: sha512-J7ICAOC/zTSfJLTWwvVLK9LON+Dw/NdgPQwPBsi3GNIw3TLLXLrQ4WXnHNER8gnXS3sfKOIngRLusMirLqYjEQ==}
+  /@nestjs/platform-fastify@10.3.8(@fastify/static@7.0.3)(@nestjs/common@10.3.7)(@nestjs/core@10.3.7):
+    resolution: {integrity: sha512-gWGskBuZRB4LTQJCJWWUZvYwiF05zAJdq0X5oi6SmSZHP6bPIY+sQar+IwPFTsDtCM0Qk9nFm9UUuQdgLZTrTQ==}
     peerDependencies:
       '@fastify/static': ^6.0.0 || ^7.0.0
       '@fastify/view': ^7.0.0 || ^8.0.0
@@ -1325,7 +1325,7 @@ packages:
       '@nestjs/common': 10.3.7(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/core': 10.3.7(@nestjs/common@10.3.7)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       fastify: 4.26.2
-      light-my-request: 5.12.0
+      light-my-request: 5.13.0
       path-to-regexp: 3.2.0
       tslib: 2.6.2
     transitivePeerDependencies:
@@ -4446,6 +4446,14 @@ packages:
 
   /light-my-request@5.12.0:
     resolution: {integrity: sha512-P526OX6E7aeCIfw/9UyJNsAISfcFETghysaWHQAlQYayynShT08MOj4c6fBCvTWBrHXSvqBAKDp3amUPSCQI4w==}
+    dependencies:
+      cookie: 0.6.0
+      process-warning: 3.0.0
+      set-cookie-parser: 2.6.0
+    dev: false
+
+  /light-my-request@5.13.0:
+    resolution: {integrity: sha512-9IjUN9ZyCS9pTG+KqTDEQo68Sui2lHsYBrfMyVUTTZ3XhH8PMZq7xO94Kr+eP9dhi/kcKsx4N41p2IXEBil1pQ==}
     dependencies:
       cookie: 0.6.0
       process-warning: 3.0.0
