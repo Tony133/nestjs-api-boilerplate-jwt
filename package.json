@@ -51,7 +51,7 @@
     "@commitlint/config-angular": "^19.1.0",
     "@nestjs/cli": "^10.3.2",
     "@nestjs/schematics": "^10.1.1",
-    "@nestjs/testing": "^10.3.7",
+    "@nestjs/testing": "^10.3.8",
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.2",
