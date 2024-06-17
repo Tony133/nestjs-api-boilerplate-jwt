@@ -20,6 +20,14 @@ export function configureSwaggerDocs(
       .addTag('users')
       .build();
     const documentFactory = () => SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('/docs', app, documentFactory);
+    SwaggerModule.setup('/docs', app, documentFactory, {
+      explorer: true,
+      swaggerOptions: {
+        filter: true,
+        showRequestDuration: true,
+      },
+      jsonDocumentUrl: '/docs/json',
+      yamlDocumentUrl: '/docs/yaml',
+    });
   }
 }
