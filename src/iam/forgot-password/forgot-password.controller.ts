@@ -4,8 +4,9 @@ import {
   Body,
   HttpStatus,
   BadRequestException,
+  HttpCode,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 import { AuthType } from '../login/enums/auth-type.enum';
@@ -18,11 +19,13 @@ export class ForgotPasswordController {
   constructor(private readonly forgotPasswordService: ForgotPasswordService) {}
 
   @Post()
-  @ApiResponse({
+  @HttpCode(200)
+  @ApiOkResponse({
     status: 200,
     description:
       'Request Reset Password and send a confirmation email to the user',
   })
+  @ApiBadRequestResponse({ status: 400, description: 'Bad request' })
   public async forgotPassword(
     @Body() forgotPasswordDto: ForgotPasswordDto,
   ): Promise<any> {

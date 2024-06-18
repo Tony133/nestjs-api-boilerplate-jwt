@@ -4,10 +4,11 @@ import {
   Body,
   HttpStatus,
   BadRequestException,
+  HttpCode,
 } from '@nestjs/common';
 import { RegisterService } from './register.service';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthType } from '../login/enums/auth-type.enum';
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 
@@ -18,11 +19,13 @@ export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
 
   @Post()
-  @ApiResponse({
+  @HttpCode(201)
+  @ApiOkResponse({
     status: 201,
     description:
       'Register a new user and send a confirmation email to the user',
   })
+  @ApiBadRequestResponse({ status: 400, description: 'Bad request' })
   public async register(
     @Body() registerUserDto: RegisterUserDto,
   ): Promise<any> {

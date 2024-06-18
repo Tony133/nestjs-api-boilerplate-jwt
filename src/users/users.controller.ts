@@ -13,7 +13,13 @@ import { UsersService } from './users.service';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { UserUpdateDto } from './dto/user-update.dto';
 import { AccountsUsers } from './interfaces/accounts-users.interface';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from '../iam/login/decorators/auth-guard.decorator';
 import { AuthType } from '../iam/login/enums/auth-type.enum';
 
@@ -37,6 +43,7 @@ export class UsersController {
     status: 200,
     description: 'Get a user by id',
   })
+  @ApiNotFoundResponse({ status: 400, description: 'User not found' })
   public async findOneUser(
     @Param('userId') userId: string,
   ): Promise<AccountsUsers> {
@@ -48,6 +55,7 @@ export class UsersController {
     status: 200,
     description: 'Get a user profile by id',
   })
+  @ApiNotFoundResponse({ status: 400, description: 'User not found' })
   public async getUser(@Param('userId') userId: string): Promise<any> {
     const user = await this.findOneUser(userId);
 
@@ -65,6 +73,10 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'Update a user profile by id',
+  })
+  @ApiBadRequestResponse({
+    status: 400,
+    description: 'User profile not updated',
   })
   public async updateUserProfile(
     @Param('userId') userId: string,
@@ -87,6 +99,7 @@ export class UsersController {
     status: 200,
     description: 'Update a user by id',
   })
+  @ApiBadRequestResponse({ status: 400, description: 'User not updated' })
   public async updateUser(
     @Param('userId') userId: string,
     @Body() userUpdateDto: UserUpdateDto,
@@ -108,6 +121,7 @@ export class UsersController {
     status: 200,
     description: 'Delete a user by id',
   })
+  @ApiNoContentResponse({ status: 404, description: 'User not deleted' })
   public async deleteUser(@Param('userId') userId: string): Promise<void> {
     await this.usersService.deleteUser(userId);
   }

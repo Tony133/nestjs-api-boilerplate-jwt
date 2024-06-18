@@ -4,10 +4,11 @@ import {
   Body,
   HttpStatus,
   BadRequestException,
+  HttpCode,
 } from '@nestjs/common';
 import { ChangePasswordService } from './change-password.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 import { AuthType } from '../login/enums/auth-type.enum';
 
@@ -18,11 +19,13 @@ export class ChangePasswordController {
   constructor(private readonly changePasswordService: ChangePasswordService) {}
 
   @Post()
-  @ApiResponse({
+  @HttpCode(200)
+  @ApiOkResponse({
     status: 200,
     description:
       'Request Change Password and send a confirmation email to the user',
   })
+  @ApiBadRequestResponse({ status: 400, description: 'Bad request' })
   public async changePassword(
     @Body() changePasswordDto: ChangePasswordDto,
   ): Promise<any> {
