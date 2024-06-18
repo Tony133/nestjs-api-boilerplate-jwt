@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { LoginService } from './login.service';
 import { LoginDto } from '../login/dto/login.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthType } from './enums/auth-type.enum';
 import { AuthGuard } from './decorators/auth-guard.decorator';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
@@ -13,11 +13,20 @@ export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   @Post('login')
+  @ApiResponse({
+    status: 200,
+    description:
+      'Authentication a user with email and password credentials and return token',
+  })
   public async login(@Body() loginDto: LoginDto): Promise<any> {
     return await this.loginService.login(loginDto);
   }
 
   @Post('refresh-tokens')
+  @ApiResponse({
+    status: 200,
+    description: 'Refresh tokens and return new tokens',
+  })
   public async refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
     return await this.loginService.refreshTokens(refreshTokenDto);
   }

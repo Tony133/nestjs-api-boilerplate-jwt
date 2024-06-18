@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { RegisterService } from './register.service';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthType } from '../login/enums/auth-type.enum';
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 
@@ -18,6 +18,11 @@ export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
 
   @Post()
+  @ApiResponse({
+    status: 201,
+    description:
+      'Register a new user and send a confirmation email to the user',
+  })
   public async register(
     @Body() registerUserDto: RegisterUserDto,
   ): Promise<any> {

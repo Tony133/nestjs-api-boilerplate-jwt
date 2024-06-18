@@ -13,7 +13,7 @@ import { UsersService } from './users.service';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { UserUpdateDto } from './dto/user-update.dto';
 import { AccountsUsers } from './interfaces/accounts-users.interface';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../iam/login/decorators/auth-guard.decorator';
 import { AuthType } from '../iam/login/enums/auth-type.enum';
 
@@ -24,11 +24,19 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Get all users',
+  })
   public async findAllUser(): Promise<AccountsUsers[]> {
     return this.usersService.findAll();
   }
 
   @Get('/:userId')
+  @ApiResponse({
+    status: 200,
+    description: 'Get a user by id',
+  })
   public async findOneUser(
     @Param('userId') userId: string,
   ): Promise<AccountsUsers> {
@@ -36,6 +44,10 @@ export class UsersController {
   }
 
   @Get('/:userId/profile')
+  @ApiResponse({
+    status: 200,
+    description: 'Get a user profile by id',
+  })
   public async getUser(@Param('userId') userId: string): Promise<any> {
     const user = await this.findOneUser(userId);
 
@@ -50,6 +62,10 @@ export class UsersController {
   }
 
   @Put('/:userId/profile')
+  @ApiResponse({
+    status: 200,
+    description: 'Update a user profile by id',
+  })
   public async updateUserProfile(
     @Param('userId') userId: string,
     @Body() userProfileDto: UserProfileDto,
@@ -67,6 +83,10 @@ export class UsersController {
   }
 
   @Put('/:userId')
+  @ApiResponse({
+    status: 200,
+    description: 'Update a user by id',
+  })
   public async updateUser(
     @Param('userId') userId: string,
     @Body() userUpdateDto: UserUpdateDto,
@@ -84,6 +104,10 @@ export class UsersController {
   }
 
   @Delete('/:userId')
+  @ApiResponse({
+    status: 200,
+    description: 'Delete a user by id',
+  })
   public async deleteUser(@Param('userId') userId: string): Promise<void> {
     await this.usersService.deleteUser(userId);
   }
