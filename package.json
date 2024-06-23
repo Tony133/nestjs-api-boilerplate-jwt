@@ -39,7 +39,7 @@
     "dotenv": "^16.4.5",
     "fastify": "^4.28.0",
     "mysql2": "^3.10.1",
-    "nodemailer": "^6.9.13",
+    "nodemailer": "^6.9.14",
     "pino": "^9.2.0",
     "pino-pretty": "^11.2.1",
     "reflect-metadata": "^0.2.2",
