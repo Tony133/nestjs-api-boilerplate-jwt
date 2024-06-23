@@ -93,6 +93,7 @@
       "/src/helpers",
       "/src/main.ts",
       "/src/repl.ts",
+      "/src/shared/logger",
       "/src/users/repositories",
       ".constants.ts",
       ".guard.ts",
