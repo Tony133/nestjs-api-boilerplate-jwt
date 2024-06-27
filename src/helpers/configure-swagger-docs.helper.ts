@@ -15,9 +15,17 @@ export function configureSwaggerDocs(
       .setTitle('API')
       .setDescription('The API description')
       .setVersion('1.0')
-      .addBearerAuth()
+      .addServer('http://localhost:3000')
       .addTag('auth')
       .addTag('users')
+      .addBearerAuth({
+        description: 'Please enter token:',
+        name: 'Authorization',
+        bearerFormat: 'Bearer',
+        scheme: 'Bearer',
+        type: 'http',
+        in: 'Header',
+      })
       .build();
     const documentFactory = () => SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/docs', app, documentFactory, {

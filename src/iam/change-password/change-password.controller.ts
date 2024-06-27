@@ -8,11 +8,17 @@ import {
 } from '@nestjs/common';
 import { ChangePasswordService } from './change-password.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
-import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 import { AuthType } from '../login/enums/auth-type.enum';
 
 @ApiTags('auth')
+@ApiBearerAuth()
 @AuthGuard(AuthType.Bearer)
 @Controller('auth/change-password')
 export class ChangePasswordController {

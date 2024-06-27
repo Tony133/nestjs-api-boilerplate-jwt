@@ -15,6 +15,7 @@ import { UserUpdateDto } from './dto/user-update.dto';
 import { AccountsUsers } from './interfaces/accounts-users.interface';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiResponse,
@@ -24,6 +25,7 @@ import { AuthGuard } from '../iam/login/decorators/auth-guard.decorator';
 import { AuthType } from '../iam/login/enums/auth-type.enum';
 
 @ApiTags('users')
+@ApiBearerAuth()
 @AuthGuard(AuthType.Bearer)
 @Controller('users')
 export class UsersController {

@@ -5,6 +5,7 @@ import {
   ApiUnauthorizedResponse,
   ApiOkResponse,
   ApiTags,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { AuthType } from './enums/auth-type.enum';
 import { AuthGuard } from './decorators/auth-guard.decorator';
@@ -30,6 +31,7 @@ export class LoginController {
 
   @Post('refresh-tokens')
   @HttpCode(200)
+  @ApiBearerAuth()
   @ApiOkResponse({
     status: 200,
     description: 'Refresh tokens and return new tokens',
