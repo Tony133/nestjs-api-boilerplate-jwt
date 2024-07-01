@@ -38,7 +38,7 @@
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "fastify": "^4.28.0",
-    "mysql2": "^3.10.1",
+    "mysql2": "^3.10.2",
     "nodemailer": "^6.9.13",
     "pino": "^9.2.0",
     "pino-pretty": "^11.2.1",
