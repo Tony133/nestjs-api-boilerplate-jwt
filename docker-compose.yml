@@ -1,6 +1,6 @@
 services:
   db:
-    image: mysql:8.3
+    image: mysql:9.0
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -9,7 +9,7 @@ services:
       - '3306:3306'
 
   db-test:
-    image: mysql:8.3
+    image: mysql:9.0
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
