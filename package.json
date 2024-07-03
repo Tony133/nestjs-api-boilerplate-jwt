@@ -30,7 +30,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/mapped-types": "2.0.5",
     "@nestjs/platform-fastify": "^10.3.9",
-    "@nestjs/swagger": "^7.3.1",
+    "@nestjs/swagger": "^7.4.0",
     "@nestjs/throttler": "^5.2.0",
     "@nestjs/typeorm": "^10.0.2",
     "bcrypt": "^5.1.1",
