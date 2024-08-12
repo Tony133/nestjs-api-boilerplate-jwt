@@ -13,31 +13,13 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x, 20.x]
-
-    steps:
-      - uses: actions/checkout@v4
-        name: Use Node.js ${{ matrix.node-version }}
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-        name: Install pnpm
-      - run: pnpm install
-
-  unit-tests:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
     needs: [build]
 
     steps:
       - uses: actions/checkout@v4
-        name: Use Node.js ${{ matrix.node-version }}
+        name: Checkout code
+      - name: Set safe.directory
+        run: git config --global --add safe.directory /github/workspace
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -45,9 +27,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-        name: Run unit test
-      - run: pnpm install
-      - run: pnpm test
+      - name: Run unit test
+        run: |
+          pnpm install
+          pnpm test
 
   e2e-test:
     runs-on: ubuntu-latest
@@ -60,6 +43,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         name: Checkout code
+      - name: Set safe.directory
+        run: git config --global --add safe.directory /github/workspace
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
