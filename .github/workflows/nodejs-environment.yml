@@ -2,13 +2,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,10 +27,7 @@ jobs:
         name: Install pnpm
       - run: pnpm install
 
-
-      
   unit-tests:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -50,35 +46,35 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
         name: Run unit test
-      - run: pnpm install 
+      - run: pnpm install
       - run: pnpm test
 
   e2e-test:
-
     runs-on: ubuntu-latest
-  
+
     strategy:
       matrix:
         node-version: [18.x, 20.x]
     needs: [unit-tests]
-  
+
     steps:
       - uses: actions/checkout@v4
-        name: Use Node.js ${{ matrix.node-version }}
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
+        name: Checkout code
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
       - name: Start Docker-Compose
         run: docker-compose up -d db-test
-      - name: Install pnpm
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: pnpm install
+      - name: Install pnpm dependencies
+        run: pnpm install
       - run: cp .env.example-test-e2e .env
       - name: Run tests e2e -- register
         run: pnpm test:e2e -- register.e2e-spec.ts
