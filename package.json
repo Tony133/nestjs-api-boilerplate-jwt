@@ -43,7 +43,7 @@
     "pino": "^9.3.2",
     "pino-pretty": "^11.2.2",
     "reflect-metadata": "^0.2.2",
-    "rimraf": "^5.0.7",
+    "rimraf": "^6.0.0",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20",
     "yup": "^1.4.0"
