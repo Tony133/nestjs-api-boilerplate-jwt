@@ -33,6 +33,7 @@
     "@nestjs/swagger": "^7.4.0",
     "@nestjs/throttler": "^6.1.0",
     "@nestjs/typeorm": "^10.0.2",
+    "ajv": "^8.17.1",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
@@ -43,10 +44,9 @@
     "pino": "^9.3.2",
     "pino-pretty": "^11.2.2",
     "reflect-metadata": "^0.2.2",
-    "rimraf": "^5.0.7",
+    "rimraf": "^6.0.0",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.20",
-    "yup": "^1.4.0"
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
