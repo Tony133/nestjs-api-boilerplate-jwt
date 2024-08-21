@@ -6,20 +6,14 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { IamModule } from './iam/iam.module';
-import * as Yup from 'yup';
+import { validateSchemaEnv } from './helpers/validation-schema-env';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env', '.env.dev', '.env.stage', '.env.prod'],
-      validationSchema: Yup.object({
-        TYPEORM_HOST: Yup.string().required(),
-        TYPEORM_PORT: Yup.number().default(3306),
-        TYPEORM_USERNAME: Yup.string().required(),
-        TYPEORM_PASSWORD: Yup.string().required(),
-        TYPEORM_DATABASE: Yup.string().required(),
-      }),
+      validate: validateSchemaEnv,
     }),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
