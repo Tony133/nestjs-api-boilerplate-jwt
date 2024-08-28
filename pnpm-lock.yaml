@@ -89,7 +89,7 @@ importers:
         version: 19.4.0(@types/node@22.5.1)(typescript@5.5.4)
       '@commitlint/config-angular':
         specifier: ^19.3.0
-        version: 19.3.0
+        version: 19.4.1
       '@nestjs/cli':
         specifier: ^10.3.2
         version: 10.4.4
@@ -345,8 +345,8 @@ packages:
     resolution: {integrity: sha512-eLjt7vSArP62kpDmmIZNdIBjPzbqY8jss6mVOcSDm4t1KfDw4UmPrtPh/7zcIL3GI5uf/7W8d2s3K0qisf9C+g==}
     engines: {node: '>=v18'}
 
-  '@commitlint/config-angular@19.3.0':
-    resolution: {integrity: sha512-D8ue6s7f/A/ph/4vSEj32zxg/WHRF21vguOigAymUJ7SfUPF/BD+C/UGt7I1aEEhdgoq7MIS8bNAJroYvSzMwQ==}
+  '@commitlint/config-angular@19.4.1':
+    resolution: {integrity: sha512-428f4bCmt/kxfdB4OPuCE7UViRyCx7HyJwrGgzrwjkewmhg/fgZ7b+WtV3G5yVB7aK3vMQCbwUZVTXzASlh7Kg==}
     engines: {node: '>=v18'}
 
   '@commitlint/config-validator@19.0.3':
@@ -3752,7 +3752,7 @@ snapshots:
 
   '@commitlint/config-angular-type-enum@19.1.0': {}
 
-  '@commitlint/config-angular@19.3.0':
+  '@commitlint/config-angular@19.4.1':
     dependencies:
       '@commitlint/config-angular-type-enum': 19.1.0
 
