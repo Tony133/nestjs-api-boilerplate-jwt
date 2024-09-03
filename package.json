@@ -41,7 +41,7 @@
     "fastify": "^4.28.0",
     "mysql2": "^3.10.2",
     "nodemailer": "^6.9.13",
-    "pino": "^9.3.2",
+    "pino": "^9.4.0",
     "pino-pretty": "^11.2.2",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.0",
