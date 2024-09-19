@@ -36,7 +36,7 @@ async function bootstrap() {
 
   const port = configService.get<number>('NODE_API_PORT') || 3000;
   await app.listen(port, '0.0.0.0');
-  if (configService.get<string>('NODE_ENV') === 'dev') {
+  if (configService.get<string>('NODE_ENV') !== 'production') {
     Logger.debug(
       `${await app.getUrl()} - Environment: ${configService.get<string>(
         'NODE_ENV',
