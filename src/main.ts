@@ -34,7 +34,7 @@ async function bootstrap() {
   configureAuthSwaggerDocs(app, configService);
   configureSwaggerDocs(app, configService);
 
-  const port = configService.get<number>('NODE_API_PORT') || 3000;
+  const port = configService.get<number>('SERVER_PORT') || 3000;
   await app.listen(port, '0.0.0.0');
   if (configService.get<string>('NODE_ENV') !== 'production') {
     Logger.debug(
