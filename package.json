@@ -51,7 +51,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-angular": "^19.3.0",
-    "@nestjs/cli": "^10.3.2",
+    "@nestjs/cli": "^10.4.7",
     "@nestjs/schematics": "^10.1.3",
     "@nestjs/testing": "^10.4.0",
     "@types/bcrypt": "^5.0.2",
