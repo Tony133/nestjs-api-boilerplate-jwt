@@ -69,8 +69,8 @@ importers:
         specifier: ^9.3.2
         version: 9.4.0
       pino-pretty:
-        specifier: ^11.2.2
-        version: 11.3.0
+        specifier: ^12.0.0
+        version: 12.0.0
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -2778,8 +2778,8 @@ packages:
   pino-abstract-transport@2.0.0:
     resolution: {integrity: sha512-F63x5tizV6WCh4R6RHyi2Ml+M70DNRXt/+HANowMflpgGFMAym/VKm6G7ZOQRjqN7XbGxK1Lg9t6ZrtzOaivMw==}
 
-  pino-pretty@11.3.0:
-    resolution: {integrity: sha512-oXwn7ICywaZPHmu3epHGU2oJX4nPmKvHvB/bwrJHlGcbEWaVcotkpyVHMKLKmiVryWYByNp0jpgAcXpFJDXJzA==}
+  pino-pretty@12.0.0:
+    resolution: {integrity: sha512-Cx08RuTg6337DbzXqiHpo+2ej0K2FwnyLYIHCmbB5ZhVXJA5XV7zTnvSGoeEERVIGTW9yj7XNtgS+5LpzRdR8w==}
     hasBin: true
 
   pino-std-serializers@7.0.0:
@@ -6596,7 +6596,7 @@ snapshots:
     dependencies:
       split2: 4.2.0
 
-  pino-pretty@11.3.0:
+  pino-pretty@12.0.0:
     dependencies:
       colorette: 2.0.20
       dateformat: 4.6.3
