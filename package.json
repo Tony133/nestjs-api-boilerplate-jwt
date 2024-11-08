@@ -42,7 +42,7 @@
     "mysql2": "^3.11.3",
     "nodemailer": "^6.9.13",
     "pino": "^9.3.2",
-    "pino-pretty": "^11.2.2",
+    "pino-pretty": "^12.1.0",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.0",
     "rxjs": "^7.8.1",
