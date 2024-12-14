@@ -20,11 +20,10 @@ export class LoginController {
   @Post('login')
   @HttpCode(200)
   @ApiOkResponse({
-    status: 200,
     description:
       'Authentication a user with email and password credentials and return token',
   })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Forbidden' })
+  @ApiUnauthorizedResponse({ description: 'Forbidden' })
   public async login(@Body() loginDto: LoginDto): Promise<any> {
     return await this.loginService.login(loginDto);
   }
@@ -33,10 +32,9 @@ export class LoginController {
   @HttpCode(200)
   @ApiBearerAuth()
   @ApiOkResponse({
-    status: 200,
     description: 'Refresh tokens and return new tokens',
   })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Forbidden' })
+  @ApiUnauthorizedResponse({ description: 'Forbidden' })
   public async refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
     return await this.loginService.refreshTokens(refreshTokenDto);
   }

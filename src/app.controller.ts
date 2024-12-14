@@ -11,7 +11,6 @@ export class AppController {
   @AuthGuard(AuthType.None)
   @Get()
   @ApiOkResponse({
-    status: 200,
     description: 'Example of a public resource',
   })
   getHello(): { message: string } {
@@ -22,7 +21,6 @@ export class AppController {
   @Get('secure')
   @ApiBearerAuth()
   @ApiOkResponse({
-    status: 200,
     description: 'Example of a protected resource',
   })
   getProtectedResource(): { message: string } {

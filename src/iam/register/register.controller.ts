@@ -21,11 +21,10 @@ export class RegisterController {
   @Post()
   @HttpCode(201)
   @ApiOkResponse({
-    status: 201,
     description:
       'Register a new user and send a confirmation email to the user',
   })
-  @ApiBadRequestResponse({ status: 400, description: 'Bad request' })
+  @ApiBadRequestResponse({ description: 'Bad request' })
   public async register(
     @Body() registerUserDto: RegisterUserDto,
   ): Promise<any> {

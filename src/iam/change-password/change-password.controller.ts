@@ -27,11 +27,10 @@ export class ChangePasswordController {
   @Post()
   @HttpCode(200)
   @ApiOkResponse({
-    status: 200,
     description:
       'Request Change Password and send a confirmation email to the user',
   })
-  @ApiBadRequestResponse({ status: 400, description: 'Bad request' })
+  @ApiBadRequestResponse({ description: 'Bad request' })
   public async changePassword(
     @Body() changePasswordDto: ChangePasswordDto,
   ): Promise<any> {

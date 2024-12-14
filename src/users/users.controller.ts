@@ -45,7 +45,7 @@ export class UsersController {
     status: 200,
     description: 'Get a user by id',
   })
-  @ApiNotFoundResponse({ status: 400, description: 'User not found' })
+  @ApiNotFoundResponse({ description: 'User not found' })
   public async findOneUser(
     @Param('userId') userId: string,
   ): Promise<AccountsUsers> {
@@ -57,7 +57,7 @@ export class UsersController {
     status: 200,
     description: 'Get a user profile by id',
   })
-  @ApiNotFoundResponse({ status: 400, description: 'User not found' })
+  @ApiNotFoundResponse({ description: 'User not found' })
   public async getUser(@Param('userId') userId: string): Promise<any> {
     const user = await this.findOneUser(userId);
 
@@ -77,7 +77,6 @@ export class UsersController {
     description: 'Update a user profile by id',
   })
   @ApiBadRequestResponse({
-    status: 400,
     description: 'User profile not updated',
   })
   public async updateUserProfile(
@@ -101,7 +100,7 @@ export class UsersController {
     status: 200,
     description: 'Update a user by id',
   })
-  @ApiBadRequestResponse({ status: 400, description: 'User not updated' })
+  @ApiBadRequestResponse({ description: 'User not updated' })
   public async updateUser(
     @Param('userId') userId: string,
     @Body() userUpdateDto: UserUpdateDto,
@@ -123,7 +122,7 @@ export class UsersController {
     status: 200,
     description: 'Delete a user by id',
   })
-  @ApiNoContentResponse({ status: 404, description: 'User not deleted' })
+  @ApiNoContentResponse({ description: 'User not deleted' })
   public async deleteUser(@Param('userId') userId: string): Promise<void> {
     await this.usersService.deleteUser(userId);
   }
