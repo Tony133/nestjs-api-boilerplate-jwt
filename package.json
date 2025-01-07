@@ -58,7 +58,7 @@
     "@types/node": "^22.4.0",
     "@types/nodemailer": "^6.4.15",
     "@types/supertest": "^6.0.2",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "9.17.0",
     "eslint-config-prettier": "^9.1.0",
