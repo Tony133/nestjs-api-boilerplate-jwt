@@ -4,7 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { ThrottlerModule } from '@nestjs/throttler';
 import { IamModule } from './iam/iam.module';
 import { validateSchemaEnv } from './helpers/validation-schema-env';
 
@@ -14,16 +13,6 @@ import { validateSchemaEnv } from './helpers/validation-schema-env';
       isGlobal: true,
       envFilePath: ['.env', '.env.dev', '.env.stage', '.env.prod'],
       validate: validateSchemaEnv,
-    }),
-    ThrottlerModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => [
-        {
-          ttl: config.get<number>('THROTTLE_TTL'),
-          limit: config.get<number>('THROTTLE_LIMIT'),
-        },
-      ],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

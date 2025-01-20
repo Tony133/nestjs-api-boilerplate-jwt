@@ -18,6 +18,7 @@ export function configureSwaggerDocs(
       .addServer('http://localhost:3000', 'Local server')
       .addTag('auth')
       .addTag('users')
+      .addTag('app')
       .addBearerAuth({
         description: 'Please enter token:',
         name: 'Authorization',

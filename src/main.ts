@@ -4,11 +4,12 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { configureSwaggerDocs } from './helpers/configure-swagger-docs.helper';
 import { configureAuthSwaggerDocs } from './helpers/configure-auth-swagger-docs.helper';
-import { FastifyAdapter } from '@nestjs/platform-fastify';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
-  const app = await NestFactory.create(AppModule, fastifyAdapter);
+  const app =
+    await NestFactory.create<NestFastifyApplication>(AppModule, fastifyAdapter);
   const configService = app.get<ConfigService>(ConfigService);
 
   await fastifyAdapter.register(require('@fastify/cors'), {
@@ -17,6 +18,11 @@ async function bootstrap() {
     allowedHeaders:
       'Content-Type, Accept, Access-Control-Allow-Origin, Access-Control-Allow-Methods',
     credentials: true,
+  });
+
+  await fastifyAdapter.register(require('@fastify/rate-limit'), {
+    max: 100,
+    timeWindow: '1 minute',
   });
 
   app.setGlobalPrefix('api');
