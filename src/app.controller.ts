@@ -2,8 +2,9 @@ import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from './iam/login/decorators/auth-guard.decorator';
 import { AuthType } from './iam/login/enums/auth-type.enum';
-import { ApiOkResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiOkResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('app')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
