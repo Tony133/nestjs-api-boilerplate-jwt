@@ -132,19 +132,14 @@ http://127.0.0.1:3000/docs-yaml
 
 ```
 
-Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file and set `NODE_ENV` to `local` or `dev` or `staging` to access the SWAGGER(Open API) documentation with basic authentication.
+Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file for to access the Swagger(Open API) documentation with basic authentication. `NODE_ENV`
+must not be equal to "production" otherwise the Swagger is not displayed.
 
 ```
 NODE_ENV=[:enviroments]
 SWAGGER_USER=[:user]
 SWAGGER_PASSWORD=[:password]
 
-```
-
-If you want to add more environments, include them in the `SWAGGER_ENVS` array in `main.ts`, see the following:
-
-```typescript
-const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ```
 
 ## Configuring the SERVER_PORT environment variable as the default port if you don't want to use the default
