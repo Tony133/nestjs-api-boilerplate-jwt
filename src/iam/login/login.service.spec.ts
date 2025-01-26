@@ -1,7 +1,7 @@
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { HashingService } from '../../shared/hashing/hashing.service';
+import { HashingService } from '../../common/hashing/hashing.service';
 import { LoginService } from './login.service';
 import { UsersService } from '../../users/users.service';
 import { Users } from '../../users/models/users.model';

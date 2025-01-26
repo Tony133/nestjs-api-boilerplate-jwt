@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../../src/app.module';
-import { MailerService } from '../../src/shared/mailer/mailer.service';
+import { MailerService } from '../../src/common/mailer/mailer.service';
 import {
   BadRequestException,
   HttpStatus,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserDto } from '../../src/users/dto/user.dto';
-import { HashingService } from '../../src/shared/hashing/hashing.service';
+import { HashingService } from '../../src/common/hashing/hashing.service';
 import {
   FastifyAdapter,
   NestFastifyApplication,

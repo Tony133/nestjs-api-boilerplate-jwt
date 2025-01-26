@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { HashingService } from '../../shared/hashing/hashing.service';
-import { MailerService } from '../../shared/mailer/mailer.service';
+import { HashingService } from '../../common/hashing/hashing.service';
+import { MailerService } from '../../common/mailer/mailer.service';
 import { AccountsUsers } from '../../users/interfaces/accounts-users.interface';
 import { UsersService } from '../../users/users.service';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { registrationEmail } from '../../shared/mailer/mailer.constants';
+import { registrationEmail } from '../../common/mailer/mailer.constants';
 
 @Injectable()
 export class RegisterService {

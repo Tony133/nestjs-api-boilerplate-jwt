@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BcryptService } from '../../shared/hashing/bcrypt.service';
-import { HashingService } from '../../shared/hashing/hashing.service';
-import { MailerModule } from '../../shared/mailer/mailer.module';
+import { BcryptService } from '../../common/hashing/bcrypt.service';
+import { HashingService } from '../../common/hashing/hashing.service';
+import { MailerModule } from '../../common/mailer/mailer.module';
 import { Users } from '../../users/models/users.model';
 import { UsersService } from '../../users/users.service';
 import { RegisterController } from './register.controller';
