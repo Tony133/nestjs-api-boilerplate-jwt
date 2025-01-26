@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { USERS_REPOSITORY_TOKEN } from './users.repository.interface';
 import { UsersTypeOrmRepository } from './implementations/users.typeorm.repository';
 import { Users } from '../models/users.model';
-import { HashingService } from '../../shared/hashing/hashing.service';
+import { HashingService } from '../../common/hashing/hashing.service';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 

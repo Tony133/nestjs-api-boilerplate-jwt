@@ -37,16 +37,16 @@ export function configureAuthSwaggerDocs(
     if (!req.headers.authorization) {
       return unauthorizedResponse();
     }
-    
+
     const credentials = parseAuthHeader(req.headers.authorization);
-    
+
     if (
       credentials?.user !== apiDocumentationCredentials.user ||
       credentials?.password !== apiDocumentationCredentials.password
     ) {
       return unauthorizedResponse();
     }
-    
+
     next();
   });
 }

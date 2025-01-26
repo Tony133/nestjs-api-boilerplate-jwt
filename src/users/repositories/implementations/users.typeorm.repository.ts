@@ -4,7 +4,7 @@ import { Repository, UpdateResult } from 'typeorm';
 import { UserProfileDto } from '../../../users/dto/user-profile.dto';
 import { UserUpdateDto } from '../../../users/dto/user-update.dto';
 import { UserDto } from '../../../users/dto/user.dto';
-import { HashingService } from '../../../shared/hashing/hashing.service';
+import { HashingService } from '../../../common/hashing/hashing.service';
 import { AccountsUsers } from '../../../users/interfaces/accounts-users.interface';
 
 export class UsersTypeOrmRepository implements UsersRepository {

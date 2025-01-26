@@ -10,7 +10,7 @@ import { UsersService } from '../../users/users.service';
 import { AccountsUsers } from '../../users/interfaces/accounts-users.interface';
 import { LoginDto } from './dto/login.dto';
 import { ConfigType } from '@nestjs/config';
-import { HashingService } from '../../shared/hashing/hashing.service';
+import { HashingService } from '../../common/hashing/hashing.service';
 import { JWTPayload } from './interfaces/jwt-payload.interface';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { Users } from '../../users/models/users.model';
