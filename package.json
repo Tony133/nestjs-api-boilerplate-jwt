@@ -26,7 +26,7 @@
     "@fastify/helmet": "^13.0.1",
     "@fastify/rate-limit": "^10.2.2",
     "@fastify/static": "^8.0.4",
-    "@nestjs/common": "^11.0.6",
+    "@nestjs/common": "^11.0.7",
     "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.6",
     "@nestjs/jwt": "^11.0.0",
