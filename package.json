@@ -31,7 +31,7 @@
     "@nestjs/core": "^11.0.9",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/mapped-types": "2.1.0",
-    "@nestjs/platform-fastify": "^11.0.9",
+    "@nestjs/platform-fastify": "^11.0.10",
     "@nestjs/swagger": "^11.0.3",
     "@nestjs/typeorm": "^11.0.0",
     "ajv": "^8.17.1",
