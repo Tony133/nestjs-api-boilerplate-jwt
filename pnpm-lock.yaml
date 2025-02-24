@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@fastify/cors':
         specifier: ^10.0.2
-        version: 10.0.2
+        version: 10.1.0
       '@fastify/helmet':
         specifier: ^13.0.1
         version: 13.0.1
@@ -471,6 +471,9 @@ packages:
 
   '@fastify/cors@10.0.2':
     resolution: {integrity: sha512-DGdxOG36sS/tZv1NFiCJGi7wGuXOSPL2CmNX5PbOVKx0C6LuIALRMrqLByHTCcX1Rbl8NJ9IWlJex32bzydvlw==}
+
+  '@fastify/cors@10.1.0':
+    resolution: {integrity: sha512-MZyBCBJtII60CU9Xme/iE4aEy8G7QpzGR8zkdXZkDFt7ElEMachbE61tfhAG/bvSaULlqlf0huMT12T7iqEmdQ==}
 
   '@fastify/error@4.0.0':
     resolution: {integrity: sha512-OO/SA8As24JtT1usTUTKgGH7uLvhfwZPwlptRi2Dp5P4KKmJI3gvsZ8MIHnNwDs4sLf/aai5LzTyl66xr7qMxA==}
@@ -2764,6 +2767,9 @@ packages:
   mnemonist@0.39.8:
     resolution: {integrity: sha512-vyWo2K3fjrUw8YeeZ1zF0fy6Mu59RHokURlld8ymdUPjMlD9EC9ov1/YPqTgqRvUN9nTr3Gqfz29LYAmu0PHPQ==}
 
+  mnemonist@0.40.0:
+    resolution: {integrity: sha512-kdd8AFNig2AD5Rkih7EPCXhu/iMvwevQFX/uEiGhZyPZi7fHqOoF4V4kHLpCfysxXMgQ4B52kdPMCwARshKvEg==}
+
   mongodb-connection-string-url@2.6.0:
     resolution: {integrity: sha512-WvTZlI9ab0QYtTYnuMLgobULWhokRjtC7db9LtcVfJ+Hsnyr5eo6ZtNAt3Ly24XZScGMelOcGtm7lSn0332tPQ==}
 
@@ -2867,6 +2873,9 @@ packages:
 
   obliterator@2.0.4:
     resolution: {integrity: sha512-lgHwxlxV1qIg1Eap7LgIeoBWIMFibOjbrYPIPJZcI1mmGAI2m3lNYpK12Y+GBdPQ0U1hRwSord7GIaawz962qQ==}
+
+  obliterator@2.0.5:
+    resolution: {integrity: sha512-42CPE9AhahZRsMNslczq0ctAEtqk8Eka26QofnqC346BZdHDySk3LWka23LI7ULIw11NmltpiLagIq8gBozxTw==}
 
   on-exit-leak-free@2.1.2:
     resolution: {integrity: sha512-0eJJY6hXLGf1udHwfNftBqH+g73EU4B504nZeKpz1sYRKafAghwxEJunB2O7rDZkL4PGfsMVnTXZ2EjibbqcsA==}
@@ -4205,6 +4214,11 @@ snapshots:
     dependencies:
       fastify-plugin: 5.0.1
       mnemonist: 0.39.8
+
+  '@fastify/cors@10.1.0':
+    dependencies:
+      fastify-plugin: 5.0.1
+      mnemonist: 0.40.0
 
   '@fastify/error@4.0.0': {}
 
@@ -6892,6 +6906,10 @@ snapshots:
     dependencies:
       obliterator: 2.0.4
 
+  mnemonist@0.40.0:
+    dependencies:
+      obliterator: 2.0.5
+
   mongodb-connection-string-url@2.6.0:
     dependencies:
       '@types/whatwg-url': 8.2.2
@@ -6977,6 +6995,8 @@ snapshots:
   object-inspect@1.13.3: {}
 
   obliterator@2.0.4: {}
+
+  obliterator@2.0.5: {}
 
   on-exit-leak-free@2.1.2: {}
 
