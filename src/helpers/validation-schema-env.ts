@@ -1,4 +1,3 @@
-import { Logger } from '@nestjs/common';
 import Ajv from 'ajv';
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true });
@@ -29,7 +28,7 @@ export const validateSchemaEnv = (env: unknown) => {
     const errorMessages = validate.errors
       .map((err) => ` Property${err.instancePath} ${err.message}`)
       .join(', ');
-    Logger.error(
+    console.error(
       `Environment validation error:${errorMessages}`,
       'EnvValidation',
     );
