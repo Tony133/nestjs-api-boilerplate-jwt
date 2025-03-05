@@ -37,7 +37,7 @@ To set up on multiple environments, such as dev, stage or prod, we do as follows
 
 ## Config settings .env to connect MySQL
 
-Once the database has been configured, start the Nest App via `pnpm run start:dev` it automatically synchronizes the entities so it is ready to use. :heart_eyes_cat:
+Once the database has been configured, start the Nest App via `pnpm run start:dev` it automatically synchronizes the entities so it is ready to use.
 
 ```
    TYPEORM_CONNECTION = "mysql"
