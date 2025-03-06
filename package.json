@@ -40,7 +40,7 @@
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.1",
-    "mysql2": "^3.12.0",
+    "mysql2": "^3.13.0",
     "nodemailer": "^6.10.0",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
