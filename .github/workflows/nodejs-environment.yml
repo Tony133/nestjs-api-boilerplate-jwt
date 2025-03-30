@@ -20,7 +20,7 @@ jobs:
         name: Checkout code
       - name: Set safe.directory
         run: git config --global --add safe.directory /github/workspace
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8
       - uses: actions/setup-node@v4
@@ -49,7 +49,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8
       - name: Install Docker Compose
