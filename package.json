@@ -57,7 +57,7 @@
     "@nestjs/testing": "^11.0.11",
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.13.8",
+    "@types/node": "^22.13.14",
     "@types/nodemailer": "^6.4.17",
     "@types/supertest": "^6.0.2",
     "eslint": "9.23.0",
