@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BcryptService } from './bcrypt.service';
+import { Argon2Service } from './argon2.service';
 import { HashingService } from './hashing.service';
 
 describe('HashingService', () => {
@@ -10,7 +10,7 @@ describe('HashingService', () => {
       providers: [
         {
           provide: HashingService,
-          useClass: BcryptService,
+          useClass: Argon2Service,
         },
       ],
     }).compile();

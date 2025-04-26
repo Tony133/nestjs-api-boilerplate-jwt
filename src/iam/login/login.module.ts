@@ -7,7 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { UsersService } from '../../users/users.service';
 import { ConfigModule } from '@nestjs/config';
 import { HashingService } from '../../common/hashing/hashing.service';
-import { BcryptService } from '../../common/hashing/bcrypt.service';
+import { Argon2Service } from '../../common/hashing/argon2.service';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthenticationGuard } from './guards/authentication/authentication.guard';
 import { AccessTokenGuard } from './guards/access-token/access-token.guard';
@@ -23,7 +23,7 @@ import { provideUsersRepository } from '../../users/repositories/users.repositor
   providers: [
     {
       provide: HashingService,
-      useClass: BcryptService,
+      useClass: Argon2Service,
     },
     {
       provide: APP_GUARD,

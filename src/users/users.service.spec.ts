@@ -1,6 +1,6 @@
 import { HttpException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { BcryptService } from '../common/hashing/bcrypt.service';
+import { Argon2Service } from '../common/hashing/argon2.service';
 import { HashingService } from '../common/hashing/hashing.service';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
@@ -78,7 +78,7 @@ describe('UsersService', () => {
         UsersService,
         {
           provide: HashingService,
-          useClass: BcryptService,
+          useClass: Argon2Service,
         },
         {
           provide: USERS_REPOSITORY_TOKEN,

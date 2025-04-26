@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from '../../users/models/users.model';
 import { UsersService } from '../../users/users.service';
 import { MailerModule } from '../../common/mailer/mailer.module';
-import { BcryptService } from '../../common/hashing/bcrypt.service';
+import { Argon2Service } from '../../common/hashing/argon2.service';
 import { HashingService } from '../../common/hashing/hashing.service';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthenticationGuard } from '../login/guards/authentication/authentication.guard';
@@ -25,7 +25,7 @@ import { provideUsersRepository } from '../../users/repositories/users.repositor
   providers: [
     {
       provide: HashingService,
-      useClass: BcryptService,
+      useClass: Argon2Service,
     },
     {
       provide: APP_GUARD,
