@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ForgotPasswordService } from './forgot-password.service';
 import { ForgotPasswordController } from './forgot-password.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BcryptService } from '../../common/hashing/bcrypt.service';
+import { Argon2Service } from '../../common/hashing/argon2.service';
 import { HashingService } from '../../common/hashing/hashing.service';
 import { MailerModule } from '../../common/mailer/mailer.module';
 import { UtilsModule } from '../../common/utils/utils.module';
@@ -15,7 +15,7 @@ import { UsersService } from '../../users/users.service';
   providers: [
     {
       provide: HashingService,
-      useClass: BcryptService,
+      useClass: Argon2Service,
     },
     ForgotPasswordService,
     UsersService,

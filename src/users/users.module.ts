@@ -4,7 +4,7 @@ import { Users } from './models/users.model';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { MailerModule } from '../common/mailer/mailer.module';
-import { BcryptService } from '../common/hashing/bcrypt.service';
+import { Argon2Service } from '../common/hashing/argon2.service';
 import { HashingService } from '../common/hashing/hashing.service';
 import { provideUsersRepository } from './repositories/users.repository.provider';
 
@@ -14,7 +14,7 @@ import { provideUsersRepository } from './repositories/users.repository.provider
   providers: [
     {
       provide: HashingService,
-      useClass: BcryptService,
+      useClass: Argon2Service,
     },
     UsersService,
     ...provideUsersRepository(),
