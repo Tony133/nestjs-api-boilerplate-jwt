@@ -18,10 +18,10 @@ An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 11.x
    cp .env.example .env
 ```
 
-To set up on multiple environments, such as dev, stage or prod, we do as follows:
+To set up on multiple environments, such as development, staging or production, we do as follows:
 
 ```bash
-   cp .env.example .env.dev # or .env.stage, etc
+   cp .env.example .env.development # or .env.staging, etc
 ```
 
 ## Config settings .env for sending a notification when a user registers, forgets password or changes password
