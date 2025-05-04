@@ -11,7 +11,7 @@ import { validateSchemaEnv } from './helpers/validation-schema-env';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env', '.env.dev', '.env.stage', '.env.prod'],
+      envFilePath: ['.env', '.env.development', '.env.staging', '.env.production'],
       validate: validateSchemaEnv,
     }),
     TypeOrmModule.forRootAsync({
