@@ -39,9 +39,7 @@ export const validateSchemaEnv = (env: unknown) => {
             `- ${err.instancePath || ''} ${err.message || 'Unknown error'}`,
         )
        .join('\n') ?? 'Unknown error';
-    console.error(
-      `Environment validation error: \n${errorMessages}`,
-    );
+    console.error(`Environment validation error: \n${errorMessages}`);
   }
   return env as EnvVariables;
 };
