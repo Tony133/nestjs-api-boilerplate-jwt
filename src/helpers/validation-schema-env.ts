@@ -22,16 +22,27 @@ const schema = {
 
 const validate = ajv.compile(schema);
 
+interface EnvVariables {
+  TYPEORM_HOST: string;
+  TYPEORM_PORT: string;
+  TYPEORM_USERNAME: string;
+  TYPEORM_PASSWORD: string;
+  TYPEORM_DATABASE: string;
+}
+
 export const validateSchemaEnv = (env: unknown) => {
   const valid = validate(env);
   if (!valid) {
     const errorMessages = validate.errors
-      .map((err) => ` Property${err.instancePath} ${err.message}`)
-      .join(', ');
+        ?.map(
+          (err: { instancePath?: string; message?: string }) =>
+            `- ${err.instancePath || ''} ${err.message || 'Unknown error'}`,
+        )
+       .join('\n') ?? 'Unknown error';
     console.error(
-      `Environment validation error:${errorMessages}`,
+      `Environment validation error: \n${errorMessages}`,
       'EnvValidation',
     );
   }
-  return env;
+  return env as EnvVariables;
 };
