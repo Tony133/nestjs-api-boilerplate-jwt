@@ -1,12 +1,8 @@
 import { INestApplication } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-export function configureSwaggerDocs(
-  app: INestApplication,
-  configService: ConfigService,
-) {
-  if (configService.get<string | undefined>('NODE_ENV') !== 'production') {
+export function configureSwaggerDocs(app: INestApplication) {
+  if (process.env.NODE_ENV !== 'production') {
     const config = new DocumentBuilder()
       .setTitle('API')
       .setDescription('The API description')

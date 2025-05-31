@@ -1,36 +1,29 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { IamModule } from './iam/iam.module';
-import { validateSchemaEnv } from './helpers/validation-schema-env';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ['.env', '.env.development', '.env.staging', '.env.production'],
-      validate: validateSchemaEnv,
-    }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
+      useFactory: () => ({
         type: 'mysql',
-        host: config.get<string>('TYPEORM_HOST'),
-        port: config.get<number>('TYPEORM_PORT'),
-        username: config.get<string>('TYPEORM_USERNAME'),
-        password: config.get<string>('TYPEORM_PASSWORD'),
-        database: config.get<string>('TYPEORM_DATABASE'),
+        host: process.env.TYPEORM_HOST,
+        port: process.env.TYPEORM_PORT
+          ? parseInt(process.env.TYPEORM_PORT, 10)
+          : 3306,
+        username: process.env.TYPEORM_USERNAME,
+        password: process.env.TYPEORM_PASSWORD,
+        database: process.env.TYPEORM_DATABASE,
         synchronize: true,
         entities: [__dirname + '/**/*.{model,entity}.{ts,js}'],
         migrations: ['dist/migrations/**/*.js'],
         subscribers: ['dist/subscriber/**/*.js'],
         cli: {
-          migrationsDir: config.get<string>('TYPEORM_MIGRATIONS_DIR'),
-          subscribersDir: config.get<string>('TYPEORM_SUBSCRIBERS_DIR'),
+          migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
+          subscribersDir: process.env.TYPEORM_SUBSCRIBERS_DIR,
         },
       }),
     }),

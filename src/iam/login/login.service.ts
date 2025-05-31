@@ -1,7 +1,6 @@
 import {
   HttpException,
   HttpStatus,
-  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -9,20 +8,17 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../../users/users.service';
 import { AccountsUsers } from '../../users/interfaces/accounts-users.interface';
 import { LoginDto } from './dto/login.dto';
-import { ConfigType } from '@nestjs/config';
 import { HashingService } from '../../common/hashing/hashing.service';
 import { JWTPayload } from './interfaces/jwt-payload.interface';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { Users } from '../../users/models/users.model';
-import jwtConfig from './config/jwt.config';
+import { jwtConfig } from './config/jwt.config';
 
 @Injectable()
 export class LoginService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    @Inject(jwtConfig.KEY)
-    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
     private readonly hashingService: HashingService,
   ) {}
 
@@ -58,10 +54,10 @@ export class LoginService {
     const [accessToken, refreshToken] = await Promise.all([
       this.signToken<Partial<JWTPayload>>(
         user.id,
-        this.jwtConfiguration.accessTokenTtl,
+        jwtConfig.accessTokenTtl ?? 3600,
         { email: user.email },
       ),
-      this.signToken(user.id, this.jwtConfiguration.refreshTokenTtl),
+      this.signToken(user.id, jwtConfig.refreshTokenTtl ?? 86400),
     ]);
     return {
       accessToken,
@@ -79,9 +75,9 @@ export class LoginService {
       const { id } = await this.jwtService.verifyAsync<Pick<JWTPayload, 'id'>>(
         refreshTokenDto.refreshToken,
         {
-          secret: this.jwtConfiguration.secret,
-          audience: this.jwtConfiguration.audience,
-          issuer: this.jwtConfiguration.issuer,
+          secret: jwtConfig.secret,
+          audience: jwtConfig.audience,
+          issuer: jwtConfig.issuer,
         },
       );
       const user = await this.usersService.findBySub(id);
@@ -98,9 +94,9 @@ export class LoginService {
         ...payload,
       },
       {
-        audience: this.jwtConfiguration.audience,
-        issuer: this.jwtConfiguration.issuer,
-        secret: this.jwtConfiguration.secret,
+        audience: jwtConfig.audience,
+        issuer: jwtConfig.issuer,
+        secret: jwtConfig.secret,
         expiresIn,
       },
     );

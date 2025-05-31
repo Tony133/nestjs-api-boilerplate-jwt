@@ -11,16 +11,10 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthenticationGuard } from '../login/guards/authentication/authentication.guard';
 import { AccessTokenGuard } from '../login/guards/access-token/access-token.guard';
 import { JwtService } from '@nestjs/jwt';
-import { ConfigModule } from '@nestjs/config';
-import jwtConfig from '../login/config/jwt.config';
 import { provideUsersRepository } from '../../users/repositories/users.repository.provider';
 
 @Module({
-  imports: [
-    ConfigModule.forFeature(jwtConfig),
-    TypeOrmModule.forFeature([Users]),
-    MailerModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Users]), MailerModule],
   controllers: [ChangePasswordController],
   providers: [
     {
