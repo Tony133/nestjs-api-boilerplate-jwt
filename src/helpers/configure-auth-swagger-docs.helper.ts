@@ -1,13 +1,9 @@
 import { INestApplication } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
-export function configureAuthSwaggerDocs(
-  app: INestApplication,
-  configService: ConfigService,
-) {
+export function configureAuthSwaggerDocs(app: INestApplication) {
   const apiDocumentationCredentials = {
-    user: configService.get<string>('SWAGGER_USER'),
-    password: configService.get<string>('SWAGGER_PASSWORD'),
+    user: process.env.SWAGGER_USER,
+    password: process.env.SWAGGER_PASSWORD,
   };
 
   const httpAdapter = app.getHttpAdapter();

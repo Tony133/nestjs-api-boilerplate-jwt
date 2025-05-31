@@ -1,4 +1,3 @@
-import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HashingService } from '../../common/hashing/hashing.service';
@@ -8,7 +7,6 @@ import { Users } from '../../users/models/users.model';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { LoginDto } from './dto/login.dto';
 import { UnauthorizedException, HttpException } from '@nestjs/common';
-import jwtConfig from './config/jwt.config';
 
 const oneUser = {
   id: 1,
@@ -45,16 +43,22 @@ const refreshTokenDto = {
 
 const id = 1;
 
+const jwtConfig = {
+  secret: 'test-secret',
+  audience: 'test-audience',
+  issuer: 'test-issuer',
+  accessTokenTtl: 3600,
+  refreshTokenTtl: 86400,
+};
+
 describe('LoginService', () => {
   let loginService: LoginService;
   let usersService: UsersService;
   let hashingService: HashingService;
-  let config: ConfigType<typeof jwtConfig>;
   let jwtService: JwtService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule.forFeature(jwtConfig)],
       providers: [
         LoginService,
         {
@@ -66,10 +70,8 @@ describe('LoginService', () => {
           },
         },
         {
-          provide: ConfigService,
-          useValue: {
-            get: jest.fn().mockReturnValue('some string'),
-          },
+          provide: 'jwtConfig',
+          useValue: jwtConfig,
         },
         {
           provide: HashingService,
@@ -97,7 +99,6 @@ describe('LoginService', () => {
       ],
     }).compile();
 
-    config = module.get<ConfigType<typeof jwtConfig>>(jwtConfig.KEY);
     loginService = module.get<LoginService>(LoginService);
     usersService = module.get<UsersService>(UsersService);
     hashingService = module.get<HashingService>(HashingService);

@@ -1,21 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
-import { ConfigService } from '@nestjs/config';
+import { config } from 'dotenv';
+
+config();
 
 @Injectable()
 export class MailerService {
   private nodemailerTransport: Mail;
 
-  constructor(private readonly configService: ConfigService) {
+  constructor() {
     this.nodemailerTransport = createTransport({
-      host: this.configService.get<string>('EMAIL_HOST'),
-      port: this.configService.get<number>('EMAIL_PORT'),
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT, 10) : 587, // default 587
       auth: {
-        user: this.configService.get<string>('EMAIL_AUTH_USER'),
-        pass: this.configService.get<string>('EMAIL_AUTH_PASSWORD'),
+        user: process.env.EMAIL_AUTH_USER,
+        pass: process.env.EMAIL_AUTH_PASSWORD,
       },
-      debug: this.configService.get<boolean>('EMAIL_DEBUG'),
+      debug: process.env.EMAIL_DEBUG === 'true',
       logger: false,
     });
   }
