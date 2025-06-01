@@ -1,5 +1,4 @@
 import { Injectable, Provider } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource } from '../../constants';
 import { Repository } from 'typeorm';
@@ -7,18 +6,12 @@ import { USERS_REPOSITORY_TOKEN } from './users.repository.interface';
 import { UsersTypeOrmRepository } from './implementations/users.typeorm.repository';
 import { Users } from '../models/users.model';
 import { HashingService } from '../../common/hashing/hashing.service';
-import { ConfigService } from '@nestjs/config';
-import { config } from 'dotenv';
-
-config();
-
-export const configService = new ConfigService();
 
 export function provideUsersRepository(): Provider[] {
   return [
     {
       provide: USERS_REPOSITORY_TOKEN,
-      useFactory: async (dependenciesProvider: UsersRepoDependenciesProvider) =>
+      useFactory: (dependenciesProvider: UsersRepoDependenciesProvider) =>
         provideUsersRepositoryFactory(dependenciesProvider),
       inject: [UsersRepoDependenciesProvider],
     },
@@ -26,12 +19,21 @@ export function provideUsersRepository(): Provider[] {
   ];
 }
 
-async function provideUsersRepositoryFactory(
+function provideUsersRepositoryFactory(
   dependenciesProvider: UsersRepoDependenciesProvider,
 ) {
-  await ConfigModule.envVariablesLoaded;
+  const dataSourceEnv = process.env.USERS_DATASOURCE;
 
-  switch (configService.get('USERS_DATASOURCE')) {
+  if (
+    !dataSourceEnv ||
+    !Object.values(DataSource).includes(dataSourceEnv as DataSource)
+  ) {
+    throw new Error(`Invalid USERS_DATASOURCE: ${dataSourceEnv}`);
+  }
+
+  const dataSource = dataSourceEnv as DataSource;
+
+  switch (dataSource) {
     case DataSource.TYPEORM:
       return new UsersTypeOrmRepository(
         dependenciesProvider.typeOrmRepository,

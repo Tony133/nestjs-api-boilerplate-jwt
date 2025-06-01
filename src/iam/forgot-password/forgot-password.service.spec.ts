@@ -4,7 +4,6 @@ import { Users } from '../../users/models/users.model';
 import { ForgotPasswordService } from './forgot-password.service';
 import { MailerService } from '../../common/mailer/mailer.service';
 import { UtilsService } from '../../common/utils/utils.service';
-import { ConfigService } from '@nestjs/config';
 import { HashingService } from '../../common/hashing/hashing.service';
 import { Repository } from 'typeorm';
 import { UsersService } from '../../users/users.service';
@@ -44,12 +43,6 @@ describe('ForgotPasswordService', () => {
           provide: HashingService,
           useValue: {
             hash: jest.fn(() => 'pass123'),
-          },
-        },
-        {
-          provide: ConfigService,
-          useValue: {
-            get: jest.fn().mockReturnValue('some string'),
           },
         },
         {

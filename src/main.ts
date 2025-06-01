@@ -5,10 +5,15 @@ import { configureSwaggerDocs } from './helpers/configure-swagger-docs.helper';
 import { configureAuthSwaggerDocs } from './helpers/configure-auth-swagger-docs.helper';
 import {
   FastifyAdapter,
-  NestFastifyApplication
+  NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { registerFastifyPlugins } from './common/plugins/register-fastify.plugins';
-import { ConfigService } from '@nestjs/config';
+import { validateSchemaEnv } from './helpers/validation-schema-env';
+import { config } from 'dotenv';
+
+config();
+
+validateSchemaEnv(process.env);
 
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
@@ -22,13 +27,12 @@ async function bootstrap() {
       }),
     },
   );
-  const configService = app.get<ConfigService>(ConfigService);
 
   // Plugins for Fastify
   registerFastifyPlugins(app);
   // Swagger Configurations
-  configureAuthSwaggerDocs(app, configService);
-  configureSwaggerDocs(app, configService);
+  configureAuthSwaggerDocs(app);
+  configureSwaggerDocs(app);
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
@@ -42,13 +46,11 @@ async function bootstrap() {
     }),
   );
 
-  const port = configService.get<number>('SERVER_PORT') || 3000;
+  const port = process.env.SERVER_PORT || 3000;
   await app.listen(port, '0.0.0.0');
-  if (configService.get<string>('NODE_ENV') !== 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     Logger.debug(
-      `${await app.getUrl()} - Environment: ${configService.get<string>(
-        'NODE_ENV',
-      )}`,
+      `${await app.getUrl()} - Environment: ${process.env.NODE_ENV}`,
       'Environment',
     );
 

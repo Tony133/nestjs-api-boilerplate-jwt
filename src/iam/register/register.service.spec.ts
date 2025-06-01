@@ -6,7 +6,6 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { HashingService } from '../../common/hashing/hashing.service';
 import { MailerService } from '../../common/mailer/mailer.service';
-import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 
 const registerUserDto: RegisterUserDto = {
@@ -34,12 +33,6 @@ describe('RegisterService', () => {
           provide: MailerService,
           useValue: {
             sendMail: jest.fn(),
-          },
-        },
-        {
-          provide: ConfigService,
-          useValue: {
-            get: jest.fn().mockReturnValue('some string'),
           },
         },
         {

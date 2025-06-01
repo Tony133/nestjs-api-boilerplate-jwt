@@ -5,7 +5,6 @@ import { Users } from '../../users/models/users.model';
 import { Repository } from 'typeorm';
 import { UsersService } from '../../users/users.service';
 import { MailerService } from '../../common/mailer/mailer.service';
-import { ConfigService } from '@nestjs/config';
 
 const changePasswordUser = {
   email: 'test@example.it',
@@ -30,12 +29,6 @@ describe('ChangePasswordService', () => {
           provide: MailerService,
           useValue: {
             sendMail: jest.fn(),
-          },
-        },
-        {
-          provide: ConfigService,
-          useValue: {
-            get: jest.fn().mockReturnValue('some string'),
           },
         },
         {

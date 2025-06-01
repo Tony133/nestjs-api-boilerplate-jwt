@@ -3,7 +3,6 @@ import {
   NotFoundException,
   HttpException,
   HttpStatus,
-  BadRequestException,
   Inject,
 } from '@nestjs/common';
 import { UpdateResult } from 'typeorm';
@@ -101,7 +100,7 @@ export class UsersService {
     try {
       return await this.usersRepository.updateUser(id, userUpdateDto);
     } catch (err) {
-      throw new BadRequestException('User not updated');
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
 
