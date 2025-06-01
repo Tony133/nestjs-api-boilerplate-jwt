@@ -80,7 +80,9 @@ export class LoginService {
     };
   }
 
-  async refreshTokens(refreshTokenDto: RefreshTokenDto) {
+  public async refreshTokens(
+    refreshTokenDto: RefreshTokenDto,
+  ): Promise<LoginResponse> {
     try {
       const { id } = await this.jwtService.verifyAsync<Pick<JWTPayload, 'id'>>(
         refreshTokenDto.refreshToken,
@@ -97,7 +99,11 @@ export class LoginService {
     }
   }
 
-  private async signToken<T>(userId: number, expiresIn: number, payload?: T) {
+  private async signToken<T>(
+    userId: number,
+    expiresIn: number,
+    payload?: T,
+  ): Promise<string> {
     return await this.jwtService.signAsync(
       {
         sub: userId,
