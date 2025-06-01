@@ -17,6 +17,11 @@ import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 import { AuthType } from '../login/enums/auth-type.enum';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 
+interface ForgotPasswordResponse {
+  message: string;
+  status: number;
+}
+
 @ApiTags('auth')
 @ApiBearerAuth()
 @AuthGuard(AuthType.None)
@@ -33,7 +38,7 @@ export class ForgotPasswordController {
   @ApiBadRequestResponse({ description: 'Bad request' })
   public async forgotPassword(
     @Body() forgotPasswordDto: ForgotPasswordDto,
-  ): Promise<any> {
+  ): Promise<ForgotPasswordResponse> {
     try {
       await this.forgotPasswordService.forgotPassword(forgotPasswordDto);
 

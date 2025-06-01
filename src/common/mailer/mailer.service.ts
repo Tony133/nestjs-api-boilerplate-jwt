@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { createTransport } from 'nodemailer';
+import { createTransport, SendMailOptions } from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class MailerService {
     });
   }
 
-  sendMail(options: any) {
+  sendMail(options: SendMailOptions) {
     return this.nodemailerTransport.sendMail(options);
   }
 }

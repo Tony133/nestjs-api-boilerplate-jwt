@@ -21,22 +21,24 @@ export class RegisterService {
       registerUserDto.password,
     );
 
-    this.sendMailRegisterUser(registerUserDto);
+    this.sendMailRegisterUser(registerUserDto).catch((err: unknown) =>
+      Logger.error('Send mail failed but continuing registration', err),
+    );
 
     return this.usersService.create(registerUserDto);
   }
 
-  private sendMailRegisterUser(user: RegisterUserDto): void {
+  private async sendMailRegisterUser(user: RegisterUserDto): Promise<void> {
     try {
-      this.mailerService.sendMail({
+      await this.mailerService.sendMail({
         to: user.email,
         from: 'from@example.com',
         subject: 'Registration successful ✔',
         html: registrationEmail(user),
       });
-      Logger.log('[MailService] User Registration: Send Mail successfully!');
-    } catch (err) {
-      Logger.error('[MailService] User Registration: Send Mail failed!', err);
+      Logger.log('User Registration: Send Mail successfully!', 'MailService');
+    } catch (err: unknown) {
+      Logger.error('User Registration: Send Mail failed!', err);
     }
   }
 }

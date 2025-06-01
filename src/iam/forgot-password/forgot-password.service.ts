@@ -20,30 +20,36 @@ export class ForgotPasswordService {
 
   public async forgotPassword(
     forgotPasswordDto: ForgotPasswordDto,
-  ): Promise<any> {
+  ): Promise<Users> {
     const userUpdate = await this.userRepository.findOneBy({
       email: forgotPasswordDto.email,
     });
     const passwordRand = this.utilsService.generatePassword();
     userUpdate.password = await this.hashingService.hash(passwordRand);
 
-    this.sendMailForgotPassword(userUpdate.email, passwordRand);
+    this.sendMailForgotPassword(userUpdate.email, passwordRand).catch(
+      (err: unknown) =>
+        Logger.error('Forgot Password: Send Mail Failed (non bloccante)', err),
+    );
 
     return await this.userRepository.save(userUpdate);
   }
 
-  private sendMailForgotPassword(email: string, password: string): void {
+  private async sendMailForgotPassword(
+    email: string,
+    password: string,
+  ): Promise<void> {
     try {
-      this.mailerService.sendMail({
+      await this.mailerService.sendMail({
         to: email,
         from: 'from@example.com',
         subject: 'Forgot Password successful ✔',
         text: 'Forgot Password successful!',
         html: forgotPasswordEmail(password),
       });
-      Logger.log('[MailService] Forgot Password: Send Mail successfully!');
+      Logger.log('Forgot Password: Send Mail successfully!', 'MailService');
     } catch (err) {
-      Logger.error('[MailService] Forgot Password: Send Mail Failed!', err);
+      Logger.error('Forgot Password: Send Mail Failed!', err);
     }
   }
 }
