@@ -6,15 +6,12 @@ import { USERS_REPOSITORY_TOKEN } from './users.repository.interface';
 import { UsersTypeOrmRepository } from './implementations/users.typeorm.repository';
 import { Users } from '../models/users.model';
 import { HashingService } from '../../common/hashing/hashing.service';
-import { config } from 'dotenv';
-
-config();
 
 export function provideUsersRepository(): Provider[] {
   return [
     {
       provide: USERS_REPOSITORY_TOKEN,
-      useFactory: async (dependenciesProvider: UsersRepoDependenciesProvider) =>
+      useFactory: (dependenciesProvider: UsersRepoDependenciesProvider) =>
         provideUsersRepositoryFactory(dependenciesProvider),
       inject: [UsersRepoDependenciesProvider],
     },
