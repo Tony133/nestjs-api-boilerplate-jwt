@@ -24,6 +24,16 @@ import {
 import { AuthGuard } from '../iam/login/decorators/auth-guard.decorator';
 import { AuthType } from '../iam/login/enums/auth-type.enum';
 
+interface GetUserResponse {
+  user: AccountsUsers;
+  status: number;
+}
+
+interface UpdateResponse {
+  message: string;
+  status: number;
+}
+
 @ApiTags('users')
 @ApiBearerAuth()
 @AuthGuard(AuthType.Bearer)
@@ -32,19 +42,13 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @ApiResponse({
-    status: 200,
-    description: 'Get all users',
-  })
+  @ApiResponse({ status: 200, description: 'Get all users' })
   public async findAllUser(): Promise<AccountsUsers[]> {
     return this.usersService.findAll();
   }
 
   @Get('/:userId')
-  @ApiResponse({
-    status: 200,
-    description: 'Get a user by id',
-  })
+  @ApiResponse({ status: 200, description: 'Get a user by id' })
   @ApiNotFoundResponse({ description: 'User not found' })
   public async findOneUser(
     @Param('userId') userId: string,
@@ -53,12 +57,11 @@ export class UsersController {
   }
 
   @Get('/:userId/profile')
-  @ApiResponse({
-    status: 200,
-    description: 'Get a user profile by id',
-  })
+  @ApiResponse({ status: 200, description: 'Get a user profile by id' })
   @ApiNotFoundResponse({ description: 'User not found' })
-  public async getUser(@Param('userId') userId: string): Promise<any> {
+  public async getUser(
+    @Param('userId') userId: string,
+  ): Promise<GetUserResponse> {
     const user = await this.findOneUser(userId);
 
     if (!user) {
@@ -66,23 +69,18 @@ export class UsersController {
     }
 
     return {
-      user: user,
+      user,
       status: HttpStatus.OK,
     };
   }
 
   @Put('/:userId/profile')
-  @ApiResponse({
-    status: 200,
-    description: 'Update a user profile by id',
-  })
-  @ApiBadRequestResponse({
-    description: 'User profile not updated',
-  })
+  @ApiResponse({ status: 200, description: 'Update a user profile by id' })
+  @ApiBadRequestResponse({ description: 'User profile not updated' })
   public async updateUserProfile(
     @Param('userId') userId: string,
     @Body() userProfileDto: UserProfileDto,
-  ): Promise<any> {
+  ): Promise<UpdateResponse> {
     try {
       await this.usersService.updateUserProfile(userId, userProfileDto);
 
@@ -96,15 +94,12 @@ export class UsersController {
   }
 
   @Put('/:userId')
-  @ApiResponse({
-    status: 200,
-    description: 'Update a user by id',
-  })
+  @ApiResponse({ status: 200, description: 'Update a user by id' })
   @ApiBadRequestResponse({ description: 'User not updated' })
   public async updateUser(
     @Param('userId') userId: string,
     @Body() userUpdateDto: UserUpdateDto,
-  ): Promise<any> {
+  ): Promise<UpdateResponse> {
     try {
       await this.usersService.updateUser(userId, userUpdateDto);
 
@@ -118,10 +113,7 @@ export class UsersController {
   }
 
   @Delete('/:userId')
-  @ApiResponse({
-    status: 200,
-    description: 'Delete a user by id',
-  })
+  @ApiResponse({ status: 200, description: 'Delete a user by id' })
   @ApiNoContentResponse({ description: 'User not deleted' })
   public async deleteUser(@Param('userId') userId: string): Promise<void> {
     await this.usersService.deleteUser(userId);

@@ -14,6 +14,16 @@ import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { Users } from '../../users/models/users.model';
 import { jwtConfig } from './config/jwt.config';
 
+interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+}
+
 @Injectable()
 export class LoginService {
   constructor(
@@ -26,7 +36,7 @@ export class LoginService {
     return await this.usersService.findByEmail(loginDto.email);
   }
 
-  public async login(loginDto: LoginDto): Promise<any> {
+  public async login(loginDto: LoginDto): Promise<LoginResponse> {
     try {
       const user = await this.findUserByEmail(loginDto);
       if (!user) {
@@ -50,7 +60,7 @@ export class LoginService {
     }
   }
 
-  async generateTokens(user: Users) {
+  public async generateTokens(user: Users): Promise<LoginResponse> {
     const [accessToken, refreshToken] = await Promise.all([
       this.signToken<Partial<JWTPayload>>(
         user.id,

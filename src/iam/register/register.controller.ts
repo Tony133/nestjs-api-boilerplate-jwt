@@ -12,6 +12,10 @@ import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthType } from '../login/enums/auth-type.enum';
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 
+interface RegisterResponse {
+  message: string;
+  status: number;
+}
 @ApiTags('auth')
 @AuthGuard(AuthType.None)
 @Controller('auth/register')
@@ -27,7 +31,7 @@ export class RegisterController {
   @ApiBadRequestResponse({ description: 'Bad request' })
   public async register(
     @Body() registerUserDto: RegisterUserDto,
-  ): Promise<any> {
+  ): Promise<RegisterResponse> {
     try {
       await this.registerService.register(registerUserDto);
 

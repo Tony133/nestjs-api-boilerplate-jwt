@@ -17,6 +17,11 @@ import {
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 import { AuthType } from '../login/enums/auth-type.enum';
 
+interface ChangePasswordResponse {
+  message: string;
+  status: number;
+}
+
 @ApiTags('auth')
 @ApiBearerAuth()
 @AuthGuard(AuthType.Bearer)
@@ -33,7 +38,7 @@ export class ChangePasswordController {
   @ApiBadRequestResponse({ description: 'Bad request' })
   public async changePassword(
     @Body() changePasswordDto: ChangePasswordDto,
-  ): Promise<any> {
+  ): Promise<ChangePasswordResponse> {
     try {
       await this.changePasswordService.changePassword(changePasswordDto);
 
