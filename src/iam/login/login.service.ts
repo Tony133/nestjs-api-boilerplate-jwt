@@ -13,16 +13,7 @@ import { JWTPayload } from './interfaces/jwt-payload.interface';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { Users } from '../../users/models/users.model';
 import { jwtConfig } from './config/jwt.config';
-
-interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-  };
-}
+import { AuthResponse } from './interfaces/auth-response.interface';
 
 @Injectable()
 export class LoginService {
@@ -36,7 +27,7 @@ export class LoginService {
     return await this.usersService.findByEmail(loginDto.email);
   }
 
-  public async login(loginDto: LoginDto): Promise<LoginResponse> {
+  public async login(loginDto: LoginDto): Promise<AuthResponse> {
     try {
       const user = await this.findUserByEmail(loginDto);
       if (!user) {
@@ -60,7 +51,7 @@ export class LoginService {
     }
   }
 
-  public async generateTokens(user: Users): Promise<LoginResponse> {
+  public async generateTokens(user: Users): Promise<AuthResponse> {
     const [accessToken, refreshToken] = await Promise.all([
       this.signToken<Partial<JWTPayload>>(
         user.id,
@@ -82,7 +73,7 @@ export class LoginService {
 
   public async refreshTokens(
     refreshTokenDto: RefreshTokenDto,
-  ): Promise<LoginResponse> {
+  ): Promise<AuthResponse> {
     try {
       const { id } = await this.jwtService.verifyAsync<Pick<JWTPayload, 'id'>>(
         refreshTokenDto.refreshToken,

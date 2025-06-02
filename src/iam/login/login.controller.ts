@@ -10,16 +10,7 @@ import {
 import { AuthType } from './enums/auth-type.enum';
 import { AuthGuard } from './decorators/auth-guard.decorator';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
-
-interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-  };
-}
+import { AuthResponse } from './interfaces/auth-response.interface';
 
 @ApiTags('auth')
 @AuthGuard(AuthType.None)
@@ -34,7 +25,7 @@ export class LoginController {
       'Authentication a user with email and password credentials and return token',
   })
   @ApiUnauthorizedResponse({ description: 'Forbidden' })
-  public async login(@Body() loginDto: LoginDto): Promise<LoginResponse> {
+  public async login(@Body() loginDto: LoginDto): Promise<AuthResponse> {
     return await this.loginService.login(loginDto);
   }
 
@@ -47,7 +38,7 @@ export class LoginController {
   @ApiUnauthorizedResponse({ description: 'Forbidden' })
   public async refreshTokens(
     @Body() refreshTokenDto: RefreshTokenDto,
-  ): Promise<LoginResponse> {
+  ): Promise<AuthResponse> {
     return await this.loginService.refreshTokens(refreshTokenDto);
   }
 }
