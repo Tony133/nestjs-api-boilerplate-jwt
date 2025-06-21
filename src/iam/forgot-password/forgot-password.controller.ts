@@ -10,6 +10,7 @@ import {
   ApiBadRequestResponse,
   ApiBearerAuth,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
@@ -31,6 +32,7 @@ export class ForgotPasswordController {
 
   @Post()
   @HttpCode(200)
+  @ApiOperation({ summary: 'Request Reset Password' })
   @ApiOkResponse({
     description:
       'Request Reset Password and send a confirmation email to the user',

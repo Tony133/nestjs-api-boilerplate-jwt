@@ -8,7 +8,12 @@ import {
 } from '@nestjs/common';
 import { RegisterService } from './register.service';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthType } from '../login/enums/auth-type.enum';
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
 
@@ -24,6 +29,7 @@ export class RegisterController {
 
   @Post()
   @HttpCode(201)
+  @ApiOperation({ summary: 'Register a new user' })
   @ApiOkResponse({
     description:
       'Register a new user and send a confirmation email to the user',

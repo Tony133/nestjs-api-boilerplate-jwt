@@ -12,6 +12,7 @@ import {
   ApiBadRequestResponse,
   ApiBearerAuth,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from '../login/decorators/auth-guard.decorator';
@@ -31,6 +32,7 @@ export class ChangePasswordController {
 
   @Post()
   @HttpCode(200)
+  @ApiOperation({ summary: 'Request Change Password' })
   @ApiOkResponse({
     description:
       'Request Change Password and send a confirmation email to the user',

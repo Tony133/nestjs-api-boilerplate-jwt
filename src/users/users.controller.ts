@@ -18,6 +18,7 @@ import {
   ApiBearerAuth,
   ApiNoContentResponse,
   ApiNotFoundResponse,
+  ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -42,12 +43,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Find all users' })
   @ApiResponse({ status: 200, description: 'Get all users' })
   public async findAllUser(): Promise<AccountsUsers[]> {
     return this.usersService.findAll();
   }
 
   @Get('/:userId')
+  @ApiOperation({ summary: 'Find a user by id' })
   @ApiResponse({ status: 200, description: 'Get a user by id' })
   @ApiNotFoundResponse({ description: 'User not found' })
   public async findOneUser(
@@ -57,6 +60,7 @@ export class UsersController {
   }
 
   @Get('/:userId/profile')
+  @ApiOperation({ summary: 'Find a user profile by id' })
   @ApiResponse({ status: 200, description: 'Get a user profile by id' })
   @ApiNotFoundResponse({ description: 'User not found' })
   public async getUser(
@@ -75,6 +79,7 @@ export class UsersController {
   }
 
   @Put('/:userId/profile')
+  @ApiOperation({ summary: 'Update a user profile by id' })
   @ApiResponse({ status: 200, description: 'Update a user profile by id' })
   @ApiBadRequestResponse({ description: 'User profile not updated' })
   public async updateUserProfile(
@@ -94,6 +99,7 @@ export class UsersController {
   }
 
   @Put('/:userId')
+  @ApiOperation({ summary: 'Update a user by id' })
   @ApiResponse({ status: 200, description: 'Update a user by id' })
   @ApiBadRequestResponse({ description: 'User not updated' })
   public async updateUser(
@@ -113,6 +119,7 @@ export class UsersController {
   }
 
   @Delete('/:userId')
+  @ApiOperation({ summary: 'Delete a user by id' })
   @ApiResponse({ status: 200, description: 'Delete a user by id' })
   @ApiNoContentResponse({ description: 'User not deleted' })
   public async deleteUser(@Param('userId') userId: string): Promise<void> {
