@@ -8,9 +8,9 @@ export function configureSwaggerDocs(app: INestApplication) {
       .setDescription('The API description')
       .setVersion('1.0')
       .addServer('http://localhost:3000', 'Local server')
-      .addTag('auth')
-      .addTag('users')
-      .addTag('app')
+      .addTag('auth', 'API by authentication')
+      .addTag('users', 'API by users management')
+      .addTag('app', 'API of example ( resources protected and public ) ')
       .addBearerAuth({
         description: 'Please enter token:',
         name: 'Authorization',
