@@ -36,7 +36,7 @@
     "argon2": "^0.43.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
-    "dotenv": "^16.6.0",
+    "dotenv": "^17.0.0",
     "fastify": "^5.4.0",
     "mysql2": "^3.14.1",
     "nodemailer": "^6.10.1",
