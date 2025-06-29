@@ -51,8 +51,8 @@ importers:
         specifier: ^0.14.2
         version: 0.14.2
       dotenv:
-        specifier: ^16.6.0
-        version: 16.6.0
+        specifier: ^17.0.0
+        version: 17.0.0
       fastify:
         specifier: ^5.4.0
         version: 5.4.0
@@ -1808,6 +1808,10 @@ packages:
 
   dotenv@16.6.0:
     resolution: {integrity: sha512-Omf1L8paOy2VJhILjyhrhqwLIdstqm1BvcDPKg4NGAlkwEu9ODyrFbvk8UymUOMCT+HXo31jg1lArIrVAAhuGA==}
+    engines: {node: '>=12'}
+
+  dotenv@17.0.0:
+    resolution: {integrity: sha512-A0BJ5lrpJVSfnMMXjmeO0xUnoxqsBHWCoqqTnGwGYVdnctqXXUEhJOO7LxmgxJon9tEZFGpe0xPRX0h2v3AANQ==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -5642,6 +5646,8 @@ snapshots:
       is-obj: 2.0.0
 
   dotenv@16.6.0: {}
+
+  dotenv@17.0.0: {}
 
   dunder-proto@1.0.1:
     dependencies:
