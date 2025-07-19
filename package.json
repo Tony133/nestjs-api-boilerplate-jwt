@@ -38,7 +38,7 @@
     "class-validator": "^0.14.2",
     "dotenv": "^17.0.0",
     "fastify": "^5.4.0",
-    "mysql2": "^3.14.1",
+    "mysql2": "^3.14.2",
     "nodemailer": "^6.10.1",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
