@@ -54,7 +54,7 @@
     "@nestjs/schematics": "^11.0.7",
     "@nestjs/testing": "^11.1.5",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.1.0",
+    "@types/node": "^24.2.1",
     "@types/nodemailer": "^6.4.17",
     "@types/supertest": "^6.0.3",
     "eslint": "9.33.0",
