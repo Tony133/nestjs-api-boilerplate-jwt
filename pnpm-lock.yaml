@@ -140,7 +140,7 @@ importers:
         version: 29.4.1(@babel/core@7.28.0)(@jest/transform@30.0.5)(@jest/types@30.0.5)(babel-jest@30.0.5(@babel/core@7.28.0))(jest-util@30.0.5)(jest@30.0.5(@types/node@24.2.1)(ts-node@10.9.2(@types/node@24.2.1)(typescript@5.9.2)))(typescript@5.9.2)
       ts-loader:
         specifier: ^9.5.2
-        version: 9.5.2(typescript@5.9.2)(webpack@5.100.2)
+        version: 9.5.4(typescript@5.9.2)(webpack@5.100.2)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@24.2.1)(typescript@5.9.2)
@@ -1946,8 +1946,8 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  chalk@5.4.1:
-    resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
+  chalk@5.6.0:
+    resolution: {integrity: sha512-46QrSQFyVSEyYAgQ22hQ+zDa60YHA4fBstHmtSApj1Y5vKtG27fWowW03jCk5KcbXEWPZUIR894aARCA/G1kfQ==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   char-regex@1.0.2:
@@ -2217,8 +2217,8 @@ packages:
   end-of-stream@1.4.5:
     resolution: {integrity: sha512-ooEGc6HP26xXq/N+GCGOT0JKCLDGrq2bQUZrQ7gyrJiZANJ/8YDTxTpQBXGMn+WbIQXNVpyWymm7KYVICQnyOg==}
 
-  enhanced-resolve@5.18.1:
-    resolution: {integrity: sha512-ZSW3ma5GkcQBIpwZTSRAI8N71Uuwgs93IezB7mf7R60tC8ZbJideoDNKjHn2O9KIlx6rkGTTEk1xUCK2E1Y2Yg==}
+  enhanced-resolve@5.18.3:
+    resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
     engines: {node: '>=10.13.0'}
 
   env-paths@2.2.1:
@@ -3586,11 +3586,6 @@ packages:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
 
-  semver@7.7.1:
-    resolution: {integrity: sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==}
-    engines: {node: '>=10'}
-    hasBin: true
-
   semver@7.7.2:
     resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
     engines: {node: '>=10'}
@@ -3663,6 +3658,10 @@ packages:
   source-map@0.7.4:
     resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
     engines: {node: '>= 8'}
+
+  source-map@0.7.6:
+    resolution: {integrity: sha512-i5uvt8C3ikiWeNZSVZNWcfZPItFQOsYTUAOkcUPGd8DqDy1uOUikjt5dG+uRlwyvR108Fb9DOd4GvXfT0N2/uQ==}
+    engines: {node: '>= 12'}
 
   split2@4.2.0:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
@@ -3768,6 +3767,10 @@ packages:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
 
+  tapable@2.2.3:
+    resolution: {integrity: sha512-ZL6DDuAlRlLGghwcfmSn9sK3Hr6ArtyudlSAiCqQ6IfE+b+HHbydbYDIG15IfS5do+7XQQBdBiubF/cV2dnDzg==}
+    engines: {node: '>=6'}
+
   terser-webpack-plugin@5.3.12:
     resolution: {integrity: sha512-jDLYqo7oF8tJIttjXO6jBY5Hk8p3A8W4ttih7cCEq64fQFWmgJ4VqAQjKr7WwIDlmXKEc6QeoRb5ecjZ+2afcg==}
     engines: {node: '>= 10.13.0'}
@@ -3866,8 +3869,8 @@ packages:
       jest-util:
         optional: true
 
-  ts-loader@9.5.2:
-    resolution: {integrity: sha512-Qo4piXvOTWcMGIgRiuFa6nHNm+54HbYaZCKqc9eeZCLRy3XqafQgwX2F7mofrbJG3g7EEb+lkiR+z2Lic2s3Zw==}
+  ts-loader@9.5.4:
+    resolution: {integrity: sha512-nCz0rEwunlTZiy6rXFByQU1kVVpCIgUpc/psFiKVrUwrizdnIbRFu8w7bxhUF0X613DYwT4XzrZHpVyMe758hQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       typescript: '*'
@@ -4794,7 +4797,7 @@ snapshots:
   '@commitlint/format@19.8.1':
     dependencies:
       '@commitlint/types': 19.8.1
-      chalk: 5.4.1
+      chalk: 5.6.0
 
   '@commitlint/is-ignored@19.8.1':
     dependencies:
@@ -4814,7 +4817,7 @@ snapshots:
       '@commitlint/execute-rule': 19.8.1
       '@commitlint/resolve-extends': 19.8.1
       '@commitlint/types': 19.8.1
-      chalk: 5.4.1
+      chalk: 5.6.0
       cosmiconfig: 9.0.0(typescript@5.9.2)
       cosmiconfig-typescript-loader: 6.1.0(@types/node@24.2.1)(cosmiconfig@9.0.0(typescript@5.9.2))(typescript@5.9.2)
       lodash.isplainobject: 4.0.6
@@ -4865,7 +4868,7 @@ snapshots:
   '@commitlint/types@19.8.1':
     dependencies:
       '@types/conventional-commits-parser': 5.0.1
-      chalk: 5.4.1
+      chalk: 5.6.0
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -6574,7 +6577,7 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  chalk@5.4.1: {}
+  chalk@5.6.0: {}
 
   char-regex@1.0.2: {}
 
@@ -6790,10 +6793,10 @@ snapshots:
     dependencies:
       once: 1.4.0
 
-  enhanced-resolve@5.18.1:
+  enhanced-resolve@5.18.3:
     dependencies:
       graceful-fs: 4.2.11
-      tapable: 2.2.1
+      tapable: 2.2.3
 
   env-paths@2.2.1: {}
 
@@ -7701,7 +7704,7 @@ snapshots:
       chalk: 4.1.2
       ci-info: 4.3.0
       graceful-fs: 4.2.11
-      picomatch: 4.0.2
+      picomatch: 4.0.3
 
   jest-util@30.0.5:
     dependencies:
@@ -8360,8 +8363,6 @@ snapshots:
 
   semver@6.3.1: {}
 
-  semver@7.7.1: {}
-
   semver@7.7.2: {}
 
   seq-queue@0.0.5: {}
@@ -8437,6 +8438,8 @@ snapshots:
   source-map@0.6.1: {}
 
   source-map@0.7.4: {}
+
+  source-map@0.7.6: {}
 
   split2@4.2.0: {}
 
@@ -8540,6 +8543,8 @@ snapshots:
 
   tapable@2.2.1: {}
 
+  tapable@2.2.3: {}
+
   terser-webpack-plugin@5.3.12(webpack@5.100.2):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.29
@@ -8618,13 +8623,13 @@ snapshots:
       babel-jest: 30.0.5(@babel/core@7.28.0)
       jest-util: 30.0.5
 
-  ts-loader@9.5.2(typescript@5.9.2)(webpack@5.100.2):
+  ts-loader@9.5.4(typescript@5.9.2)(webpack@5.100.2):
     dependencies:
       chalk: 4.1.2
-      enhanced-resolve: 5.18.1
+      enhanced-resolve: 5.18.3
       micromatch: 4.0.8
-      semver: 7.7.1
-      source-map: 0.7.4
+      semver: 7.7.2
+      source-map: 0.7.6
       typescript: 5.9.2
       webpack: 5.100.2
 
@@ -8649,7 +8654,7 @@ snapshots:
   tsconfig-paths-webpack-plugin@4.2.0:
     dependencies:
       chalk: 4.1.2
-      enhanced-resolve: 5.18.1
+      enhanced-resolve: 5.18.3
       tapable: 2.2.1
       tsconfig-paths: 4.2.0
 
@@ -8805,7 +8810,7 @@ snapshots:
       acorn-import-phases: 1.0.4(acorn@8.15.0)
       browserslist: 4.25.1
       chrome-trace-event: 1.0.4
-      enhanced-resolve: 5.18.1
+      enhanced-resolve: 5.18.3
       es-module-lexer: 1.6.0
       eslint-scope: 5.1.1
       events: 3.3.0
