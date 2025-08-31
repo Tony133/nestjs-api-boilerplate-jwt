@@ -1,7 +1,6 @@
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 
 export async function registerFastifyPlugins(app: NestFastifyApplication) {
-
   await app.register(require('@fastify/cors'), {
     origin: true || [process.env.ENDPOINT_URL_CORS],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -29,5 +28,14 @@ export async function registerFastifyPlugins(app: NestFastifyApplication) {
     frameguard: {
       action: 'deny',
     },
+  });
+
+  await app.register(require('@fastify/under-pressure'), {
+    maxHeapUsedBytes: 150 * 1024 * 1024, // Memory limit (150 MB)
+    maxEventLoopDelay: 100, // Event loop delay limit in ms
+    maxRssBytes: 200 * 1024 * 1024, // RSS limit (200 MB)
+    dropConnection: true, // If `true`, the server will reject excess connections
+    retryAfter: 30, // Delay in seconds to retry connecting
+    responseServerError: 'true', // Set 503 response
   });
 }

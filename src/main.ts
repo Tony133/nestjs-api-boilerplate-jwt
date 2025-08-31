@@ -29,7 +29,7 @@ async function bootstrap() {
   );
 
   // Plugins for Fastify
-  registerFastifyPlugins(app);
+  await registerFastifyPlugins(app);
   // Swagger Configurations
   configureAuthSwaggerDocs(app);
   configureSwaggerDocs(app);
