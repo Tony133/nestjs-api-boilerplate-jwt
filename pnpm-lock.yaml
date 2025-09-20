@@ -54,8 +54,8 @@ importers:
         specifier: ^0.14.2
         version: 0.14.2
       dotenv:
-        specifier: ^17.2.1
-        version: 17.2.1
+        specifier: ^17.2.2
+        version: 17.2.2
       fastify:
         specifier: ^5.5.0
         version: 5.5.0
@@ -2211,12 +2211,12 @@ packages:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
 
-  dotenv@16.6.0:
-    resolution: {integrity: sha512-Omf1L8paOy2VJhILjyhrhqwLIdstqm1BvcDPKg4NGAlkwEu9ODyrFbvk8UymUOMCT+HXo31jg1lArIrVAAhuGA==}
+  dotenv@16.6.1:
+    resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
 
-  dotenv@17.2.1:
-    resolution: {integrity: sha512-kQhDYKZecqnM0fCnzI5eIv5L4cAe/iRI+HqMbO/hbRdTAeXDG+M9FjipUxNfbARuEg4iHIbhnhs78BCHNbSxEQ==}
+  dotenv@17.2.2:
+    resolution: {integrity: sha512-Sf2LSQP+bOlhKWWyhFsn0UsfdK/kCWRv1iuA2gXAwt3dyNabr6QSj00I2V10pidqz69soatm9ZwZvpQMTIOd5Q==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -6825,9 +6825,9 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
-  dotenv@16.6.0: {}
+  dotenv@16.6.1: {}
 
-  dotenv@17.2.1: {}
+  dotenv@17.2.2: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -8765,7 +8765,7 @@ snapshots:
       dayjs: 1.11.13
       debug: 4.4.1
       dedent: 1.6.0
-      dotenv: 16.6.0
+      dotenv: 16.6.1
       glob: 10.4.5
       reflect-metadata: 0.2.2
       sha.js: 2.4.11
