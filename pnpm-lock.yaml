@@ -94,7 +94,7 @@ importers:
         specifier: ^11.0.10
         version: 11.0.10(@types/node@24.6.2)
       '@nestjs/schematics':
-        specifier: ^11.0.7
+        specifier: 11.0.8
         version: 11.0.8(chokidar@4.0.3)(typescript@5.9.3)
       '@nestjs/testing':
         specifier: ^11.1.6
