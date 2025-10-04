@@ -103,10 +103,10 @@ importers:
         specifier: ^30.0.0
         version: 30.0.0
       '@types/node':
-        specifier: ^24.3.0
+        specifier: ^24.6.2
         version: 24.6.2
       '@types/nodemailer':
-        specifier: ^7.0.1
+        specifier: ^7.0.2
         version: 7.0.2
       '@types/supertest':
         specifier: ^6.0.3
