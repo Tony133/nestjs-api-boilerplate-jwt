@@ -5,34 +5,43 @@ import { FastifyBaseLogger } from 'fastify';
 export class LoggerService implements LoggerBase {
   constructor(private readonly logger: FastifyBaseLogger) {}
 
-  private formatMessage(message: any, context?: string): string {
-    const formattedMessage =
-      typeof message === 'object' ? JSON.stringify(message) : message;
-    return context ? `${formattedMessage}` : formattedMessage;
+  public log(message?: any, context?: string) {
+    if (context) {
+      this.logger.info({ context }, message);
+    } else {
+      this.logger.info(message);
+    }
   }
 
-  log(message: any, context?: string) {
-    const formattedMessage = this.formatMessage(message, context);
-    this.logger.info({ context }, formattedMessage);
+  public error(message?: any, context?: string) {
+    if (context) {
+      this.logger.error({ context }, message);
+    } else {
+      this.logger.error(message);
+    }
   }
 
-  error(message: any, context?: string) {
-    const formattedMessage = this.formatMessage(message, context);
-    this.logger.error({ context }, formattedMessage);
+  public warn(message?: any, context?: string) {
+    if (context) {
+      this.logger.warn({ context }, message);
+    } else {
+      this.logger.warn(message);
+    }
   }
 
-  warn(message: any, context?: string) {
-    const formattedMessage = this.formatMessage(message, context);
-    this.logger.warn({ context }, formattedMessage);
+  public debug(message?: any, context?: string) {
+    if (context) {
+      this.logger.debug({ context }, message);
+    } else {
+      this.logger.debug(message);
+    }
   }
 
-  debug(message: any, context?: string) {
-    const formattedMessage = this.formatMessage(message, context);
-    this.logger.debug({ context }, formattedMessage);
-  }
-
-  verbose(message: any, context?: string) {
-    const formattedMessage = this.formatMessage(message, context);
-    this.logger.trace({ context }, formattedMessage);
+  public verbose(message?: any, context?: string) {
+    if (context) {
+      this.logger.trace({ context }, message);
+    } else {
+      this.logger.trace(message);
+    }
   }
 }
