@@ -9,9 +9,8 @@ import {
 } from '@nestjs/platform-fastify';
 import { registerFastifyPlugins } from './common/plugins/register-fastify.plugins';
 import { validateSchemaEnv } from './helpers/validation-schema-env';
-import { config } from 'dotenv';
 
-config();
+process.loadEnvFile();
 
 validateSchemaEnv(process.env);
 

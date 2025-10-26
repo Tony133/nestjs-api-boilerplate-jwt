@@ -1,6 +1,4 @@
-import { config } from 'dotenv';
-
-config();
+process.loadEnvFile();
 
 export interface JwtConfig {
   secret: string;
