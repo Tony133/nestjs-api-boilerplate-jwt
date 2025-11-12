@@ -38,7 +38,7 @@
     "argon2": "^0.44.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
-    "fastify": "^5.6.0",
+    "fastify": "^5.6.2",
     "mysql2": "^3.15.1",
     "nodemailer": "^7.0.9",
     "reflect-metadata": "^0.2.2",
