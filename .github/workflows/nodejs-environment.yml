@@ -16,7 +16,7 @@ jobs:
     needs: [build]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         name: Checkout code
       - name: Set safe.directory
         run: git config --global --add safe.directory /github/workspace
@@ -41,7 +41,7 @@ jobs:
     needs: [unit-tests]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         name: Checkout code
       - name: Set safe.directory
         run: git config --global --add safe.directory /github/workspace
