@@ -22,7 +22,7 @@ jobs:
         run: git config --global --add safe.directory /github/workspace
       - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 10
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
@@ -51,7 +51,7 @@ jobs:
           cache: 'pnpm'
       - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 10
       - name: Install Docker Compose
         run: |
           sudo apt-get update
