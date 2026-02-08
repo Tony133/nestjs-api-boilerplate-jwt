@@ -27,7 +27,7 @@
     "@fastify/rate-limit": "^10.3.0",
     "@fastify/static": "^9.0.0",
     "@fastify/under-pressure": "^9.0.3",
-    "@nestjs/common": "^11.1.11",
+    "@nestjs/common": "^11.1.13",
     "@nestjs/core": "^11.1.11",
     "@nestjs/jwt": "^11.0.2",
     "@nestjs/mapped-types": "2.1.0",
