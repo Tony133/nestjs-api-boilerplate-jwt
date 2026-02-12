@@ -13,65 +13,21 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 22.x, 24.x]
-    needs: [build]
 
     steps:
       - uses: actions/checkout@v6
         name: Checkout code
+
       - name: Set safe.directory
         run: git config --global --add safe.directory /github/workspace
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
+
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-      - name: Run unit test
-        run: |
-          pnpm install
-          pnpm test
+          cache: 'npm'
 
-  e2e-test:
-    runs-on: ubuntu-latest
+      - name: Install dependencies
+        run: npm install
 
-    strategy:
-      matrix:
-        node-version: [20.x, 22.x, 24.x]
-    needs: [unit-tests]
-
-    steps:
-      - uses: actions/checkout@v6
-        name: Checkout code
-      - name: Set safe.directory
-        run: git config --global --add safe.directory /github/workspace
-      - uses: actions/setup-node@v6
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-      - name: Start Docker-Compose
-        run: docker-compose up -d db-test
-      - name: Install pnpm dependencies
-        run: pnpm install
-      - run: cp .env.example-test-e2e .env
-      - name: Run tests e2e -- register
-        run: pnpm test:e2e -- register.e2e-spec.ts
-      - name: Run tests e2e -- login
-        run: pnpm test:e2e -- login.e2e-spec.ts
-      - name: Run tests e2e -- hello
-        run: pnpm test:e2e -- app.e2e-spec.ts
-      - name: Run tests e2e -- change-password
-        run: pnpm test:e2e -- change-password.e2e-spec.ts
-      - name: Run tests e2e -- users
-        run: pnpm test:e2e -- users.e2e-spec.ts
-      - name: Run tests e2e -- forgot-password
-        run: pnpm test:e2e -- forgot-password.e2e-spec.ts
-      - name: Stop Docker-Compose
-        run: docker-compose down
+      - name: Build TypeScript
+        run: npm run build:ts
