@@ -1,1 +1,1 @@
-pnpm test
+npm run build:ts
